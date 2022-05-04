@@ -6,13 +6,12 @@
 <head>
         
         <meta charset="utf-8" />
-        <title>Projects | Velzon - Admin & Dashboard Template</title>
+        <title>Tejas Travel - Admin Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        {{-- <link rel="shortcut icon" href="{{ asset('admin/images/favicon.ico') }}"> --}}
-        <link rel="shortcut icon" href="https://www.tejastravels.com/backend/web/images/logo-mini.png">
+        <link rel="shortcut icon" href="{{ asset('admin/images/tejas-travel-ico.png') }}">
 
         <!-- Layout config Js -->
         <script src="{{ asset('admin/js/layout.js') }}"></script>
@@ -67,7 +66,7 @@
         </button>
         <!--end back-to-top-->
 
-        <div class="customizer-setting d-none d-md-block">
+        {{-- <div class="customizer-setting d-none d-md-block">
             <div class="btn-info btn-rounded shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas"
                 data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
                 <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
@@ -596,7 +595,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- JAVASCRIPT -->
         <script src="{{ asset('admin/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -606,14 +605,10 @@
         <script src="{{ asset('admin/libs/node-waves/waves.min.js') }}"></script>
         <script src="{{ asset('admin/libs/feather-icons/feather.min.js') }}"></script>
         <script src="{{ asset('admin/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-        <script src="{{ asset('admin/js/plugins.js') }}"></script>
+        {{-- <script src="{{ asset('admin/js/plugins.js') }}"></script> --}}
 
 
-        <!-- apexcharts -->
-        <script src="{{ asset('admin/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-        <!-- projects js -->
-        <script src="{{ asset('admin/js/pages/dashboard-projects.init.js') }}"></script>
+        
 
         <!-- App js -->
         <script src="{{ asset('admin/js/app.js') }}"></script>

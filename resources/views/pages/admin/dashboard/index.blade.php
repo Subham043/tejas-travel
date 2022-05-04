@@ -223,3 +223,12 @@
 
       @stop          
            
+
+      @section('javascript')
+
+      <!-- projects js -->
+      <script src="{{ asset('admin/js/pages/dashboard-projects.init.js') }}"></script>
+      <!-- apexcharts -->
+      <script src="{{ asset('admin/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+      @stop
