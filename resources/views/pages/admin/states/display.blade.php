@@ -40,13 +40,19 @@
                             <div class="pt-3 pb-3 border-top border-top-dashed border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
                                     
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Name :</p>
                                             <h5 class="fs-15 mb-0">{{$country->name}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Country :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->country->name}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Status :</p>
                                             @if($country->status == 1)
@@ -56,7 +62,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Create Date :</p>
                                             <h5 class="fs-15 mb-0">{{$country->created_at}}</h5>

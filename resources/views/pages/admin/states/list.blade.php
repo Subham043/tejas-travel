@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <form  method="get" action="{{route('country_view')}}">
+                                    <form  method="get" action="{{route('state_view')}}">
                                         <div class="d-flex justify-content-sm-end">
                                             <div class="search-box ms-2">
                                                 <input type="text" name="search" class="form-control search" placeholder="Search..." value="@if(app('request')->has('search')) {{app('request')->input('search')}} @endif">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Country;
+use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
@@ -46,6 +47,50 @@ class CountryController extends Controller
             return redirect()->intended('admin/country')->with('success_status', 'Data Stored successfully.');
         }else{
             return redirect()->intended('admin/country/create')->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function ajax_store(Request $req) {
+
+        $rules = array(
+            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'dial' => ['required','regex:/^(\+?\d{1,3}|\d{1,4})$/'],
+            'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
+            'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        );
+
+        $messages = array(
+            'name.required' => 'Please enter the name !',
+            'name.string' => 'Please enter the valid name !',
+            'name.regex' => 'Please enter the valid name !',
+            'dial.required' => 'Please enter the dial code !',
+            'dial.regex' => 'Please enter a valid dial code !',
+            'image.image' => 'Please enter a valid flag image !',
+            'image.mimes' => 'Please enter a valid flag image !',
+            'description.regex' => 'Please enter the valid description !',
+        );
+
+        $validator = Validator::make($req->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json(["form_error"=>$validator->errors()], 400);
+        }
+
+        $country = new Country;
+        $country->name = $req->name;
+        $country->dial = $req->dial;
+        $country->description = $req->description;
+        $country->status = $req->status == "on" ? 1 : 0;
+        if($req->hasFile('image')){
+            $newImage = time().'-'.$req->image->getClientOriginalName();
+            $req->image->move(public_path('country'), $newImage);
+            $country->image = $newImage;
+        }
+        $result = $country->save();
+        if($result){
+            return response()->json(["url"=>empty($req->refreshUrl)?'admin/country':$req->refreshUrl, "message" => "Data Stored successfully."], 201);
+        }else{
+            return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
     }
 

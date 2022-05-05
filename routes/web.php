@@ -35,6 +35,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/view/{id}', [CountryController::class, 'display', 'as' => 'admin.country.display'])->name('country_display');
         Route::get('/create', [CountryController::class, 'create', 'as' => 'admin.country.create'])->name('country_create');
         Route::post('/create', [CountryController::class, 'store', 'as' => 'admin.country.store'])->name('country_store');
+        Route::post('/ajax_create', [CountryController::class, 'ajax_store', 'as' => 'admin.country.ajax_store'])->name('country_ajax_store');
         Route::get('/edit/{id}', [CountryController::class, 'edit', 'as' => 'admin.country.edit'])->name('country_edit');
         Route::post('/edit/{id}', [CountryController::class, 'update', 'as' => 'admin.country.update'])->name('country_update');
         Route::get('/delete/{id}', [CountryController::class, 'delete', 'as' => 'admin.country.delete'])->name('country_delete');

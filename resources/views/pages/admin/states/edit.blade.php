@@ -105,6 +105,11 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">States</h4>
+                        <div class="flex-shrink-0">
+                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                <button type="button" class="btn rounded-pill btn-secondary waves-effect" data-bs-toggle="modal" data-bs-target="#myModal">Add New Country</button>
+                            </div>
+                        </div>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
@@ -154,7 +159,6 @@
 
                                 <div class="col-xxl-12 col-md-12">
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
-                                    <button type="reset" class="btn btn-danger waves-effect waves-light">Reset</button>
                                 </div>
                                 
                             </div>
@@ -174,7 +178,7 @@
     </div> <!-- container-fluid -->
 </div><!-- End Page-content -->
 
-
+@include('pages.admin.countries.modal_create')
 
 @stop          
            
@@ -190,14 +194,13 @@ const choices = new Choices('#country', {
             {
                 value: 'Select a country',
                 label: 'Select a country',
-                selected: {{empty($state->country_id) ? 'false' : 'true'}},
                 disabled: true,
             },
         @foreach($countries as $countries)
             {
                 value: '{{$countries->id}}',
                 label: '{{$countries->name}}',
-                selected: {{$state->country_id == $countries->id ? 'true' : 'false'}},
+                selected: {{$state->country->id == $countries->id ? 'true' : 'false'}},
             },
         @endforeach
     ],
