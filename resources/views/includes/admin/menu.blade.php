@@ -44,7 +44,7 @@
                                             <a href="{{route('country_view')}}" class="nav-link {{strpos(url()->current(),'country') !== false ? 'active' : ''}}" data-key="t-analytics"> Countries </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
+                                            <a href="{{route('state_view')}}" class="nav-link {{strpos(url()->current(),'state') !== false ? 'active' : ''}}" data-key="t-analytics"> States </a>
                                         </li>
                                     </ul>
                                 </div>

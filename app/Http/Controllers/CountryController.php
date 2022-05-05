@@ -8,11 +8,6 @@ use App\Models\Country;
 class CountryController extends Controller
 {
 
-    public function index() {
-  
-        return view('pages.admin.countries.create');
-    }
-
     public function create() {
   
         return view('pages.admin.countries.create');
