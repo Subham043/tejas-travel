@@ -86,11 +86,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">States</h4>
+                    <h4 class="mb-sm-0">Sub-Cities</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">States</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Sub-Cities</a></li>
                             <li class="breadcrumb-item active">Edit</li>
                         </ol>
                     </div>
@@ -104,16 +104,17 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">States</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Sub-Cities</h4>
                         <div class="flex-shrink-0">
                             <div class="form-check form-switch form-switch-right form-switch-md">
                                 <button type="button" class="btn rounded-pill btn-secondary waves-effect" data-bs-toggle="modal" data-bs-target="#myModal">Add New Country</button>
+                                <button type="button" class="btn rounded-pill btn-warning waves-effect" data-bs-toggle="modal" data-bs-target="#myModalState">Add New State</button>
                             </div>
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form id="countryForm" method="post" action="{{route('state_update', $state->id)}}" enctype="multipart/form-data">
+                            <form id="countryForm" method="post" action="{{route('subcity_update', $state->id)}}" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                                 <div class="col-xxl-6 col-md-6">
@@ -130,6 +131,42 @@
                                         <label for="country" class="form-label">Country</label>
                                         <select id="country" name="country"></select>
                                         @error('country') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    <div>
+                                        <label for="state" class="form-label">State</label>
+                                        <select id="state" name="state"></select>
+                                        @error('state') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    <div>
+                                        <label for="city" class="form-label">City</label>
+                                        <select id="city" name="city"></select>
+                                        @error('city') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    <div>
+                                        <label for="latitude" class="form-label">Latitude</label>
+                                        <input type="text" class="form-control" name="latitude" id="latitude" value="{{$state->latitude}}">
+                                        @error('latitude') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    <div>
+                                        <label for="longitude" class="form-label">Longitude</label>
+                                        <input type="text" class="form-control" name="longitude" id="longitude" value="{{$state->longitude}}">
+                                        @error('longitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -180,12 +217,20 @@
 
 @include('pages.admin.countries.modal_create')
 
+@include('pages.admin.states.modal_create')
+
 @stop          
            
 
 @section('javascript')
+<script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 @include('pages.admin.countries._js_country_select_edit')
+@include('pages.admin.states._js_state_select_edit')
+@include('pages.admin.cities._js_city_select_edit')
 <script type="text/javascript">
+
+
+
 
 
 // initialize the validation library
@@ -219,6 +264,22 @@ validation
         return true;
         },
         errorMessage: 'Please select a country',
+    },
+  ])
+  .addField('#state', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a state',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a state') {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a state',
     },
   ])
   .onSuccess((event) => {

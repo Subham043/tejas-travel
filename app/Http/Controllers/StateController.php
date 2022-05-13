@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\State;
 use App\Models\Country;
+use Illuminate\Support\Facades\Validator;
 
 class StateController extends Controller
 {
@@ -39,6 +40,41 @@ class StateController extends Controller
             return redirect()->intended('admin/state')->with('success_status', 'Data Stored successfully.');
         }else{
             return redirect()->intended('admin/state/create')->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function ajax_store(Request $req) {
+
+        $rules = array(
+            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'country' => ['required'],
+            'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        );
+
+        $messages = array(
+            'name.required' => 'Please enter the name !',
+            'name.string' => 'Please enter the valid name !',
+            'name.regex' => 'Please enter the valid name !',
+            'country.required' => 'Please select the country !',
+            'description.regex' => 'Please enter the valid description !',
+        );
+
+        $validator = Validator::make($req->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json(["form_error"=>$validator->errors()], 400);
+        }
+
+        $country = new State;
+        $country->name = $req->name;
+        $country->country_id = $req->country;
+        $country->description = $req->description;
+        $country->status = $req->status == "on" ? 1 : 0;
+        $result = $country->save();
+        if($result){
+            return response()->json(["url"=>empty($req->refreshUrl)?'admin/city':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+        }else{
+            return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
     }
 
@@ -96,6 +132,10 @@ class StateController extends Controller
     public function display($id) {
         $country = State::findOrFail($id);
         return view('pages.admin.states.display')->with('country',$country);
+    }
+
+    public function state_all_ajax($id) {
+        return response()->json(["states"=>State::where('country_id',$id)->get()], 200);
     }
 
 

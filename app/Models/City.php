@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class City extends Model
 {
     use HasFactory;
-    protected $table="countries";
+    protected $table="cities";
+
+    public function Country()
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
 
     public function State()
     {
-        return $this->hasMany('App\Models\State');
-    }
-
-    public function City()
-    {
-        return $this->hasMany('App\Models\City');
+        return $this->belongsTo('App\Models\State');
     }
 
     public function SubCity()

@@ -157,11 +157,12 @@
             const response = await axios.post('{{route('country_ajax_store')}}', formData)
             successToast(response.data.message)
             var myModal = document.getElementById('myModal')
-            // myModal.hide()
             document.getElementById('myModalClose').click()
-            myModal.addEventListener('hidden.bs.modal', function () {
-                window.location.replace(response.data.url);
-            })
+            setCountryData(response.data.data)
+            if (typeof setCountryModalData === "function") { 
+                setCountryModalData(response.data.data)
+            }
+            event.target.reset()
         } catch (error) {
             if(error?.response?.data?.form_error?.name){
                 errorToast(error?.response?.data?.form_error?.name[0])

@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class SubCity extends Model
 {
     use HasFactory;
-    protected $table="states";
+    protected $table="subcities";
 
     public function Country()
     {
         return $this->belongsTo('App\Models\Country');
     }
 
-    public function City()
+    public function State()
     {
-        return $this->hasMany('App\Models\City');
+        return $this->belongsTo('App\Models\State');
     }
 
-    public function SubCity()
+    public function City()
     {
-        return $this->hasMany('App\Models\SubCity');
+        return $this->belongsTo('App\Models\City');
     }
 }

@@ -612,7 +612,8 @@
         
 
         <!-- App js -->
-        <script src="{{ asset('admin/js/app.js') }}"></script>
+        {{-- <script src="{{ asset('admin/js/app.js') }}"></script> --}}
+        <script src="{{ asset('admin/js/main.js') }}"></script>
         <script type="text/javascript">
             @if (session('success_status'))
 

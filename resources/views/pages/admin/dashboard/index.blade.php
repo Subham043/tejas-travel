@@ -28,7 +28,7 @@
                         <!-- end page title -->
 
                         <div class="row project-wrapper">
-                            <div class="col-xxl-8">
+                            <div class="col-xxl-12">
                                 <div class="row">
                                     <div class="col-xl-3">
                                         <div class="card card-animate">
@@ -226,9 +226,9 @@
 
       @section('javascript')
 
-      <!-- projects js -->
-      <script src="{{ asset('admin/js/pages/dashboard-projects.init.js') }}"></script>
       <!-- apexcharts -->
       <script src="{{ asset('admin/libs/apexcharts/apexcharts.min.js') }}"></script>
+      <!-- projects js -->
+      <script src="{{ asset('admin/js/pages/dashboard-projects.init.js') }}"></script>
 
       @stop
