@@ -89,7 +89,10 @@ class TransporterController extends Controller
         if ($request->has('search')) {
             $search = $request->input('search');
             $country = Transporter::where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
             $country = Transporter::orderBy('id', 'DESC')->paginate(10);
