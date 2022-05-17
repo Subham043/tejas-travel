@@ -8,6 +8,8 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\City;
 use App\Models\SubCity;
+use App\Exports\SubCityExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubCityController extends Controller
 {
@@ -96,11 +98,16 @@ class SubCityController extends Controller
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = SubCity::orWhere(function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%')
+            $country = SubCity::with(['City','State','Country'])->where('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhereHas('State', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%');
+            })->orWhereHas('Country', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%');
+            })->orWhereHas('City', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
-
         }else{
             $country = SubCity::orderBy('id', 'DESC')->paginate(10);
         }
@@ -110,5 +117,9 @@ class SubCityController extends Controller
     public function display($id) {
         $country = SubCity::findOrFail($id);
         return view('pages.admin.subcities.display')->with('country',$country);
+    }
+
+    public function excel(){
+        return Excel::download(new SubCityExport, 'subcity.xlsx');
     }
 }

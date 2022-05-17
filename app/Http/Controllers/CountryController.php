@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\CountryExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CountryController extends Controller
 {
@@ -164,6 +166,10 @@ class CountryController extends Controller
     public function display($id) {
         $country = Country::findOrFail($id);
         return view('pages.admin.countries.display')->with('country',$country);
+    }
+
+    public function excel(){
+        return Excel::download(new CountryExport, 'country.xlsx');
     }
 
 

@@ -7,6 +7,8 @@ use Auth;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\City;
+use App\Exports\CityExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CityController extends Controller
 {
@@ -89,8 +91,11 @@ class CityController extends Controller
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = City::where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
+            $country = City::with(['State','Country'])->where('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhereHas('State', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%');
+            })->orWhereHas('Country', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
@@ -106,5 +111,9 @@ class CityController extends Controller
 
     public function city_all_ajax($id) {
         return response()->json(["cities"=>City::where('state_id',$id)->get()], 200);
+    }
+
+    public function excel(){
+        return Excel::download(new CityExport, 'city.xlsx');
     }
 }

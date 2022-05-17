@@ -38,6 +38,7 @@
                                 <div class="col-sm-auto">
                                     <div>
                                         <a href={{route('state_create')}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
+                                        <a href={{route('state_excel')}} type="button" class="btn btn-info add-btn" id="create-btn"><i class="ri-file-excel-fill align-bottom me-1"></i> Excel</a>
                                     </div>
                                 </div>
                                 <div class="col-sm">

@@ -6,6 +6,8 @@ use Auth;
 use App\Models\State;
 use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\StateExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StateController extends Controller
 {
@@ -119,8 +121,8 @@ class StateController extends Controller
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = State::where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
+            $country = State::with('Country')->where('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhereHas('Country', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
@@ -136,6 +138,10 @@ class StateController extends Controller
 
     public function state_all_ajax($id) {
         return response()->json(["states"=>State::where('country_id',$id)->get()], 200);
+    }
+
+    public function excel(){
+        return Excel::download(new StateExport, 'state.xlsx');
     }
 
 
