@@ -11,6 +11,7 @@ use App\Http\Controllers\VehicleTypeController;
 use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\TransporterController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +127,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [TransporterController::class, 'edit', 'as' => 'admin.transporter.edit'])->name('transporter_edit');
         Route::post('/edit/{id}', [TransporterController::class, 'update', 'as' => 'admin.transporter.update'])->name('transporter_update');
         Route::get('/delete/{id}', [TransporterController::class, 'delete', 'as' => 'admin.transporter.delete'])->name('transporter_delete');
+    });
+
+    Route::prefix('/vehicle')->group(function () {
+        Route::get('/', [VehicleController::class, 'view', 'as' => 'admin.vehicle.view'])->name('vehicle_view');
+        Route::get('/view/{id}', [VehicleController::class, 'display', 'as' => 'admin.vehicle.display'])->name('vehicle_display');
+        Route::get('/create', [VehicleController::class, 'create', 'as' => 'admin.vehicle.create'])->name('vehicle_create');
+        Route::post('/create', [VehicleController::class, 'store', 'as' => 'admin.vehicle.store'])->name('vehicle_store');
+        Route::get('/excel', [VehicleController::class, 'excel', 'as' => 'admin.vehicle.excel'])->name('vehicle_excel');
+        Route::get('/edit/{id}', [VehicleController::class, 'edit', 'as' => 'admin.vehicle.edit'])->name('vehicle_edit');
+        Route::post('/edit/{id}', [VehicleController::class, 'update', 'as' => 'admin.vehicle.update'])->name('vehicle_update');
+        Route::get('/delete/{id}', [VehicleController::class, 'delete', 'as' => 'admin.vehicle.delete'])->name('vehicle_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
