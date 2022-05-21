@@ -18,11 +18,15 @@ class Vehicle extends Model
 
     public function VehicleType()
     {
-        return $this->belongsTo('App\Models\VehicleType');
+        return $this->belongsTo('App\Models\VehicleType', 'vehicletype_id');
     }
 
     public function Amenities()
     {
         return $this->belongsToMany(Amenity::class, 'vehicleamenities');
+    }
+
+    public function GetAmenitiesId(){
+        return $this->Amenities()->pluck('amenities.id')->toArray();
     }
 }

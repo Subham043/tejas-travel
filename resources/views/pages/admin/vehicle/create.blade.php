@@ -515,7 +515,6 @@ validation
         formData.append('vehicletype',document.getElementById('vehicletype').value)
         formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
         formData.append('refreshUrl','{{URL::current()}}')
-        console.log(document.getElementById('amenity')?.length>0);
         if(document.getElementById('amenity')?.length>0){
             for (let index = 0; index < document.getElementById('amenity').length; index++) {
                 formData.append('amenity[]',document.getElementById('amenity')[index].value)
@@ -527,6 +526,9 @@ validation
         }
         const response = await axios.post('{{route('vehicle_store')}}', formData)
         successToast(response.data.message)
+        setTimeout(function(){
+            window.location.replace(response.data.url);
+        }, 1000);
       } catch (error) {
         //   console.log(error.response);
         if(error?.response?.data?.form_error?.name){
