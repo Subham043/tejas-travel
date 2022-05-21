@@ -9,7 +9,7 @@ use App\Models\VehicleDisplayImage;
 use App\Models\Amenity;
 use App\Models\VehicleType;
 use Illuminate\Support\Facades\Validator;
-use App\Exports\VehicleTypeExport;
+use App\Exports\VehicleExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleController extends Controller
@@ -172,15 +172,31 @@ class VehicleController extends Controller
         if($country->image!=null){
             unlink(public_path('vehicle/'.$country->image)); 
         }
+        if($country->vehicledisplayimage->count()>0){
+            foreach ($country->vehicledisplayimage as $vehicledisplayimage) {
+                unlink(public_path('vehicle/'.$vehicledisplayimage->image));
+            }
+            $deleteVehicleDisplayImage = VehicleDisplayImage::where('vehicle_id',$country->id)->delete();
+        }
+        $deleteAmenity = VehicleAmenity::where('vehicle_id',$country->id)->delete();
         $country->delete();
-        return redirect()->intended('admin/vehicle-type')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended('admin/vehicle')->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function delete_upload_image($id){
+        $country = VehicleDisplayImage::findOrFail($id);
+        if($country->image!=null){
+            unlink(public_path('vehicle/'.$country->image)); 
+        }
+        $country->delete();
+        return redirect()->intended('admin/vehicle/edit/'. $country->vehicle_id)->with('success_status', 'Image Deleted successfully.');
     }
 
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = Vehicle::where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
+            $country = Vehicle::with('VehicleType')->where('name', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhere('seating', 'like', '%' . $search . '%')->orWhereHas('VehicleType', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
@@ -195,6 +211,6 @@ class VehicleController extends Controller
     }
 
     public function excel(){
-        return Excel::download(new VehicleTypeExport, 'city.xlsx');
+        return Excel::download(new VehicleExport, 'vehicle.xlsx');
     }
 }

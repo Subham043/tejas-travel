@@ -56,24 +56,27 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
                                     <i class="bx bx-folder-plus"></i> <span data-key="t-dashboards">Master</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'show' : ''}}" id="sidebarDashboards1">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'show' : ''}}" id="sidebarDashboards1">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('vehicletype_view')}}" class="nav-link {{strpos(url()->current(),'vehicle-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Vehicle Types </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('amenity_view')}}" class="nav-link {{strpos(url()->current(),'amenity') !== false ? 'active' : ''}}" data-key="t-analytics"> Amenity </a>
+                                            <a href="{{route('vehicle_view')}}" class="nav-link {{strpos(url()->current(),'vehicle') !== false ? 'active' : ''}}" data-key="t-analytics"> Vehicle </a>
                                         </li>
+                                        {{-- <li class="nav-item">
+                                            <a href="{{route('amenity_view')}}" class="nav-link {{strpos(url()->current(),'amenity') !== false ? 'active' : ''}}" data-key="t-analytics"> Amenity </a>
+                                        </li> --}}
                                         <li class="nav-item">
                                             <a href="{{route('accommodation_view')}}" class="nav-link {{strpos(url()->current(),'accommodation') !== false ? 'active' : ''}}" data-key="t-analytics"> Accommodation </a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a href="{{route('transporter_view')}}" class="nav-link {{strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" data-key="t-analytics"> Transporter </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->

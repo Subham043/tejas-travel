@@ -100,7 +100,7 @@
                                         <div class="col-xxl-2 col-md-6 col-sm-12">
                                             <div class="card ribbon-box border shadow-none mb-lg-0 right">
                                                 <div class="card-body text-muted">
-                                                    <span class="ribbon ribbon-danger ribbon-shape"><span>Delete</span></span>
+                                                    <span class="ribbon ribbon-danger ribbon-shape"  onclick="deleteHandler('{{route('vehicle_delete_upload_image', $vehicledisplayimage->id)}}')" style="cursor: pointer"><span>Delete</span></span>
                                                     <div class="text-center">
                                                         <img src="{{url('vehicle/'.$vehicledisplayimage->image)}}" class="mb-3" style="max-width:100%;text-align:center;margin:auto;display:inline-block;">
                                                     </div>
@@ -560,6 +560,41 @@ validation
         }
 
   });
+</script>
+
+<script>
+    function deleteHandler(url){
+        iziToast.question({
+            timeout: 20000,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            id: 'question',
+            zindex: 999,
+            title: 'Hey',
+            message: 'Are you sure about that?',
+            position: 'center',
+            buttons: [
+                ['<button><b>YES</b></button>', function (instance, toast) {
+
+                    window.location.replace(url);
+                    // instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+        
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+        
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+        
+                }],
+            ],
+            onClosing: function(instance, toast, closedBy){
+                console.info('Closing | closedBy: ' + closedBy);
+            },
+            onClosed: function(instance, toast, closedBy){
+                console.info('Closed | closedBy: ' + closedBy);
+            }
+        });
+    }
 </script>
 
 @stop

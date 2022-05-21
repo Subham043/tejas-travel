@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="stylesheet" href="{{ asset('admin/css/image-previewer.css')}}" type="text/css" />
+
 <div class="page-content">
     <div class="container-fluid">
 
@@ -77,12 +79,14 @@
                             </div>
                             @endif
 
-                            @if($country->image)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Flag Image</h6>
-                                <img src="{{url('amenity/'.$country->image)}}" class="mb-3" style="max-width:100%">
+                            <div id="image-container">
+                                @if($country->image)
+                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                    <h6 class="fw-semibold text-uppercase">Flag Image</h6>
+                                    <img src="{{url('amenity/'.$country->image)}}" class="mb-3" style="max-width:100%">
+                                </div>
+                                @endif
                             </div>
-                            @endif
 
                             
                         </div>
@@ -102,6 +106,7 @@
 @stop          
 
 @section('javascript')
+<script src="{{ asset('admin/js/pages/img-previewer.min.js') }}"></script>
 <script>
     function deleteHandler(url){
         iziToast.question({
@@ -135,5 +140,28 @@
             }
         });
     }
+</script>
+<script>
+    const myViewer = new ImgPreviewer('#image-container',{
+      // aspect ratio of image
+        fillRatio: 0.9,
+        // attribute that holds the image
+        dataUrlKey: 'src',
+        // additional styles
+        style: {
+            modalOpacity: 0.6,
+            headerOpacity: 0,
+            zIndex: 99
+        },
+        // zoom options
+        imageZoom: { 
+            min: 0.1,
+            max: 5,
+            step: 0.1
+        },
+        // detect whether the parent element of the image is hidden by the css style
+        bubblingLevel: 0,
+        
+    });
 </script>
 @stop
