@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Support\For\CommonFor;
 use App\Exports\AmenityExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Image;
 
 class AmenityController extends Controller
 {
@@ -41,6 +42,10 @@ class AmenityController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('amenity').'/'.'compressed-'.$newImage);
             $req->image->move(public_path('amenity'), $newImage);
             $country->image = $newImage;
         }
@@ -83,8 +88,13 @@ class AmenityController extends Controller
         if($req->hasFile('image')){
             if($country->image!=null){
                 unlink(public_path('amenity/'.$country->image)); 
+                unlink(public_path('amenity/compressed-'.$country->image)); 
             }
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('amenity').'/'.'compressed-'.$newImage);
             $req->image->move(public_path('amenity'), $newImage);
             $country->image = $newImage;
         }
@@ -100,6 +110,7 @@ class AmenityController extends Controller
         $country = Amenity::findOrFail($id);
         if($country->image!=null){
             unlink(public_path('amenity/'.$country->image)); 
+            unlink(public_path('amenity/compressed-'.$country->image)); 
         }
         $country->delete();
         return redirect()->intended('admin/amenity')->with('success_status', 'Data Deleted successfully.');

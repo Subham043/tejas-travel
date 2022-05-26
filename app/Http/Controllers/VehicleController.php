@@ -11,6 +11,7 @@ use App\Models\VehicleType;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\VehicleExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Image;
 
 class VehicleController extends Controller
 {
@@ -59,6 +60,10 @@ class VehicleController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('vehicle').'/'.'compressed-'.$newImage);
             $req->image->move(public_path('vehicle'), $newImage);
             $country->image = $newImage;
         }
@@ -76,6 +81,10 @@ class VehicleController extends Controller
                 $uploadImage = new VehicleDisplayImage;
                 $uploadImage->vehicle_id = $country->id;
                 $newUploadImage = time().'-'.$req->upload[$i]->getClientOriginalName();
+                $img = Image::make($req->upload[$i]->getRealPath());
+                $img->resize(300, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('vehicle').'/'.'compressed-'.$newUploadImage);
                 $req->upload[$i]->move(public_path('vehicle'), $newUploadImage);
                 $uploadImage->image = $newUploadImage;
                 $uploadImage->save();
@@ -134,8 +143,13 @@ class VehicleController extends Controller
         if($req->hasFile('image')){
             if($country->image!=null){
                 unlink(public_path('vehicle/'.$country->image)); 
+                unlink(public_path('vehicle/compressed-'.$country->image)); 
             }
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('vehicle').'/'.'compressed-'.$newImage);
             $req->image->move(public_path('vehicle'), $newImage);
             $country->image = $newImage;
         }
@@ -154,6 +168,10 @@ class VehicleController extends Controller
                 $uploadImage = new VehicleDisplayImage;
                 $uploadImage->vehicle_id = $country->id;
                 $newUploadImage = time().'-'.$req->upload[$i]->getClientOriginalName();
+                $img = Image::make($req->upload[$i]->getRealPath());
+                $img->resize(300, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('vehicle').'/'.'compressed-'.$newUploadImage);
                 $req->upload[$i]->move(public_path('vehicle'), $newUploadImage);
                 $uploadImage->image = $newUploadImage;
                 $uploadImage->save();
@@ -171,10 +189,12 @@ class VehicleController extends Controller
         $country = Vehicle::findOrFail($id);
         if($country->image!=null){
             unlink(public_path('vehicle/'.$country->image)); 
+            unlink(public_path('vehicle/compressed-'.$country->image)); 
         }
         if($country->vehicledisplayimage->count()>0){
             foreach ($country->vehicledisplayimage as $vehicledisplayimage) {
                 unlink(public_path('vehicle/'.$vehicledisplayimage->image));
+                unlink(public_path('vehicle/compressed-'.$vehicledisplayimage->image));
             }
             $deleteVehicleDisplayImage = VehicleDisplayImage::where('vehicle_id',$country->id)->delete();
         }
@@ -187,6 +207,7 @@ class VehicleController extends Controller
         $country = VehicleDisplayImage::findOrFail($id);
         if($country->image!=null){
             unlink(public_path('vehicle/'.$country->image)); 
+            unlink(public_path('vehicle/compressed-'.$country->image)); 
         }
         $country->delete();
         return redirect()->intended('admin/vehicle/edit/'. $country->vehicle_id)->with('success_status', 'Image Deleted successfully.');

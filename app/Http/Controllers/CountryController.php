@@ -7,6 +7,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\CountryExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Image;
 
 class CountryController extends Controller
 {
@@ -41,6 +42,13 @@ class CountryController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            
+            
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('country').'/'.'compressed-'.$newImage);
+
             $req->image->move(public_path('country'), $newImage);
             $country->image = $newImage;
         }
@@ -85,6 +93,12 @@ class CountryController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
+
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('country').'/'.'compressed-'.$newImage);
+
             $req->image->move(public_path('country'), $newImage);
             $country->image = $newImage;
         }
@@ -127,8 +141,15 @@ class CountryController extends Controller
         if($req->hasFile('image')){
             if($country->image!=null){
                 unlink(public_path('country/'.$country->image)); 
+                unlink(public_path('country/compressed-'.$country->image)); 
             }
             $newImage = time().'-'.$req->image->getClientOriginalName();
+
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('country').'/'.'compressed-'.$newImage);
+
             $req->image->move(public_path('country'), $newImage);
             $country->image = $newImage;
         }
@@ -144,6 +165,7 @@ class CountryController extends Controller
         $country = Country::findOrFail($id);
         if($country->image!=null){
             unlink(public_path('country/'.$country->image)); 
+            unlink(public_path('country/compressed-'.$country->image)); 
         }
         $country->delete();
         return redirect()->intended('admin/country')->with('success_status', 'Data Deleted successfully.');

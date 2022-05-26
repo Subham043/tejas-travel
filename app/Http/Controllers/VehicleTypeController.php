@@ -7,6 +7,7 @@ use App\Models\VehicleType;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\VehicleTypeExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Image;
 
 class VehicleTypeController extends Controller
 {
@@ -36,6 +37,12 @@ class VehicleTypeController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
+
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('vehicletype').'/'.'compressed-'.$newImage);
+
             $req->image->move(public_path('vehicletype'), $newImage);
             $country->image = $newImage;
         }
@@ -72,10 +79,15 @@ class VehicleTypeController extends Controller
         $country->description = $req->description;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){
-                unlink(public_path('country/'.$country->image)); 
+            if($country->image!=null){ 
+                unlink(public_path('vehicletype/'.$country->image)); 
+                unlink(public_path('vehicletype/compressed-'.$country->image)); 
             }
             $newImage = time().'-'.$req->image->getClientOriginalName();
+            $img = Image::make($req->file('image')->getRealPath());
+            $img->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('vehicletype').'/'.'compressed-'.$newImage);
             $req->image->move(public_path('vehicletype'), $newImage);
             $country->image = $newImage;
         }
@@ -91,6 +103,7 @@ class VehicleTypeController extends Controller
         $country = VehicleType::findOrFail($id);
         if($country->image!=null){
             unlink(public_path('vehicletype/'.$country->image)); 
+            unlink(public_path('vehicletype/compressed-'.$country->image)); 
         }
         $country->delete();
         return redirect()->intended('admin/vehicle-type')->with('success_status', 'Data Deleted successfully.');

@@ -68,15 +68,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('vehicle_view')}}" class="nav-link {{strpos(url()->current(),'vehicle') !== false ? 'active' : ''}}" data-key="t-analytics"> Vehicle </a>
                                         </li>
-                                        {{-- <li class="nav-item">
+                                        <li class="nav-item">
                                             <a href="{{route('amenity_view')}}" class="nav-link {{strpos(url()->current(),'amenity') !== false ? 'active' : ''}}" data-key="t-analytics"> Amenity </a>
-                                        </li> --}}
+                                        </li>
                                         <li class="nav-item">
                                             <a href="{{route('accommodation_view')}}" class="nav-link {{strpos(url()->current(),'accommodation') !== false ? 'active' : ''}}" data-key="t-analytics"> Accommodation </a>
                                         </li>
-                                        {{-- <li class="nav-item">
+                                        <li class="nav-item">
                                             <a href="{{route('transporter_view')}}" class="nav-link {{strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" data-key="t-analytics"> Transporter </a>
-                                        </li> --}}
+                                        </li>
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
