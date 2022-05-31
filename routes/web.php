@@ -12,6 +12,8 @@ use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\TransporterController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CarBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,17 @@ use App\Http\Controllers\VehicleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', [HomeController::class, 'index', 'as' => 'home.index'])->name('index');
+Route::get('/contact', [HomeController::class, 'contact', 'as' => 'home.contact'])->name('contact');
+Route::get('/office-ride-enterprise', [HomeController::class, 'office', 'as' => 'home.office'])->name('office');
+Route::get('/about-us', [HomeController::class, 'about', 'as' => 'home.about'])->name('about');
+Route::get('/become-a-partner', [HomeController::class, 'partner', 'as' => 'home.partner'])->name('partner');
+Route::get('/consumer-complaints', [HomeController::class, 'complaint', 'as' => 'home.complaint'])->name('complaint');
+Route::get('/car-booking', [CarBookingController::class, 'index', 'as' => 'car_booking.index'])->name('car_booking');
+Route::get('/car-detail', [CarBookingController::class, 'detail', 'as' => 'car_booking.detail'])->name('car_detail');
+Route::get('/car-checkout', [CarBookingController::class, 'checkout', 'as' => 'car_booking.checkout'])->name('car_checkout');
+Route::get('/car-booking-complete', [CarBookingController::class, 'complete', 'as' => 'car_booking.complete'])->name('car_complete');
 
 Route::prefix('/admin')->group(function () {
     Route::get('/login', [AuthenticationController::class, 'index', 'as' => 'admin.login'])->name('login');
