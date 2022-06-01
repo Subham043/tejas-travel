@@ -24,6 +24,7 @@ Version: 1.0.0
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fonts.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flaticon.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.css') }}" />
+	<link href="{{ asset('admin/css/iziToast.min.css') }}" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/select2.min.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/nice-select.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.css') }}" />
@@ -75,7 +76,34 @@ Version: 1.0.0
 	<script src="{{ asset('assets/js/jquery.bxslider.min.js') }}"></script>
 	<script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
 	<script src="{{ asset('assets/js/xpedia.js') }}"></script>
+	<script src="{{ asset('admin/js/pages/just-validate.production.min.js') }}"></script>
+	<script src="{{ asset('admin/js/pages/iziToast.min.js') }}"></script>
 	<!-- custom js-->
+
+	<script type="text/javascript">
+		@if (session('success_status'))
+
+			iziToast.success({
+				title: 'Success',
+				message: '{{ session('success_status') }}',
+				position: 'topRight',
+				timeout:6000
+			});
+
+		@endif
+		@if (session('error_status'))
+
+			iziToast.error({
+				title: 'Error',
+				message: '{{ session('error_status') }}',
+				position: 'topRight',
+				timeout:6000
+			});
+
+		@endif
+
+	</script>
+	
     @yield('javascript')
 </body>
 
