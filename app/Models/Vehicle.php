@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Amenity;
+use App\Models\Transporter;
 
 class Vehicle extends Model
 {
@@ -28,5 +29,10 @@ class Vehicle extends Model
 
     public function GetAmenitiesId(){
         return $this->Amenities()->pluck('amenities.id')->toArray();
+    }
+
+    public function Transporters()
+    {
+        return $this->belongsToMany(Transporter::class, 'transportervehicles');
     }
 }

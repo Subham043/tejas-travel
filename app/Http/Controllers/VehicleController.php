@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Exports\VehicleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Image;
+use URL;
 
 class VehicleController extends Controller
 {
@@ -92,7 +93,7 @@ class VehicleController extends Controller
         }
 
         if($result){
-            return response()->json(["url"=>empty($req->refreshUrl)?'admin/vehicle':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+            return response()->json(["url"=>empty($req->refreshUrl)?URL::to('/').'/admin/vehicle':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
         }else{
             return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
@@ -179,7 +180,7 @@ class VehicleController extends Controller
         }
 
         if($result){
-            return response()->json(["url"=>empty($req->refreshUrl)?'admin/vehicle':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+            return response()->json(["url"=>empty($req->refreshUrl)?URL::to('/').'/admin/vehicle':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
         }else{
             return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }

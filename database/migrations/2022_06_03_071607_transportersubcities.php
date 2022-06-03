@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transporters', function (Blueprint $table) {
+        Schema::create('transportersubcities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->text('description')->nullable();
-            $table->bigInteger('state_id');
-            $table->integer('status')->default(1);
+            $table->bigInteger('transporter_id');
+            $table->bigInteger('subcity_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transporters');
+        Schema::dropIfExists('transportersubcities');
     }
 };

@@ -63,6 +63,33 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="state" class="form-label">State</label>
+                                        <select id="state" name="state"></select>
+                                        @error('state') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="city" class="form-label">City</label>
+                                        <select id="city" name="city" multiple></select>
+                                        @error('city') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="vehicle" class="form-label">Vehicle</label>
+                                        <select id="vehicle" name="vehicle" multiple></select>
+                                        @error('vehicle') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                                 
                                 <div class="col-xxl-12 col-md-12">
                                     <div>
@@ -88,8 +115,7 @@
                                 </div><!--end col-->
 
                                 <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
-                                    <button type="reset" class="btn btn-danger waves-effect waves-light">Reset</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
                                 </div>
                                 
                             </div>
@@ -115,6 +141,10 @@
            
 
 @section('javascript')
+<script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
+@include('pages.admin.transporter._js_state_edit_select')
+@include('pages.admin.transporter._js_vehicle_edit_select')
+@include('pages.admin.transporter._js_city_edit_select')
 <script type="text/javascript">
 
 // initialize the validation library
@@ -155,8 +185,139 @@ validation
         errorMessage: 'Phone is invalid',
     },
   ])
-  .onSuccess((event) => {
-    event.target.submit();
+  .addField('#state', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a state',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a state') {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a state',
+    },
+  ])
+  .addField('#city', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select cities',
+    },
+    {
+        validator: (value, fields) => {
+        if (value?.length==0) {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a city',
+    },
+  ])
+  .addField('#vehicle', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a vehicle',
+    },
+    {
+        validator: (value, fields) => {
+        if (value?.length==0) {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a vehicle',
+    },
+  ])
+  .onSuccess(async (event) => {
+    // event.target.submit();
+    const errorToast = (message) =>{
+            iziToast.error({
+                title: 'Error',
+                message: message,
+                position: 'bottomCenter',
+                timeout:7000
+            });
+        }
+        const successToast = (message) =>{
+            iziToast.success({
+                title: 'Success',
+                message: message,
+                position: 'bottomCenter',
+                timeout:6000
+            });
+        }
+
+        var submitBtn = document.getElementById('submitBtn')
+        submitBtn.innerHTML = `
+            <span class="d-flex align-items-center">
+                <span class="spinner-border flex-shrink-0" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                <span class="flex-grow-1 ms-2">
+                    Loading...
+                </span>
+            </span>
+            `
+        submitBtn.disabled = true;
+    
+      try {
+        var formData = new FormData();
+        formData.append('name',document.getElementById('name').value)
+        formData.append('email',document.getElementById('email').value)
+        formData.append('phone',document.getElementById('phone').value)
+        formData.append('description',document.getElementById('description').value)
+        formData.append('state',document.getElementById('state').value)
+        formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
+        // formData.append('refreshUrl','{{URL::current()}}')
+        if(document.getElementById('city')?.length>0){
+            for (let index = 0; index < document.getElementById('city').length; index++) {
+                formData.append('city[]',document.getElementById('city')[index].value)
+            }
+        }
+        if(document.getElementById('vehicle')?.length>0){
+            for (let index = 0; index < document.getElementById('vehicle').length; index++) {
+                formData.append('vehicle[]',document.getElementById('vehicle')[index].value)
+            }
+        }
+        const response = await axios.post('{{route('transporter_update', $country->id)}}', formData)
+        successToast(response.data.message)
+        setTimeout(function(){
+            window.location.replace(response.data.url);
+        }, 1000);
+      } catch (error) {
+        //   console.log(error.response);
+        if(error?.response?.data?.form_error?.name){
+            errorToast(error?.response?.data?.form_error?.name[0])
+        }
+        if(error?.response?.data?.form_error?.phone){
+            errorToast(error?.response?.data?.form_error?.phone[0])
+        }
+        if(error?.response?.data?.form_error?.email){
+            errorToast(error?.response?.data?.form_error?.email[0])
+        }
+        if(error?.response?.data?.form_error?.description){
+            errorToast(error?.response?.data?.form_error?.description[0])
+        }
+        if(error?.response?.data?.form_error?.vehicle){
+            errorToast(error?.response?.data?.form_error?.vehicle[0])
+        }
+        if(error?.response?.data?.form_error?.state){
+            errorToast(error?.response?.data?.form_error?.state[0])
+        }
+        if(error?.response?.data?.form_error?.city){
+            errorToast(error?.response?.data?.form_error?.city[0])
+        }
+      } finally{
+            submitBtn.innerHTML =  `
+                Update
+                `
+            submitBtn.disabled = false;
+        }
   });
 </script>
 

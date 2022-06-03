@@ -80,7 +80,22 @@
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
-                            
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
+                                    <i class="ri-message-fill"></i> <span data-key="t-dashboards">Enquiry Management</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('enquiry_view')}}" class="nav-link {{strpos(url()->current(),'enquiry') !== false ? 'active' : ''}}" data-key="t-analytics"> Enquiries </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('complaint_view')}}" class="nav-link {{strpos(url()->current(),'complaint') !== false ? 'active' : ''}}" data-key="t-analytics"> Complaints </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> <!-- end Dashboard Menu -->
 
                         </ul>
                     </div>

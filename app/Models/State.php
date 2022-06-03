@@ -24,4 +24,9 @@ class State extends Model
     {
         return $this->hasMany('App\Models\SubCity');
     }
+
+    public function Transporter()
+    {
+        return $this->hasMany('App\Models\Transporter');
+    }
 }

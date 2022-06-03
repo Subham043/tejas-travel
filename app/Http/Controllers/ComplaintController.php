@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Complaint;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\ComplaintExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ComplaintController extends Controller
 {
@@ -51,6 +53,36 @@ class ComplaintController extends Controller
             return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
 
+    }
+
+    public function delete($id){
+        $country = Complaint::findOrFail($id);
+        $country->delete();
+        return redirect()->intended('admin/complaint')->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function view(Request $request) {
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $country = Complaint::where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('title', 'like', '%' . $search . '%')
+                      ->orWhere('phone', 'like', '%' . $search . '%')
+                      ->orWhere('email', 'like', '%' . $search . '%');
+            })->paginate(10);
+        }else{
+            $country = Complaint::orderBy('id', 'DESC')->paginate(10);
+        }
+        return view('pages.admin.complaint.list')->with('country', $country);
+    }
+
+    public function display($id) {
+        $country = Complaint::findOrFail($id);
+        return view('pages.admin.complaint.display')->with('country',$country);
+    }
+
+    public function excel(){
+        return Excel::download(new ComplaintExport, 'complaint.xlsx');
     }
 
 
