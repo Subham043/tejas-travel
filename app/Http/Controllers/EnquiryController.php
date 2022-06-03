@@ -59,7 +59,7 @@ class EnquiryController extends Controller
     public function delete($id){
         $country = Enquiry::findOrFail($id);
         $country->delete();
-        return redirect()->intended('admin/enquiry')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('enquiry_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {

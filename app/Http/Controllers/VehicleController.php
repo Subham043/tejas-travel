@@ -201,7 +201,7 @@ class VehicleController extends Controller
         }
         $deleteAmenity = VehicleAmenity::where('vehicle_id',$country->id)->delete();
         $country->delete();
-        return redirect()->intended('admin/vehicle')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('vehicle_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function delete_upload_image($id){
@@ -211,7 +211,7 @@ class VehicleController extends Controller
             unlink(public_path('vehicle/compressed-'.$country->image)); 
         }
         $country->delete();
-        return redirect()->intended('admin/vehicle/edit/'. $country->vehicle_id)->with('success_status', 'Image Deleted successfully.');
+        return redirect()->intended(route('vehicle_edit',$country->vehicle_id))->with('success_status', 'Image Deleted successfully.');
     }
 
     public function view(Request $request) {

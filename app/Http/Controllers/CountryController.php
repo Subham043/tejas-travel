@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Exports\CountryExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Image;
+use URL;
 
 class CountryController extends Controller
 {
@@ -54,9 +55,9 @@ class CountryController extends Controller
         }
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/country')->with('success_status', 'Data Stored successfully.');
+            return redirect()->intended(route('country_view'))->with('success_status', 'Data Stored successfully.');
         }else{
-            return redirect()->intended('admin/country/create')->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('country_create'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -104,7 +105,7 @@ class CountryController extends Controller
         }
         $result = $country->save();
         if($result){
-            return response()->json(["url"=>empty($req->refreshUrl)?'admin/country':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+            return response()->json(["url"=>empty($req->refreshUrl)?URL::to('/').'/admin/country':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
         }else{
             return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
@@ -155,9 +156,9 @@ class CountryController extends Controller
         }
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/country/edit/'.$country->id)->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('country_edit',$country->id))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended('admin/country/edit/'.$country->id)->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('country_edit',$country->id))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -168,7 +169,7 @@ class CountryController extends Controller
             unlink(public_path('country/compressed-'.$country->image)); 
         }
         $country->delete();
-        return redirect()->intended('admin/country')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('country_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {

@@ -138,7 +138,7 @@ class TransporterController extends Controller
     public function delete($id){
         $country = Transporter::findOrFail($id);
         $country->delete();
-        return redirect()->intended('admin/transporter')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('transporter_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {

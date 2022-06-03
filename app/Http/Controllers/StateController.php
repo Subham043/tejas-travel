@@ -8,6 +8,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\StateExport;
 use Maatwebsite\Excel\Facades\Excel;
+use URL;
 
 class StateController extends Controller
 {
@@ -39,9 +40,9 @@ class StateController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/state')->with('success_status', 'Data Stored successfully.');
+            return redirect()->intended(route('state_view'))->with('success_status', 'Data Stored successfully.');
         }else{
-            return redirect()->intended('admin/state/create')->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('state_create'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -74,7 +75,7 @@ class StateController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
-            return response()->json(["url"=>empty($req->refreshUrl)?'admin/city':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+            return response()->json(["url"=>empty($req->refreshUrl)?URL::to('/').'/admin/city':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
         }else{
             return response()->json(["error"=>"something went wrong. Please try again"], 400);
         }
@@ -106,16 +107,16 @@ class StateController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/state/edit/'.$country->id)->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('state_edit',$country->id))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended('admin/state/edit/'.$country->id)->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('state_edit',$country->id))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
     public function delete($id){
         $country = State::findOrFail($id);
         $country->delete();
-        return redirect()->intended('admin/state')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('state_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {

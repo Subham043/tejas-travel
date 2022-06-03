@@ -48,9 +48,9 @@ class VehicleTypeController extends Controller
         }
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/vehicle-type')->with('success_status', 'Data Stored successfully.');
+            return redirect()->intended(route('vehicletype_view'))->with('success_status', 'Data Stored successfully.');
         }else{
-            return redirect()->intended('admin/vehicle-type/create')->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('vehicletype_create'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -93,9 +93,9 @@ class VehicleTypeController extends Controller
         }
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/vehicle-type/edit/'.$country->id)->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('vehicletype_edit',$country->id))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended('admin/vehicle-type/edit/'.$country->id)->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('vehicletype_edit',$country->id))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -106,7 +106,7 @@ class VehicleTypeController extends Controller
             unlink(public_path('vehicletype/compressed-'.$country->image)); 
         }
         $country->delete();
-        return redirect()->intended('admin/vehicle-type')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('vehicletype_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {

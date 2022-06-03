@@ -45,9 +45,9 @@ class SubCityController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/sub-city')->with('success_status', 'Data Stored successfully.');
+            return redirect()->intended(route('subcity_view'))->with('success_status', 'Data Stored successfully.');
         }else{
-            return redirect()->intended('admin/sub-city/create')->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('subcity_create'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -83,16 +83,16 @@ class SubCityController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
-            return redirect()->intended('admin/sub-city/edit/'.$country->id)->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('subcity_edit',$country->id))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended('admin/sub-city/edit/'.$country->id)->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('subcity_edit',$country->id))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
     public function delete($id){
         $country = SubCity::findOrFail($id);
         $country->delete();
-        return redirect()->intended('admin/sub-city')->with('success_status', 'Data Deleted successfully.');
+        return redirect()->intended(route('subcity_view'))->with('success_status', 'Data Deleted successfully.');
     }
 
     public function view(Request $request) {
