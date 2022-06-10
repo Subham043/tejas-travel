@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VehicleType extends Model
+class PackageType extends Model
 {
     use HasFactory;
-    protected $table="vehicletypes";
-
-    public function Vehicle()
-    {
-        return $this->hasMany('App\Models\Vehicle');
-    }
+    protected $table="packagetypes";
 
     public function LocalRide()
     {

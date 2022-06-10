@@ -235,4 +235,8 @@ class VehicleController extends Controller
     public function excel(){
         return Excel::download(new VehicleExport, 'vehicle.xlsx');
     }
+
+    public function vehicle_all_ajax($id) {
+        return response()->json(["vehicles"=>Vehicle::where('vehicletype_id',$id)->get()], 200);
+    }
 }

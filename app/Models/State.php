@@ -29,4 +29,9 @@ class State extends Model
     {
         return $this->hasMany('App\Models\Transporter');
     }
+
+    public function LocalRide()
+    {
+        return $this->hasMany('App\Models\LocalRide');
+    }
 }

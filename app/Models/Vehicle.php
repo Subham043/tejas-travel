@@ -35,4 +35,9 @@ class Vehicle extends Model
     {
         return $this->belongsToMany(Transporter::class, 'transportervehicles');
     }
+
+    public function LocalRide()
+    {
+        return $this->hasMany('App\Models\LocalRide');
+    }
 }

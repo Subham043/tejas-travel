@@ -16,6 +16,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarBookingController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\PackageTypeController;
+use App\Http\Controllers\CommonController;
+use App\Http\Controllers\LocalRideController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,6 +153,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/vehicle')->group(function () {
         Route::get('/', [VehicleController::class, 'view', 'as' => 'admin.vehicle.view'])->name('vehicle_view');
         Route::get('/view/{id}', [VehicleController::class, 'display', 'as' => 'admin.vehicle.display'])->name('vehicle_display');
+        Route::get('/vehicle-all-ajax/{id}', [VehicleController::class, 'vehicle_all_ajax', 'as' => 'admin.city.vehicle_all_ajax'])->name('vehicle_all_ajax');
         Route::get('/create', [VehicleController::class, 'create', 'as' => 'admin.vehicle.create'])->name('vehicle_create');
         Route::post('/create', [VehicleController::class, 'store', 'as' => 'admin.vehicle.store'])->name('vehicle_store');
         Route::get('/excel', [VehicleController::class, 'excel', 'as' => 'admin.vehicle.excel'])->name('vehicle_excel');
@@ -171,6 +175,48 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/view/{id}', [ComplaintController::class, 'display', 'as' => 'admin.complaint.display'])->name('complaint_display');
         Route::get('/excel', [ComplaintController::class, 'excel', 'as' => 'admin.complaint.excel'])->name('complaint_excel');
         Route::get('/delete/{id}', [ComplaintController::class, 'delete', 'as' => 'admin.complaint.delete'])->name('complaint_delete');
+    });
+
+    Route::prefix('/package-type')->group(function () {
+        Route::get('/', [PackageTypeController::class, 'view', 'as' => 'admin.packagetype.view'])->name('packagetype_view');
+        Route::get('/view/{id}', [PackageTypeController::class, 'display', 'as' => 'admin.packagetype.display'])->name('packagetype_display');
+        Route::get('/create', [PackageTypeController::class, 'create', 'as' => 'admin.packagetype.create'])->name('packagetype_create');
+        Route::post('/create', [PackageTypeController::class, 'store', 'as' => 'admin.packagetype.store'])->name('packagetype_store');
+        Route::get('/excel', [PackageTypeController::class, 'excel', 'as' => 'admin.packagetype.excel'])->name('packagetype_excel');
+        Route::get('/edit/{id}', [PackageTypeController::class, 'edit', 'as' => 'admin.packagetype.edit'])->name('packagetype_edit');
+        Route::post('/edit/{id}', [PackageTypeController::class, 'update', 'as' => 'admin.packagetype.update'])->name('packagetype_update');
+        Route::get('/delete/{id}', [PackageTypeController::class, 'delete', 'as' => 'admin.packagetype.delete'])->name('packagetype_delete');
+    });
+
+    Route::prefix('/common-terms-condition')->group(function () {
+        Route::get('/edit', [CommonController::class, 'terms_condition_edit', 'as' => 'admin.local_ride_terms_condition.edit'])->name('local_ride_terms_condition_edit');
+        Route::post('/edit', [CommonController::class, 'terms_condition_update', 'as' => 'admin.local_ride_terms_condition.update'])->name('local_ride_terms_condition_update');
+    });
+
+    Route::prefix('/common-include-exclude')->group(function () {
+        Route::get('/edit', [CommonController::class, 'include_exclude_edit', 'as' => 'admin.local_ride_include_exclude.edit'])->name('local_ride_include_exclude_edit');
+        Route::post('/edit', [CommonController::class, 'include_exclude_update', 'as' => 'admin.local_ride_include_exclude.update'])->name('local_ride_include_exclude_update');
+    });
+
+    Route::prefix('/common-description')->group(function () {
+        Route::get('/edit', [CommonController::class, 'description_edit', 'as' => 'admin.local_ride_description.edit'])->name('local_ride_description_edit');
+        Route::post('/edit', [CommonController::class, 'description_update', 'as' => 'admin.local_ride_description.update'])->name('local_ride_description_update');
+    });
+    
+    Route::prefix('/common-notes')->group(function () {
+        Route::get('/edit', [CommonController::class, 'note_edit', 'as' => 'admin.local_ride_note.edit'])->name('local_ride_note_edit');
+        Route::post('/edit', [CommonController::class, 'note_update', 'as' => 'admin.local_ride_note.update'])->name('local_ride_note_update');
+    });
+
+    Route::prefix('/local-ride')->group(function () {
+        Route::get('/', [LocalRideController::class, 'view', 'as' => 'admin.localride.view'])->name('localride_view');
+        Route::get('/view/{id}', [LocalRideController::class, 'display', 'as' => 'admin.localride.display'])->name('localride_display');
+        Route::get('/create', [LocalRideController::class, 'create', 'as' => 'admin.localride.create'])->name('localride_create');
+        Route::post('/create', [LocalRideController::class, 'store', 'as' => 'admin.localride.store'])->name('localride_store');
+        Route::get('/excel', [LocalRideController::class, 'excel', 'as' => 'admin.localride.excel'])->name('localride_excel');
+        Route::get('/edit/{id}', [LocalRideController::class, 'edit', 'as' => 'admin.localride.edit'])->name('localride_edit');
+        Route::post('/edit/{id}', [LocalRideController::class, 'update', 'as' => 'admin.localride.update'])->name('localride_update');
+        Route::get('/delete/{id}', [LocalRideController::class, 'delete', 'as' => 'admin.localride.delete'])->name('localride_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

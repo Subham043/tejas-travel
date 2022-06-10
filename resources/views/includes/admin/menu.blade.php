@@ -96,6 +96,28 @@
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'common-terms-condition') !== false || strpos(url()->current(),'common-include-exclude') !== false || strpos(url()->current(),'common-description') !== false || strpos(url()->current(),'common-note') !== false ? 'active' : ''}}" href="#sidebarDashboards3" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'common-terms-condition') !== false || strpos(url()->current(),'common-include-exclude') !== false || strpos(url()->current(),'common-description') !== false || strpos(url()->current(),'common-note') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards3">
+                                    <i class="ri-questionnaire-fill"></i> <span data-key="t-dashboards">Commons</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'common-terms-condition') !== false || strpos(url()->current(),'common-include-exclude') !== false  || strpos(url()->current(),'common-description') !== false  || strpos(url()->current(),'common-note') !== false  ? 'show' : ''}}" id="sidebarDashboards3">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('local_ride_terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Terms & Condition </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('local_ride_include_exclude_edit')}}" class="nav-link {{strpos(url()->current(),'common-include-exclude') !== false ? 'active' : ''}}" data-key="t-analytics"> Includes\Excludes </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('local_ride_description_edit')}}" class="nav-link {{strpos(url()->current(),'common-description') !== false ? 'active' : ''}}" data-key="t-analytics"> Description </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('local_ride_note_edit')}}" class="nav-link {{strpos(url()->current(),'common-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Note </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> <!-- end Dashboard Menu -->
 
                         </ul>
                     </div>

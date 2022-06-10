@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Transporter;
+use App\Models\LocalRide;
 
 class City extends Model
 {
@@ -29,5 +30,10 @@ class City extends Model
     public function Transporters()
     {
         return $this->belongsToMany(Transporter::class, 'transportercities');
+    }
+    
+    public function LocalRides()
+    {
+        return $this->belongsToMany(LocalRide::class, 'localridecities');
     }
 }
