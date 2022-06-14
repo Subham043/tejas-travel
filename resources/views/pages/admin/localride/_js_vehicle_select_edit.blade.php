@@ -1,16 +1,21 @@
 <script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 <script type="text/javascript">
 
-const choicesCity = new Choices('#city', {
+const choicesVehicle = new Choices('#vehicle', {
       silent: false,
       items: [],
       choices: [
-        @foreach($cities as $cities)
-          {
-              value: '{{$cities->id}}',
-              label: '{{$cities->name}}',
-              selected: {{($country->city->id==$cities->id) ? 'true' : 'false'}},
-          },
+        {
+            value: 'Select a vehicle',
+            label: 'Select a vehicle',
+            disabled: true,
+        },
+        @foreach($vehicles as $vehicles)
+            {
+                value: '{{$vehicles->id}}',
+                label: '{{$vehicles->name}}',
+                selected: {{($country->vehicle->id==$vehicles->id) ? 'true' : 'false'}},
+            },
         @endforeach
       ],
       renderChoiceLimit: -1,
@@ -35,7 +40,7 @@ const choicesCity = new Choices('#city', {
       shouldSortItems: false,
       // sorter: () => {...},
       placeholder: true,
-      placeholderValue: 'Select cities',
+      placeholderValue: 'Select a vehicle',
       searchPlaceholderValue: null,
       prependValue: null,
       appendValue: null,
@@ -91,26 +96,26 @@ const choicesCity = new Choices('#city', {
       callbackOnCreateTemplates: null
     });
 
-    document.getElementById('state').addEventListener(
+    document.getElementById('vehicletype').addEventListener(
     'change',
     async function(event) {
       // do something creative here...
       
       try {
           // console.log(event.target.value);
-          const response = await axios.get('{{URL::to('/')}}/admin/city/city-all-ajax/'+event.target.value)
+          const response = await axios.get('{{URL::to('/')}}/admin/vehicle/vehicle-all-ajax/'+event.target.value)
           // console.log(response)
           let data = []
-          if(response.data.cities.length>0){
-            choicesCity.clearStore();
-            choicesCity.clearChoices();
-            response.data.cities.forEach((item)=>{
+          if(response.data.vehicles.length>0){
+            choicesVehicle.clearStore();
+            choicesVehicle.clearChoices();
+            response.data.vehicles.forEach((item)=>{
                 data.push({value: item.id, label: item.name,})
             })
-            choicesCity.setChoices(data);
+            choicesVehicle.setChoices(data);
           }else{
-            choicesCity.clearStore();
-            choicesCity.clearChoices();
+            choicesVehicle.clearStore();
+            choicesVehicle.clearChoices();
           }
       } catch (error) {
           console.log(error);

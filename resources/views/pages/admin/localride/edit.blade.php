@@ -332,6 +332,62 @@
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv">
+                        @if($country->specialfarelocalride->count()>0)
+                        @foreach ($country->specialfarelocalride as $specialfarelocalride)
+                        <div class="row gy-4" id="duplicate_{{$specialfarelocalride->id}}">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Special Date Fare</h4>
+                                        <div class="flex-shrink-0">
+                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove Special Date Fare</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body">
+                                        <div class="live-preview">
+                                            <div class="row gy-4">
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="start_date" class="form-label">Start Date</label>
+                                                        <input type="date" class="form-control" name="start_date[]" value="{{$specialfarelocalride->start_date}}">
+                                                        @error('start_date') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="name" class="form-label">End Date</label>
+                                                        <input type="date" class="form-control" name="end_date[]" value="{{$specialfarelocalride->end_date}}">
+                                                        @error('end_date') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="price" class="form-label">Base Price</label>
+                                                        <input type="text" class="form-control" name="price[]" value="{{$specialfarelocalride->price}}">
+                                                        @error('price') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                        @endforeach
+                        @else
                         <div class="row gy-4" id="duplicate_1">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -384,7 +440,7 @@
                             <!--end col-->
                         </div>
                         <!--end row-->
-                        
+                        @endif
                     </div>
                 </div>
             </div>
@@ -579,7 +635,7 @@
                                 </div>
 
                                 <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
                                 </div>
                                 
                                 
@@ -608,12 +664,12 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
-@include('pages.admin.localride._js_bookingtype_select')
-@include('pages.admin.localride._js_packagetype_select')
-@include('pages.admin.localride._js_state_select')
-@include('pages.admin.localride._js_city_select')
-@include('pages.admin.localride._js_vehicletype_select')
-@include('pages.admin.localride._js_vehicle_select')
+@include('pages.admin.localride._js_bookingtype_select_edit')
+@include('pages.admin.localride._js_packagetype_select_edit')
+@include('pages.admin.localride._js_state_edit_select')
+@include('pages.admin.localride._js_city_edit_select')
+@include('pages.admin.localride._js_vehicletype_select_edit')
+@include('pages.admin.localride._js_vehicle_select_edit')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -693,8 +749,13 @@ const successToast = (message) =>{
 </script>
 
 <script type="text/javascript">
-    var i = 1;
-    var count = 1;
+@if($country->specialfarelocalride->count()>0)
+var i = {{$country->specialfarelocalride[0]->id}};
+var count = {{$country->specialfarelocalride->count()}};
+@else
+var i = 1;
+var count = 1;
+@endif
     
     function duplicate() {
         var div = document.getElementById('duplicate_'+i),
@@ -1190,7 +1251,7 @@ validation
             formData.append('price[]',document.getElementsByName('price[]')[index].value)
         }
         
-        const response = await axios.post('{{route('localride_store')}}', formData)
+        const response = await axios.post('{{route('localride_update', $country->id)}}', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);
@@ -1220,7 +1281,7 @@ validation
         }
       } finally{
             submitBtn.innerHTML =  `
-                Submit
+                Update
                 `
             submitBtn.disabled = false;
         }
