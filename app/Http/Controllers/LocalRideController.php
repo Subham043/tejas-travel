@@ -13,6 +13,7 @@ use App\Models\SpecialFareLocalRide;
 use App\Models\LocalRideCity;
 use Illuminate\Support\Facades\Validator;
 use App\Support\For\BookingType;
+use App\Models\Common;
 
 class LocalRideController extends Controller
 {
@@ -421,7 +422,11 @@ class LocalRideController extends Controller
 
     public function display($id) {
         $country = LocalRide::findOrFail($id);
-        return view('pages.admin.localride.display')->with('country',$country)->with('bookingtype', BookingType::lists());
+        $term = Common::findOrFail(1);
+        $include_exclude = Common::findOrFail(2);
+        $description = Common::findOrFail(3);
+        $notes = Common::findOrFail(4);
+        return view('pages.admin.localride.display')->with('country',$country)->with('bookingtype', BookingType::lists())->with('term',$term)->with('include_exclude',$include_exclude)->with('description',$description)->with('notes',$notes);
     }
 
     public function excel(){

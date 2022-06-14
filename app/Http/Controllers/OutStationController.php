@@ -11,6 +11,7 @@ use App\Models\Vehicle;
 use App\Models\SpecialFareOutStation;
 use Illuminate\Support\Facades\Validator;
 use App\Support\For\BookingType;
+use App\Models\Common;
 
 class OutStationController extends Controller
 {
@@ -383,7 +384,11 @@ class OutStationController extends Controller
 
     public function display($id) {
         $country = OutStation::findOrFail($id);
-        return view('pages.admin.outstation.display')->with('country',$country)->with('bookingtype', BookingType::lists());
+        $term = Common::findOrFail(1);
+        $include_exclude = Common::findOrFail(2);
+        $description = Common::findOrFail(3);
+        $notes = Common::findOrFail(4);
+        return view('pages.admin.outstation.display')->with('country',$country)->with('bookingtype', BookingType::lists())->with('term',$term)->with('include_exclude',$include_exclude)->with('description',$description)->with('notes',$notes);
     }
 
     public function excel(){

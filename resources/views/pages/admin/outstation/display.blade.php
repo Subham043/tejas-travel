@@ -58,16 +58,17 @@
                                             <h5 class="fs-15 mb-0">{{$country->vehicle->name}}</h5>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">One Way Price Per KM :</p>
                                             <h5 class="fs-15 mb-0">Rs. {{$country->one_way_price_per_km}}</h5>
                                         </div>
                                     </div>
+                                </div>
+                                </div>
+                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                    <div class="row">
+                                    
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Round Price Per KM :</p>
@@ -80,10 +81,6 @@
                                             <h5 class="fs-15 mb-0">{{$country->additional_price_festival}}%</h5>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Weekends :</p>
@@ -96,6 +93,11 @@
                                             <h5 class="fs-15 mb-0">{{$country->advance_during_booking}}%</h5>
                                         </div>
                                     </div>
+                                </div>
+                                </div>
+                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                    <div class="row">
+                                    
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Advance Travel Start :</p>
@@ -108,10 +110,6 @@
                                             <h5 class="fs-15 mb-0">{{$country->advance_during_travel_complete}}%</h5>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">GST :</p>
@@ -124,16 +122,23 @@
                                             <h5 class="fs-15 mb-0">{{$country->discount}}%</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Minimum KM Per Day :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->min_km_per_day}}</h5>
-                                        </div>
-                                    </div>
                                 </div>
                                 </div>
                                 <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                     <div class="row">
+                                    
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Minimum KM Per Day :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->min_km_per_day1}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Minimum KM Per Day :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->min_km_per_day2}}</h5>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Driver Charges Per Day :</p>
@@ -146,6 +151,32 @@
                                             <h5 class="fs-15 mb-0">{{$country->driver_charges_per_night}}</h5>
                                         </div>
                                     </div>
+                                </div>
+                                </div>
+                                @if($country->booking_type==2)
+                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                    <div class="row">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry From Date :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->from_date}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry To Date :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->to_date}}</h5>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                </div>
+                                @endif
+                            </div>
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <div class="row">
+                         
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">State :</p>
@@ -158,13 +189,6 @@
                                             <h5 class="fs-15 mb-0">{{$country->city->name}}</h5>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <div class="row">
-                         
                                     <div class="col-lg-3 col-sm-6 mb-2 mt-2">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Status :</p>
@@ -183,28 +207,76 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($country->terms_condition)
+                            @if($country->specialfareoutstation->count()>0)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Special Date Fare</h6>
+                                @foreach ($country->specialfareoutstation as $specialfareoutstation)
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Start Date :</p>
+                                            <h5 class="fs-15 mb-0">{{$specialfareoutstation->start_date}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">End Date :</p>
+                                            <h5 class="fs-15 mb-0">{{$specialfareoutstation->end_date}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Base Price :</p>
+                                            <h5 class="fs-15 mb-0">{{$specialfareoutstation->price}}</h5>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                            @if($country->default_terms_condition==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <h6 class="fw-semibold text-uppercase">Terms & Condition</h6>
                                 <p>{!!$country->terms_condition!!}</p>
                             </div>
-                            @endif
-                            @if($country->include_exclude)
+                            @elseif($country->default_terms_condition==1)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Include Exclude</h6>
-                                <p>{!!$country->include_exclude!!}</p>
+                                <h6 class="fw-semibold text-uppercase">Terms & Condition</h6>
+                                <p>{!!$term->description_formatted!!}</p>
                             </div>
                             @endif
-                            @if($country->description)
+                            @if($country->default_include_exclude==2)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Include/Exclude</h6>
+                                <p>{!!$country->include_exclude!!}</p>
+                            </div>
+                            @elseif($country->default_include_exclude==1)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Include/Exclude</h6>
+                                <p>{!!$include_exclude->description_formatted!!}</p>
+                            </div>
+                            @endif
+                            @if($country->default_description==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <h6 class="fw-semibold text-uppercase">Description</h6>
                                 <p>{!!$country->description!!}</p>
                             </div>
+                            @elseif($country->default_description==1)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Description</h6>
+                                <p>{!!$description->description_formatted!!}</p>
+                            </div>
                             @endif
-                            @if($country->notes)
+                            @if($country->default_notes==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <h6 class="fw-semibold text-uppercase">Notes</h6>
                                 <p>{!!$country->notes!!}</p>
+                            </div>
+                            @elseif($country->default_notes==1)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Notes</h6>
+                                <p>{!!$notes->description_formatted!!}</p>
                             </div>
                             @endif
 
