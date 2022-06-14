@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('localrides', function (Blueprint $table) {
+        Schema::create('outstations', function (Blueprint $table) {
             $table->id();
             $table->string('booking_type');
             $table->bigInteger('vehicletype_id');
             $table->bigInteger('vehicle_id');
-            $table->bigInteger('packagetype_id');
+            $table->bigInteger('state_id');
+            $table->bigInteger('city_id');
             $table->integer('default_notes')->default(1);
             $table->text('notes')->nullable();
             $table->text('notes_formatted')->nullable();
@@ -31,10 +32,8 @@ return new class extends Migration
             $table->integer('default_include_exclude')->default(1);
             $table->text('include_exclude')->nullable();
             $table->integer('include_exclude_formatted')->nullable();
-            $table->bigInteger('state_id');
-            $table->decimal('base_price', 7, 2);
-            $table->decimal('additional_price_per_km', 7, 2);
-            $table->decimal('additional_price_per_hr', 7, 2);
+            $table->decimal('one_way_price_per_km', 7, 2);
+            $table->decimal('round_price_per_km', 7, 2);
             $table->decimal('additional_price_festival', 7, 2);
             $table->decimal('additional_price_weekend', 7, 2);
             $table->decimal('advance_during_booking', 7, 2);
@@ -42,9 +41,8 @@ return new class extends Migration
             $table->decimal('advance_during_travel_complete', 7, 2);
             $table->decimal('gst', 7, 2);
             $table->decimal('discount', 7, 2);
-            $table->integer('included_km');
-            $table->integer('included_day');
-            $table->integer('included_hr');
+            $table->integer('min_km_per_day1');
+            $table->integer('min_km_per_day2');
             $table->integer('driver_charges_per_day');
             $table->integer('driver_charges_per_night');
             $table->string('from_date')->nullable();
@@ -61,6 +59,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('localrides');
+        Schema::dropIfExists('outstations');
     }
 };

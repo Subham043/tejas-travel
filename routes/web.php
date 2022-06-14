@@ -19,6 +19,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\LocalRideController;
+use App\Http\Controllers\OutStationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -217,6 +218,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [LocalRideController::class, 'edit', 'as' => 'admin.localride.edit'])->name('localride_edit');
         Route::post('/edit/{id}', [LocalRideController::class, 'update', 'as' => 'admin.localride.update'])->name('localride_update');
         Route::get('/delete/{id}', [LocalRideController::class, 'delete', 'as' => 'admin.localride.delete'])->name('localride_delete');
+    });
+    
+    Route::prefix('/outstation')->group(function () {
+        Route::get('/', [OutStationController::class, 'view', 'as' => 'admin.outstation.view'])->name('outstation_view');
+        Route::get('/view/{id}', [OutStationController::class, 'display', 'as' => 'admin.outstation.display'])->name('outstation_display');
+        Route::get('/create', [OutStationController::class, 'create', 'as' => 'admin.outstation.create'])->name('outstation_create');
+        Route::post('/create', [OutStationController::class, 'store', 'as' => 'admin.outstation.store'])->name('outstation_store');
+        Route::get('/excel', [OutStationController::class, 'excel', 'as' => 'admin.outstation.excel'])->name('outstation_excel');
+        Route::get('/edit/{id}', [OutStationController::class, 'edit', 'as' => 'admin.outstation.edit'])->name('outstation_edit');
+        Route::post('/edit/{id}', [OutStationController::class, 'update', 'as' => 'admin.outstation.update'])->name('outstation_update');
+        Route::get('/delete/{id}', [OutStationController::class, 'delete', 'as' => 'admin.outstation.delete'])->name('outstation_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

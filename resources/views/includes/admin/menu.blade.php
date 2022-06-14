@@ -56,11 +56,11 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
                                     <i class="bx bx-folder-plus"></i> <span data-key="t-dashboards">Master</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false ? 'show' : ''}}" id="sidebarDashboards1">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false ? 'show' : ''}}" id="sidebarDashboards1">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('vehicletype_view')}}" class="nav-link {{strpos(url()->current(),'vehicle-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Vehicle Types </a>
@@ -77,21 +77,40 @@
                                         <li class="nav-item">
                                             <a href="{{route('transporter_view')}}" class="nav-link {{strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" data-key="t-analytics"> Transporter </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('packagetype_view')}}" class="nav-link {{strpos(url()->current(),'package-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Package Type </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'active' : ''}}" href="#sidebarDashboards4" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards4">
                                     <i class="ri-message-fill"></i> <span data-key="t-dashboards">Enquiry Management</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'enquiry') !== false || strpos(url()->current(),'complaint') !== false  ? 'show' : ''}}" id="sidebarDashboards4">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('enquiry_view')}}" class="nav-link {{strpos(url()->current(),'enquiry') !== false ? 'active' : ''}}" data-key="t-analytics"> Enquiries </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('complaint_view')}}" class="nav-link {{strpos(url()->current(),'complaint') !== false ? 'active' : ''}}" data-key="t-analytics"> Complaints </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> <!-- end Dashboard Menu -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
+                                    <i class="ri-exchange-dollar-line"></i> <span data-key="t-dashboards">Prices</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('localride_view')}}" class="nav-link {{strpos(url()->current(),'local-ride') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('outstation_view')}}" class="nav-link {{strpos(url()->current(),'outstation') !== false ? 'active' : ''}}" data-key="t-analytics"> OutStation </a>
                                         </li>
                                     </ul>
                                 </div>

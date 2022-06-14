@@ -52,7 +52,7 @@
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
                                         <label for="bookingtype" class="form-label">Booking Type</label>
-                                        <select id="bookingtype" name="for"></select>
+                                        <select id="bookingtype" name="for" onchange="bookingtypechange()"></select>
                                         @error('bookingtype') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -119,6 +119,46 @@
                                 
                             </div>
                             
+                            <!--end row-->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+        <div class="row" id="date_row" style="display: none">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Enquiry Dates</h4>
+                    </div><!-- end card header -->
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row gy-4">
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="from_date" class="form-label">From</label>
+                                        <input type="date" class="form-control" name="from_date" id="from_date" value="{{old('from_date')}}">
+                                        @error('from_date') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="to_date" class="form-label">To</label>
+                                        <input type="date" class="form-control" name="to_date" id="to_date" value="{{old('to_date')}}">
+                                        @error('to_date') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                             <!--end row-->
                         </div>
                         
@@ -621,6 +661,14 @@ function termInputChange(){
         document.getElementById('termInput').style.display = 'none'
     }
 }
+
+function bookingtypechange(){
+    if(this.event.target.value==2){
+        document.getElementById('date_row').style.display = 'block'
+    }else{
+        document.getElementById('date_row').style.display = 'none'
+    }
+}
 </script>
 
 <script type="text/javascript">
@@ -1044,6 +1092,36 @@ validation
       errorMessage: 'End Date is required',
     }
   ])
+  .addField('#from_date', [
+    {
+        validator: (value, fields) => {
+            if(document.getElementById('bookingtype').value==2){
+                if (value=='') {
+                    return false;
+                }
+        
+                return true;
+            }
+            return true;
+        },
+        errorMessage: 'Please enter the from date !',
+    },
+  ])
+  .addField('#to_date', [
+    {
+        validator: (value, fields) => {
+            if(document.getElementById('bookingtype').value==2){
+                if (value=='') {
+                    return false;
+                }
+        
+                return true;
+            }
+            return true;
+        },
+        errorMessage: 'Please enter the to date !',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -1064,6 +1142,8 @@ validation
     
       try {
         var formData = new FormData();
+        formData.append('from_date',document.getElementById('from_date').value)
+        formData.append('to_date',document.getElementById('to_date').value)
         formData.append('base_price',document.getElementById('base_price').value)
         formData.append('additional_price_per_km',document.getElementById('additional_price_per_km').value)
         formData.append('additional_price_per_hr',document.getElementById('additional_price_per_hr').value)
@@ -1084,16 +1164,16 @@ validation
         formData.append('vehicle_id',document.getElementById('vehicle').value)
         formData.append('packagetype_id',document.getElementById('packagetype').value)
         formData.append('default_terms_condition',document.querySelector('input[name="default_terms_condition"]:checked').value)
-        formData.append('terms_condition_text',quillTerm.getText())
+        formData.append('terms_condition_formatted',quillTerm.getText())
         formData.append('terms_condition',quillTerm.root.innerHTML)
         formData.append('default_include_exclude',document.querySelector('input[name="default_include_exclude"]:checked').value)
-        formData.append('include_exclude_text',quillInclude.getText())
+        formData.append('include_exclude_formatted',quillInclude.getText())
         formData.append('include_exclude',quillInclude.root.innerHTML)
         formData.append('default_description',document.querySelector('input[name="default_description"]:checked').value)
-        formData.append('description_text',quillDescription.getText())
+        formData.append('description_formatted',quillDescription.getText())
         formData.append('description',quillDescription.root.innerHTML)
         formData.append('default_notes',document.querySelector('input[name="default_notes"]:checked').value)
-        formData.append('notes_text',quillNotes.getText())
+        formData.append('notes_formatted',quillNotes.getText())
         formData.append('notes',quillNotes.root.innerHTML)
         formData.append('state_id',document.getElementById('state').value)
         formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
@@ -1103,14 +1183,11 @@ validation
                 formData.append('city[]',document.getElementById('city')[index].value)
             }
         }
-        var specialdatefareobj = {}
+        
         for (let index = 0; index < count; index++) {
-            specialdatefareobj.start_date = document.getElementsByName('start_date[]')[index].value
-            specialdatefareobj.end_date = document.getElementsByName('end_date[]')[index].value
-            specialdatefareobj.price = document.getElementsByName('price[]')[index].value
-            formData.append('specialdatefare[]',specialdatefareobj)
-            // console.log(specialdatefareobj);
-            specialdatefareobj = {}
+            formData.append('start_date[]',document.getElementsByName('start_date[]')[index].value)
+            formData.append('end_date[]',document.getElementsByName('end_date[]')[index].value)
+            formData.append('price[]',document.getElementsByName('price[]')[index].value)
         }
         
         const response = await axios.post('{{route('localride_store')}}', formData)

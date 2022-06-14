@@ -10,27 +10,19 @@ use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\PackageType;
 
-class LocalRide extends Model
+class OutStation extends Model
 {
     use HasFactory;
-    protected $table="localrides";
+    protected $table="outstations";
 
     public function State()
     {
         return $this->belongsTo('App\Models\State');
     }
-
-    public function Cities()
+    
+    public function City()
     {
-        return $this->belongsToMany(City::class, 'localridecities', 'localride_id');
-    }
-
-    public function GetCitiesId(){
-        return $this->Cities()->pluck('cities.id')->toArray();
-    }
-
-    public function GetCitiesName(){
-        return $this->Cities()->pluck('cities.name');
+        return $this->belongsTo('App\Models\City');
     }
 
     public function Vehicle()
@@ -48,8 +40,8 @@ class LocalRide extends Model
         return $this->belongsTo('App\Models\PackageType', 'packagetype_id');
     }
 
-    public function SpecialFareLocalRide()
+    public function SpecialFareOutStation()
     {
-        return $this->hasMany('App\Models\SpecialFareLocalRide', 'localride_id');
+        return $this->hasMany('App\Models\SpecialFareOutStation', 'outstation_id');
     }
 }

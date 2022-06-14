@@ -11,11 +11,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Local Ride</h4>
+                    <h4 class="mb-sm-0">OutStation</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Local Ride</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">OutStation</a></li>
                             <li class="breadcrumb-item active">View</li>
                         </ol>
                     </div>
@@ -31,8 +31,8 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
-                                    <a href="{{route('localride_edit', $country->id)}}" type="button" class="btn btn-success add-btn me-2" id="create-btn"><i class="ri-edit-line align-bottom me-1"></i> Edit</a>
-                                    <button onclick="deleteHandler('{{route('localride_delete', $country->id)}}')" type="button" class="btn btn-danger add-btn" id="create-btn"><i class="ri-delete-bin-line align-bottom me-1"></i> Delete</button>
+                                    <a href="{{route('outstation_edit', $country->id)}}" type="button" class="btn btn-success add-btn me-2" id="create-btn"><i class="ri-edit-line align-bottom me-1"></i> Edit</a>
+                                    <button onclick="deleteHandler('{{route('outstation_delete', $country->id)}}')" type="button" class="btn btn-danger add-btn" id="create-btn"><i class="ri-delete-bin-line align-bottom me-1"></i> Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -44,12 +44,6 @@
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Booking Type :</p>
                                             <h5 class="fs-15 mb-0">{{$bookingtype[$country->booking_type]}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Package Type :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->packagetype->name}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
@@ -70,20 +64,14 @@
                                     <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Base Price :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->base_price}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">One Way Price Per KM :</p>
+                                            <h5 class="fs-15 mb-0">Rs. {{$country->one_way_price_per_km}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Per KM :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->additional_price_per_km}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Per Hr :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->additional_price_per_hr}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Round Price Per KM :</p>
+                                            <h5 class="fs-15 mb-0">Rs. {{$country->round_price_per_km}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
@@ -138,26 +126,14 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included KM :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_km}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included Day :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_day}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Minimum KM Per Day :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->min_km_per_day}}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                                 <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                     <div class="row">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included Hrs :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_hr}}</h5>
-                                        </div>
-                                    </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Driver Charges Per Day :</p>
@@ -176,6 +152,12 @@
                                             <h5 class="fs-15 mb-0">{{$country->state->name}}</h5>
                                         </div>
                                     </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">City :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->city->name}}</h5>
+                                        </div>
+                                    </div>
                                     
                                 </div>
                                 </div>
@@ -183,16 +165,6 @@
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
                          
-                                    @if($country->cities->count()>0)
-                                    <div class="col-lg-3 col-sm-6 mb-2 mt-2">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Cities :</p>
-                                            @foreach ($country->cities as $cities)
-                                                <div class="badge bg-warning fs-12">{{$cities->name}}</div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    @endif
                                     <div class="col-lg-3 col-sm-6 mb-2 mt-2">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Status :</p>

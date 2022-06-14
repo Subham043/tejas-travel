@@ -12,6 +12,6 @@ class SpecialFareLocalRide extends Model
 
     public function LocalRide()
     {
-        return $this->belongsTo('App\Models\LocalRide');
+        return $this->belongsTo('App\Models\LocalRide', 'localride_id');
     }
 }
