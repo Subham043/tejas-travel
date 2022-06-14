@@ -20,6 +20,7 @@ use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\LocalRideController;
 use App\Http\Controllers\OutStationController;
+use App\Http\Controllers\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -229,6 +230,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [OutStationController::class, 'edit', 'as' => 'admin.outstation.edit'])->name('outstation_edit');
         Route::post('/edit/{id}', [OutStationController::class, 'update', 'as' => 'admin.outstation.update'])->name('outstation_update');
         Route::get('/delete/{id}', [OutStationController::class, 'delete', 'as' => 'admin.outstation.delete'])->name('outstation_delete');
+    });
+
+    Route::prefix('/coupon')->group(function () {
+        Route::get('/', [CouponController::class, 'view', 'as' => 'admin.coupon.view'])->name('coupon_view');
+        Route::get('/view/{id}', [CouponController::class, 'display', 'as' => 'admin.coupon.display'])->name('coupon_display');
+        Route::get('/create', [CouponController::class, 'create', 'as' => 'admin.coupon.create'])->name('coupon_create');
+        Route::post('/create', [CouponController::class, 'store', 'as' => 'admin.coupon.store'])->name('coupon_store');
+        Route::get('/excel', [CouponController::class, 'excel', 'as' => 'admin.coupon.excel'])->name('coupon_excel');
+        Route::get('/edit/{id}', [CouponController::class, 'edit', 'as' => 'admin.coupon.edit'])->name('coupon_edit');
+        Route::post('/edit/{id}', [CouponController::class, 'update', 'as' => 'admin.coupon.update'])->name('coupon_update');
+        Route::get('/delete/{id}', [CouponController::class, 'delete', 'as' => 'admin.coupon.delete'])->name('coupon_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

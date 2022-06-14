@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Coupon;
 
 class VehicleType extends Model
 {
@@ -18,5 +19,10 @@ class VehicleType extends Model
     public function LocalRide()
     {
         return $this->hasMany('App\Models\LocalRide');
+    }
+
+    public function Coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'couponvehicletypes', 'vehicletype_id');
     }
 }
