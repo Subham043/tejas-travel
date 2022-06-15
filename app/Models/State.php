@@ -25,6 +25,11 @@ class State extends Model
         return $this->hasMany('App\Models\SubCity');
     }
 
+    public function Airport()
+    {
+        return $this->hasMany('App\Models\Airport');
+    }
+
     public function Transporter()
     {
         return $this->hasMany('App\Models\Transporter');

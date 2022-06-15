@@ -24,4 +24,9 @@ class Country extends Model
     {
         return $this->hasMany('App\Models\SubCity');
     }
+
+    public function Airport()
+    {
+        return $this->hasMany('App\Models\Airport');
+    }
 }

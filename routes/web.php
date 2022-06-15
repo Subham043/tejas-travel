@@ -21,6 +21,7 @@ use App\Http\Controllers\CommonController;
 use App\Http\Controllers\LocalRideController;
 use App\Http\Controllers\OutStationController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\AirportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -241,6 +242,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [CouponController::class, 'edit', 'as' => 'admin.coupon.edit'])->name('coupon_edit');
         Route::post('/edit/{id}', [CouponController::class, 'update', 'as' => 'admin.coupon.update'])->name('coupon_update');
         Route::get('/delete/{id}', [CouponController::class, 'delete', 'as' => 'admin.coupon.delete'])->name('coupon_delete');
+    });
+    
+    Route::prefix('/airport')->group(function () {
+        Route::get('/', [AirportController::class, 'view', 'as' => 'admin.airport.view'])->name('airport_view');
+        Route::get('/view/{id}', [AirportController::class, 'display', 'as' => 'admin.airport.display'])->name('airport_display');
+        Route::get('/create', [AirportController::class, 'create', 'as' => 'admin.airport.create'])->name('airport_create');
+        Route::post('/create', [AirportController::class, 'store', 'as' => 'admin.airport.store'])->name('airport_store');
+        Route::get('/excel', [AirportController::class, 'excel', 'as' => 'admin.airport.excel'])->name('airport_excel');
+        Route::get('/edit/{id}', [AirportController::class, 'edit', 'as' => 'admin.airport.edit'])->name('airport_edit');
+        Route::post('/edit/{id}', [AirportController::class, 'update', 'as' => 'admin.airport.update'])->name('airport_update');
+        Route::get('/delete/{id}', [AirportController::class, 'delete', 'as' => 'admin.airport.delete'])->name('airport_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
