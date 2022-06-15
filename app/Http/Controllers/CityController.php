@@ -21,6 +21,8 @@ class CityController extends Controller
             'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
             'country' => ['required'],
             'state' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
@@ -29,6 +31,8 @@ class CityController extends Controller
             'name.regex' => 'Please enter the valid name !',
             'country.required' => 'Please select a country !',
             'state.required' => 'Please select a state !',
+            'latitude.required' => 'Please select a latitude !',
+            'longitude.required' => 'Please select a longitude !',
             'description.regex' => 'Please enter the valid description !',
         ]);
 
@@ -38,6 +42,8 @@ class CityController extends Controller
         $country->country_id = $req->country;
         $country->state_id = $req->state;
         $country->description = $req->description;
+        $country->latitude = $req->latitude;
+        $country->longitude = $req->longitude;
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
@@ -58,6 +64,8 @@ class CityController extends Controller
             'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
             'country' => ['required'],
             'state' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
@@ -66,6 +74,8 @@ class CityController extends Controller
             'name.regex' => 'Please enter the valid name !',
             'country.required' => 'Please select a country !',
             'state.required' => 'Please select a state !',
+            'latitude.required' => 'Please select a latitude !',
+            'longitude.required' => 'Please select a longitude !',
             'description.regex' => 'Please enter the valid description !',
         ]);
 
@@ -73,6 +83,8 @@ class CityController extends Controller
         $country->country_id = $req->country;
         $country->state_id = $req->state;
         $country->description = $req->description;
+        $country->latitude = $req->latitude;
+        $country->longitude = $req->longitude;
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){

@@ -23,6 +23,8 @@ class SubCityController extends Controller
             'country' => ['required'],
             'state' => ['required'],
             'city' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
@@ -32,6 +34,8 @@ class SubCityController extends Controller
             'country.required' => 'Please select a country !',
             'state.required' => 'Please select a state !',
             'city.required' => 'Please select a city !',
+            'latitude.required' => 'Please select a latitude !',
+            'longitude.required' => 'Please select a longitude !',
             'description.regex' => 'Please enter the valid description !',
         ]);
 
@@ -42,6 +46,8 @@ class SubCityController extends Controller
         $country->state_id = $req->state;
         $country->city_id = $req->city;
         $country->description = $req->description;
+        $country->latitude = $req->latitude;
+        $country->longitude = $req->longitude;
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){
@@ -63,6 +69,8 @@ class SubCityController extends Controller
             'country' => ['required'],
             'state' => ['required'],
             'city' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
@@ -72,6 +80,8 @@ class SubCityController extends Controller
             'country.required' => 'Please select a country !',
             'state.required' => 'Please select a state !',
             'city.required' => 'Please select a city !',
+            'latitude.required' => 'Please select a latitude !',
+            'longitude.required' => 'Please select a longitude !',
             'description.regex' => 'Please enter the valid description !',
         ]);
 
@@ -80,6 +90,8 @@ class SubCityController extends Controller
         $country->state_id = $req->state;
         $country->city_id = $req->city;
         $country->description = $req->description;
+        $country->latitude = $req->latitude;
+        $country->longitude = $req->longitude;
         $country->status = $req->status == "on" ? 1 : 0;
         $result = $country->save();
         if($result){

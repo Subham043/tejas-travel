@@ -153,10 +153,17 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="address_address">Map Location</label>
+                                    <input type="text" id="address-input" name="address_address" class="form-control map-input">
+                                </div>
+                                <div id="address-map-container" style="width:100%;height:400px; ">
+                                    <div style="width: 100%; height: 100%" id="address-map"></div>
+                                </div>
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
-                                        <label for="latitude" class="form-label">Latitude</label>
-                                        <input type="text" class="form-control" name="latitude" id="latitude" value="{{old('latitude')}}">
+                                        <label for="address-latitude" class="form-label">Latitude</label>
+                                        <input type="text" class="form-control" name="latitude" id="address-latitude" value="{{old('latitude')}}" readonly disabled>
                                         @error('latitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -164,8 +171,8 @@
                                 </div>
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
-                                        <label for="longitude" class="form-label">Longitude</label>
-                                        <input type="text" class="form-control" name="longitude" id="longitude" value="{{old('longitude')}}">
+                                        <label for="address-longitude" class="form-label">Longitude</label>
+                                        <input type="text" class="form-control" name="longitude" id="address-longitude" value="{{old('longitude')}}" readonly disabled>
                                         @error('longitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -229,9 +236,103 @@
 @include('pages.admin.countries._js_country_select')
 @include('pages.admin.states._js_state_select')
 @include('pages.admin.cities._js_city_select')
+
 <script type="text/javascript">
 
-  
+   function initialize() {
+
+        document.getElementById('countryForm').addEventListener('keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        document.getElementById('countryForm').addEventListener('keyup', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        const locationInputs = document.getElementsByClassName("map-input");
+
+        const autocompletes = [];
+        const geocoder = new google.maps.Geocoder;
+        for (let i = 0; i < locationInputs.length; i++) {
+
+            const input = locationInputs[i];
+            const fieldKey = input.id.replace("-input", "");
+            const isEdit = document.getElementById(fieldKey + "-latitude").value != '' && document.getElementById(fieldKey + "-longitude").value != '';
+
+            const latitude = parseFloat(document.getElementById(fieldKey + "-latitude").value) || 12.9715987;
+            const longitude = parseFloat(document.getElementById(fieldKey + "-longitude").value) || 77.5945627;
+
+            const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
+                center: {lat: latitude, lng: longitude},
+                zoom: 13
+            });
+            const marker = new google.maps.Marker({
+                map: map,
+                position: {lat: latitude, lng: longitude},
+            });
+
+            marker.setVisible(isEdit);
+
+            const autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.key = fieldKey;
+            autocompletes.push({input: input, map: map, marker: marker, autocomplete: autocomplete});
+        }
+
+        for (let i = 0; i < autocompletes.length; i++) {
+            const input = autocompletes[i].input;
+            const autocomplete = autocompletes[i].autocomplete;
+            const map = autocompletes[i].map;
+            const marker = autocompletes[i].marker;
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                marker.setVisible(false);
+                const place = autocomplete.getPlace();
+
+                geocoder.geocode({'placeId': place.place_id}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        const lat = results[0].geometry.location.lat();
+                        const lng = results[0].geometry.location.lng();
+                        setLocationCoordinates(autocomplete.key, lat, lng);
+                    }
+                });
+
+                if (!place.geometry) {
+                    window.alert("No details available for input: '" + place.name + "'");
+                    input.value = "";
+                    return;
+                }
+
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+            });
+        }
+        }
+
+        function setLocationCoordinates(key, lat, lng) {
+        const latitudeField = document.getElementById(key + "-" + "latitude");
+        const longitudeField = document.getElementById(key + "-" + "longitude");
+        latitudeField.value = lat;
+        longitudeField.value = lng;
+    }
+ 
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
+
+<script type="text/javascript">
 
 // initialize the validation library
 const validation = new JustValidate('#countryForm', {
@@ -248,6 +349,18 @@ validation
         rule: 'customRegexp',
         value: /^[a-zA-Z\s]*$/,
         errorMessage: 'Name is invalid',
+    },
+  ])
+  .addField('#address-latitude', [
+    {
+      rule: 'required',
+      errorMessage: 'Latitude is required',
+    },
+  ])
+  .addField('#address-longitude', [
+    {
+      rule: 'required',
+      errorMessage: 'Longitude is required',
     },
   ])
   .addField('#country', [

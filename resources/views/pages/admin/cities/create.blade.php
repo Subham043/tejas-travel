@@ -144,24 +144,17 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-xxl-12 col-md-12">
-                                    <div>
-                                        <div id="pac-container">
-                                            <input id="pac-input" type="text" placeholder="Enter a location" />
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="address_address">Map Location</label>
+                                    <input type="text" id="address-input" name="address_address" class="form-control map-input">
                                 </div>
-                                <div class="col-xxl-12 col-md-12">
-                                    <div id="map"></div>
-                                    <div id="infowindow-content">
-                                        <span id="place-name" class="title"></span><br />
-                                        <span id="place-address"></span>
-                                    </div>
-                                </div> --}}
+                                <div id="address-map-container" style="width:100%;height:400px; ">
+                                    <div style="width: 100%; height: 100%" id="address-map"></div>
+                                </div>
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
                                         <label for="address-latitude" class="form-label">Latitude</label>
-                                        <input type="text" class="form-control" name="latitude" id="address-latitude" value="{{old('latitude')}}">
+                                        <input type="text" class="form-control" name="latitude" id="address-latitude" value="{{old('latitude')}}" readonly disabled>
                                         @error('latitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -170,7 +163,7 @@
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
                                         <label for="address-longitude" class="form-label">Longitude</label>
-                                        <input type="text" class="form-control" name="longitude" id="address-longitude" value="{{old('longitude')}}">
+                                        <input type="text" class="form-control" name="longitude" id="address-longitude" value="{{old('longitude')}}" readonly disabled>
                                         @error('longitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -229,120 +222,103 @@
 
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
-{{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=places&v=weekly" async defer></script> --}}
 @include('pages.admin.countries._js_country_select')
 @include('pages.admin.states._js_state_select')
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
 
-    // function initialize() {
-    
-    // $('#countryForm').on('keyup keypress', function(e) {
-    //     var keyCode = e.keyCode || e.which;
-    //     if (keyCode === 13) {
-    //         e.preventDefault();
-    //         return false;
-    //     }
-    // });
-    
-    // function initialize() {
-    //     const locationInputs = document.getElementsByClassName("map-input");
-    
-    // const autocompletes = [];
-    // const geocoder = new google.maps.Geocoder;
-    // for (let i = 0; i < locationInputs.length; i++) {
-    
-    //     const input = locationInputs[i];
-    //     const fieldKey = input.id.replace("-input", "");
-    //     const isEdit = document.getElementById(fieldKey + "-latitude").value != '' && document.getElementById(fieldKey + "-longitude").value != '';
-    
-    //     const latitude = parseFloat(document.getElementById(fieldKey + "-latitude").value) || -33.8688;
-    //     const longitude = parseFloat(document.getElementById(fieldKey + "-longitude").value) || 151.2195;
-    
-    //     const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
-    //         center: {lat: latitude, lng: longitude},
-    //         zoom: 13
-    //     });
-    //     const marker = new google.maps.Marker({
-    //         map: map,
-    //         position: {lat: latitude, lng: longitude},
-    //     });
-    
-    //     marker.setVisible(isEdit);
-    
-    //     const autocomplete = new google.maps.places.Autocomplete(input);
-    //     autocomplete.key = fieldKey;
-    //     autocompletes.push({input: input, map: map, marker: marker, autocomplete: autocomplete});
-    // }
-    
-    // for (let i = 0; i < autocompletes.length; i++) {
-    //     const input = autocompletes[i].input;
-    //     const autocomplete = autocompletes[i].autocomplete;
-    //     const map = autocompletes[i].map;
-    //     const marker = autocompletes[i].marker;
-    
-    //     google.maps.event.addListener(autocomplete, 'place_changed', function () {
-    //         marker.setVisible(false);
-    //         const place = autocomplete.getPlace();
-    
-    //         geocoder.geocode({'placeId': place.place_id}, function (results, status) {
-    //             if (status === google.maps.GeocoderStatus.OK) {
-    //                 const lat = results[0].geometry.location.lat();
-    //                 const lng = results[0].geometry.location.lng();
-    //                 setLocationCoordinates(autocomplete.key, lat, lng);
-    //             }
-    //         });
-    
-    //         if (!place.geometry) {
-    //             window.alert("No details available for input: '" + place.name + "'");
-    //             input.value = "";
-    //             return;
-    //         }
-    
-    //         if (place.geometry.viewport) {
-    //             map.fitBounds(place.geometry.viewport);
-    //         } else {
-    //             map.setCenter(place.geometry.location);
-    //             map.setZoom(17);
-    //         }
-    //         marker.setPosition(place.geometry.location);
-    //         marker.setVisible(true);
-    
-    //     });
-    // }
-    // }
-    
-    // function setLocationCoordinates(key, lat, lng) {
-    // const latitudeField = document.getElementById(key + "-" + "latitude");
-    // const longitudeField = document.getElementById(key + "-" + "longitude");
-    // latitudeField.value = lat;
-    // longitudeField.value = lng;
-    // }
+    function initialize() {
 
-    function initMap() {
-        const center = { lat: 50.064192, lng: -130.605469 };
-        // Create a bounding box with sides ~10km away from the center point
-        const defaultBounds = {
-        north: center.lat + 0.1,
-        south: center.lat - 0.1,
-        east: center.lng + 0.1,
-        west: center.lng - 0.1,
-        };
-        const input = document.getElementById("pac-input");
-        const options = {
-        bounds: defaultBounds,
-        componentRestrictions: { country: "us" },
-        fields: ["address_components", "geometry", "icon", "name"],
-        strictBounds: false,
-        types: ["establishment"],
-        };
-        const autocomplete = new google.maps.places.Autocomplete(input, options);
+        document.getElementById('countryForm').addEventListener('keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        document.getElementById('countryForm').addEventListener('keyup', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        const locationInputs = document.getElementsByClassName("map-input");
+
+        const autocompletes = [];
+        const geocoder = new google.maps.Geocoder;
+        for (let i = 0; i < locationInputs.length; i++) {
+
+            const input = locationInputs[i];
+            const fieldKey = input.id.replace("-input", "");
+            const isEdit = document.getElementById(fieldKey + "-latitude").value != '' && document.getElementById(fieldKey + "-longitude").value != '';
+
+            const latitude = parseFloat(document.getElementById(fieldKey + "-latitude").value) || 12.9715987;
+            const longitude = parseFloat(document.getElementById(fieldKey + "-longitude").value) || 77.5945627;
+
+            const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
+                center: {lat: latitude, lng: longitude},
+                zoom: 13
+            });
+            const marker = new google.maps.Marker({
+                map: map,
+                position: {lat: latitude, lng: longitude},
+            });
+
+            marker.setVisible(isEdit);
+
+            const autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.key = fieldKey;
+            autocompletes.push({input: input, map: map, marker: marker, autocomplete: autocomplete});
+        }
+
+        for (let i = 0; i < autocompletes.length; i++) {
+            const input = autocompletes[i].input;
+            const autocomplete = autocompletes[i].autocomplete;
+            const map = autocompletes[i].map;
+            const marker = autocompletes[i].marker;
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                marker.setVisible(false);
+                const place = autocomplete.getPlace();
+
+                geocoder.geocode({'placeId': place.place_id}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        const lat = results[0].geometry.location.lat();
+                        const lng = results[0].geometry.location.lng();
+                        setLocationCoordinates(autocomplete.key, lat, lng);
+                    }
+                });
+
+                if (!place.geometry) {
+                    window.alert("No details available for input: '" + place.name + "'");
+                    input.value = "";
+                    return;
+                }
+
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+            });
+        }
+        }
+
+        function setLocationCoordinates(key, lat, lng) {
+        const latitudeField = document.getElementById(key + "-" + "latitude");
+        const longitudeField = document.getElementById(key + "-" + "longitude");
+        latitudeField.value = lat;
+        longitudeField.value = lng;
     }
+ 
+</script>
 
-    
-    
-    
-    </script> --}}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
 
 
 <script type="text/javascript">
@@ -364,6 +340,18 @@ validation
         rule: 'customRegexp',
         value: /^[a-zA-Z\s]*$/,
         errorMessage: 'Name is invalid',
+    },
+  ])
+  .addField('#address-latitude', [
+    {
+      rule: 'required',
+      errorMessage: 'Latitude is required',
+    },
+  ])
+  .addField('#address-longitude', [
+    {
+      rule: 'required',
+      errorMessage: 'Longitude is required',
     },
   ])
   .addField('#country', [
