@@ -8,7 +8,7 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\City;
 use App\Models\Airport;
-use App\Exports\SubCityExport;
+use App\Exports\AirportExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AirportController extends Controller
@@ -132,6 +132,6 @@ class AirportController extends Controller
     }
 
     public function excel(){
-        return Excel::download(new SubCityExport, 'subcity.xlsx');
+        return Excel::download(new AirportExport, 'airport.xlsx');
     }
 }
