@@ -12,6 +12,9 @@ use App\Support\For\CustomerType;
 use App\Support\For\UseType;
 use App\Support\For\DiscountType;
 use App\Models\Common;
+use App\Exports\CouponExport;
+use Maatwebsite\Excel\Facades\Excel;
+use URL;
 
 class CouponController extends Controller
 {
@@ -308,16 +311,12 @@ class CouponController extends Controller
     }
 
     public function display($id) {
-        $country = LocalRide::findOrFail($id);
-        $term = Common::findOrFail(1);
-        $include_exclude = Common::findOrFail(2);
-        $description = Common::findOrFail(3);
-        $notes = Common::findOrFail(4);
-        return view('pages.admin.localride.display')->with('country',$country)->with('bookingtype', BookingType::lists())->with('term',$term)->with('include_exclude',$include_exclude)->with('description',$description)->with('notes',$notes);
+        $country = Coupon::findOrFail($id);
+        return view('pages.admin.coupon.display')->with('country',$country)->with('ridetypes', RideType::lists())->with('customertypes', CustomerType::lists())->with('usetypes', UseType::lists())->with('discounttypes', DiscountType::lists());
     }
 
     public function excel(){
-        return Excel::download(new TransporterExport, 'transporter.xlsx');
+        return Excel::download(new CouponExport, 'coupon.xlsx');
     }
 
 

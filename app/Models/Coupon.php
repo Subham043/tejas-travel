@@ -13,7 +13,7 @@ class Coupon extends Model
 
     public function VehicleTypes()
     {
-        return $this->belongsToMany(VehicleType::class, 'couponvehicletypes', 'coupon_id');
+        return $this->belongsToMany(VehicleType::class, 'couponvehicletypes', 'coupon_id', 'vehicletype_id');
     }
 
     public function GetVehicleTypesId(){

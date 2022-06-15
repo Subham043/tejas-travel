@@ -180,35 +180,11 @@
                                 </div>
                                 </div>
                             </div>
-                            @if($country->booking_type==2)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <div class="row">
-                                <div class="col-lg-3 col-sm-6">
-                                    <div>
-                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry From Date :</p>
-                                        <h5 class="fs-15 mb-0">{{$country->from_date}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div>
-                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry To Date :</p>
-                                        <h5 class="fs-15 mb-0">{{$country->to_date}}</h5>
-                                    </div>
-                                </div>
-                                
-                                
-                            </div>
-                            </div>
-                            @endif
+                            
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
 
-                                    <div class="col-lg-3 col-sm-6 mb-2 mt-2">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">State :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->state->name}}</h5>
-                                        </div>
-                                    </div>
+                                    
                          
                                     @if($country->cities->count()>0)
                                     <div class="col-lg-3 col-sm-6 mb-2 mt-2">
@@ -264,6 +240,26 @@
                                     
                                 </div>
                                 @endforeach
+                            </div>
+                            @endif
+                            @if($country->booking_type==2)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <div class="row">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div>
+                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry From Date :</p>
+                                        <h5 class="fs-15 mb-0">{{$country->from_date}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div>
+                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry To Date :</p>
+                                        <h5 class="fs-15 mb-0">{{$country->to_date}}</h5>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                             </div>
                             @endif
                             @if($country->default_terms_condition==2)

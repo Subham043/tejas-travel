@@ -12,6 +12,9 @@ use App\Models\SpecialFareOutStation;
 use Illuminate\Support\Facades\Validator;
 use App\Support\For\BookingType;
 use App\Models\Common;
+use App\Exports\OutStationExport;
+use Maatwebsite\Excel\Facades\Excel;
+use URL;
 
 class OutStationController extends Controller
 {
@@ -392,7 +395,7 @@ class OutStationController extends Controller
     }
 
     public function excel(){
-        return Excel::download(new TransporterExport, 'transporter.xlsx');
+        return Excel::download(new OutStationExport, 'outstation.xlsx');
     }
 
 

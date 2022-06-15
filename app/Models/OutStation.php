@@ -35,11 +35,6 @@ class OutStation extends Model
         return $this->belongsTo('App\Models\VehicleType', 'vehicletype_id');
     }
 
-    public function PackageType()
-    {
-        return $this->belongsTo('App\Models\PackageType', 'packagetype_id');
-    }
-
     public function SpecialFareOutStation()
     {
         return $this->hasMany('App\Models\SpecialFareOutStation', 'outstation_id');

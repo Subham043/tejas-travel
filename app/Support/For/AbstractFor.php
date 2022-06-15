@@ -57,6 +57,7 @@ abstract class AbstractFor
      */
     public static function getStatusId($value)
     {
-        return array_search($value, static::$forstatus);
+        // return array_search($value, static::$forstatus);
+        return array_search(strtolower($value), array_map('strtolower', static::$forstatus));
     }
 }
