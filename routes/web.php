@@ -22,6 +22,8 @@ use App\Http\Controllers\LocalRideController;
 use App\Http\Controllers\OutStationController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\AirportController;
+use App\Http\Controllers\SubAdminController;
+use App\Http\Controllers\FestivalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -253,6 +255,28 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [AirportController::class, 'edit', 'as' => 'admin.airport.edit'])->name('airport_edit');
         Route::post('/edit/{id}', [AirportController::class, 'update', 'as' => 'admin.airport.update'])->name('airport_update');
         Route::get('/delete/{id}', [AirportController::class, 'delete', 'as' => 'admin.airport.delete'])->name('airport_delete');
+    });
+    
+    Route::prefix('/sub-admin')->group(function () {
+        Route::get('/', [SubAdminController::class, 'view', 'as' => 'admin.subadmin.view'])->name('subadmin_view');
+        Route::get('/view/{id}', [SubAdminController::class, 'display', 'as' => 'admin.subadmin.display'])->name('subadmin_display');
+        Route::get('/create', [SubAdminController::class, 'create', 'as' => 'admin.subadmin.create'])->name('subadmin_create');
+        Route::post('/create', [SubAdminController::class, 'store', 'as' => 'admin.subadmin.store'])->name('subadmin_store');
+        Route::get('/excel', [SubAdminController::class, 'excel', 'as' => 'admin.subadmin.excel'])->name('subadmin_excel');
+        Route::get('/edit/{id}', [SubAdminController::class, 'edit', 'as' => 'admin.subadmin.edit'])->name('subadmin_edit');
+        Route::post('/edit/{id}', [SubAdminController::class, 'update', 'as' => 'admin.subadmin.update'])->name('subadmin_update');
+        Route::get('/delete/{id}', [SubAdminController::class, 'delete', 'as' => 'admin.subadmin.delete'])->name('subadmin_delete');
+    });
+    
+    Route::prefix('/festival')->group(function () {
+        Route::get('/', [FestivalController::class, 'view', 'as' => 'admin.festival.view'])->name('festival_view');
+        Route::get('/view/{id}', [FestivalController::class, 'display', 'as' => 'admin.festival.display'])->name('festival_display');
+        Route::get('/create', [FestivalController::class, 'create', 'as' => 'admin.festival.create'])->name('festival_create');
+        Route::post('/create', [FestivalController::class, 'store', 'as' => 'admin.festival.store'])->name('festival_store');
+        Route::get('/excel', [FestivalController::class, 'excel', 'as' => 'admin.festival.excel'])->name('festival_excel');
+        Route::get('/edit/{id}', [FestivalController::class, 'edit', 'as' => 'admin.festival.edit'])->name('festival_edit');
+        Route::post('/edit/{id}', [FestivalController::class, 'update', 'as' => 'admin.festival.update'])->name('festival_update');
+        Route::get('/delete/{id}', [FestivalController::class, 'delete', 'as' => 'admin.festival.delete'])->name('festival_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

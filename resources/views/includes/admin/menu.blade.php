@@ -56,11 +56,11 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false || strpos(url()->current(),'festival') !== false ? 'active' : ''}}" href="#sidebarDashboards1" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false || strpos(url()->current(),'festival') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards1">
                                     <i class="bx bx-folder-plus"></i> <span data-key="t-dashboards">Master</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false ? 'show' : ''}}" id="sidebarDashboards1">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'vehicle-type') !== false || strpos(url()->current(),'vehicle') !== false || strpos(url()->current(),'amenity') !== false || strpos(url()->current(),'accommodation') !== false || strpos(url()->current(),'transporter') !== false || strpos(url()->current(),'package-type') !== false || strpos(url()->current(),'airport') !== false || strpos(url()->current(),'festival') !== false ? 'show' : ''}}" id="sidebarDashboards1">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('vehicletype_view')}}" class="nav-link {{strpos(url()->current(),'vehicle-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Vehicle Types </a>
@@ -83,6 +83,9 @@
                                         <li class="nav-item">
                                             <a href="{{route('airport_view')}}" class="nav-link {{strpos(url()->current(),'airport') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('festival_view')}}" class="nav-link {{strpos(url()->current(),'festival') !== false ? 'active' : ''}}" data-key="t-analytics"> Festival </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
@@ -103,17 +106,20 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
                                     <i class="ri-exchange-dollar-line"></i> <span data-key="t-dashboards">Prices</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('localride_view')}}" class="nav-link {{strpos(url()->current(),'local-ride') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('outstation_view')}}" class="nav-link {{strpos(url()->current(),'outstation') !== false ? 'active' : ''}}" data-key="t-analytics"> OutStation </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('coupon_view')}}" class="nav-link {{strpos(url()->current(),'coupon') !== false ? 'active' : ''}}" data-key="t-analytics"> Coupons </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -136,6 +142,19 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('local_ride_note_edit')}}" class="nav-link {{strpos(url()->current(),'common-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Note </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> <!-- end Dashboard Menu -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'sub-admin') !== false ? 'active' : ''}}" href="#sidebarDashboards5" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'sub-admin') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards5">
+                                    <i class="ri-admin-fill"></i> <span data-key="t-dashboards">Root Management</span>
+                                </a>
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'sub-admin') !== false ? 'show' : ''}}" id="sidebarDashboards5">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('subadmin_view')}}" class="nav-link {{strpos(url()->current(),'sub-admin') !== false ? 'active' : ''}}" data-key="t-analytics"> Sub Admins </a>
                                         </li>
                                     </ul>
                                 </div>

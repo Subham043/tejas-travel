@@ -29,4 +29,9 @@ class Country extends Model
     {
         return $this->hasMany('App\Models\Airport');
     }
+
+    public function Festival()
+    {
+        return $this->hasMany('App\Models\Festival');
+    }
 }

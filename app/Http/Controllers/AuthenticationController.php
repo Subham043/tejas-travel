@@ -29,6 +29,7 @@ class AuthenticationController extends Controller
 
         $credentials = $request->only('email', 'password');
         $credentials['status'] = 1;
+        $credentials['userType'] = 1;
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('admin/dashboard')->with('success_status', 'Logged in successfully.');

@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('festivals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->integer('userType')->default(1);
+            $table->string('start_date');
+            $table->string('holiday_type');
+            $table->text('description')->nullable();
+            $table->bigInteger('country_id');
+            $table->bigInteger('state_id');
             $table->integer('status')->default(1);
-            $table->integer('otp')->nullable();
-            $table->integer('allowPasswordChange')->default(0);
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('festivals');
     }
 };
