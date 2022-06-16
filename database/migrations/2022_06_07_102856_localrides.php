@@ -30,7 +30,7 @@ return new class extends Migration
             $table->text('terms_condition_formatted')->nullable();
             $table->integer('default_include_exclude')->default(1);
             $table->text('include_exclude')->nullable();
-            $table->integer('include_exclude_formatted')->nullable();
+            $table->text('include_exclude_formatted')->nullable();
             $table->bigInteger('state_id');
             $table->decimal('base_price', 7, 2);
             $table->decimal('additional_price_per_km', 7, 2);

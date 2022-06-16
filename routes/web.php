@@ -24,6 +24,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\SubAdminController;
 use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\HolidayPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -277,6 +278,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [FestivalController::class, 'edit', 'as' => 'admin.festival.edit'])->name('festival_edit');
         Route::post('/edit/{id}', [FestivalController::class, 'update', 'as' => 'admin.festival.update'])->name('festival_update');
         Route::get('/delete/{id}', [FestivalController::class, 'delete', 'as' => 'admin.festival.delete'])->name('festival_delete');
+    });
+    
+    Route::prefix('/holiday-package')->group(function () {
+        Route::get('/', [HolidayPackageController::class, 'view', 'as' => 'admin.holidaypackage.view'])->name('holidaypackage_view');
+        Route::get('/view/{id}', [HolidayPackageController::class, 'display', 'as' => 'admin.holidaypackage.display'])->name('holidaypackage_display');
+        Route::get('/create', [HolidayPackageController::class, 'create', 'as' => 'admin.holidaypackage.create'])->name('holidaypackage_create');
+        Route::post('/create', [HolidayPackageController::class, 'store', 'as' => 'admin.holidaypackage.store'])->name('holidaypackage_store');
+        Route::get('/excel', [HolidayPackageController::class, 'excel', 'as' => 'admin.holidaypackage.excel'])->name('holidaypackage_excel');
+        Route::get('/edit/{id}', [HolidayPackageController::class, 'edit', 'as' => 'admin.holidaypackage.edit'])->name('holidaypackage_edit');
+        Route::post('/edit/{id}', [HolidayPackageController::class, 'update', 'as' => 'admin.holidaypackage.update'])->name('holidaypackage_update');
+        Route::get('/delete/{id}', [HolidayPackageController::class, 'delete', 'as' => 'admin.holidaypackage.delete'])->name('holidaypackage_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
