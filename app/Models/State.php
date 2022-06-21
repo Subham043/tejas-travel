@@ -30,6 +30,11 @@ class State extends Model
         return $this->hasMany('App\Models\Airport');
     }
 
+    public function AirportRide()
+    {
+        return $this->hasMany('App\Models\AirportRide');
+    }
+
     public function Transporter()
     {
         return $this->hasMany('App\Models\Transporter');

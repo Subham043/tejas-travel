@@ -25,4 +25,9 @@ class VehicleType extends Model
     {
         return $this->belongsToMany(Coupon::class, 'couponvehicletypes', 'coupon_id', 'vehicletype_id');
     }
+
+    public function AirportRide()
+    {
+        return $this->hasMany('App\Models\AirportRide');
+    }
 }

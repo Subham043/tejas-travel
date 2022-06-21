@@ -131,6 +131,10 @@ class SubCityController extends Controller
         return view('pages.admin.subcities.display')->with('country',$country);
     }
 
+    public function subcity_all_ajax($id) {
+        return response()->json(["subcities"=>SubCity::where('city_id',$id)->get()], 200);
+    }
+
     public function excel(){
         return Excel::download(new SubCityExport, 'subcity.xlsx');
     }

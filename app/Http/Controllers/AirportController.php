@@ -131,6 +131,10 @@ class AirportController extends Controller
         return view('pages.admin.airport.display')->with('country',$country);
     }
 
+    public function airport_all_ajax($id) {
+        return response()->json(["airports"=>Airport::where('city_id',$id)->get()], 200);
+    }
+
     public function excel(){
         return Excel::download(new AirportExport, 'airport.xlsx');
     }

@@ -32,6 +32,11 @@ class City extends Model
     {
         return $this->hasMany('App\Models\Airport');
     }
+    
+    public function AirportRide()
+    {
+        return $this->hasMany('App\Models\AirportRide');
+    }
 
     public function Transporters()
     {

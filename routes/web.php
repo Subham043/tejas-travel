@@ -19,6 +19,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\LocalRideController;
+use App\Http\Controllers\AirportRideController;
 use App\Http\Controllers\OutStationController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\AirportController;
@@ -106,6 +107,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/sub-city')->group(function () {
         Route::get('/', [SubCityController::class, 'view', 'as' => 'admin.subcity.view'])->name('subcity_view');
         Route::get('/view/{id}', [SubCityController::class, 'display', 'as' => 'admin.subcity.display'])->name('subcity_display');
+        Route::get('/sub-city-all-ajax/{id}', [SubCityController::class, 'subcity_all_ajax', 'as' => 'admin.subcity.subcity_all_ajax'])->name('subcity_all_ajax');
         Route::get('/create', [SubCityController::class, 'create', 'as' => 'admin.subcity.create'])->name('subcity_create');
         Route::post('/create', [SubCityController::class, 'store', 'as' => 'admin.subcity.store'])->name('subcity_store');
         Route::get('/excel', [SubCityController::class, 'excel', 'as' => 'admin.subcity.excel'])->name('subcity_excel');
@@ -247,6 +249,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::post('/edit/{id}', [OutStationController::class, 'update', 'as' => 'admin.outstation.update'])->name('outstation_update');
         Route::get('/delete/{id}', [OutStationController::class, 'delete', 'as' => 'admin.outstation.delete'])->name('outstation_delete');
     });
+    
+    Route::prefix('/airport-ride')->group(function () {
+        Route::get('/', [AirportRideController::class, 'view', 'as' => 'admin.airportride.view'])->name('airportride_view');
+        Route::get('/view/{id}', [AirportRideController::class, 'display', 'as' => 'admin.airportride.display'])->name('airportride_display');
+        Route::get('/create', [AirportRideController::class, 'create', 'as' => 'admin.airportride.create'])->name('airportride_create');
+        Route::post('/create', [AirportRideController::class, 'store', 'as' => 'admin.airportride.store'])->name('airportride_store');
+        Route::get('/excel', [AirportRideController::class, 'excel', 'as' => 'admin.airportride.excel'])->name('airportride_excel');
+        Route::get('/edit/{id}', [AirportRideController::class, 'edit', 'as' => 'admin.airportride.edit'])->name('airportride_edit');
+        Route::post('/edit/{id}', [AirportRideController::class, 'update', 'as' => 'admin.airportride.update'])->name('airportride_update');
+        Route::get('/delete/{id}', [AirportRideController::class, 'delete', 'as' => 'admin.airportride.delete'])->name('airportride_delete');
+    });
 
     Route::prefix('/coupon')->group(function () {
         Route::get('/', [CouponController::class, 'view', 'as' => 'admin.coupon.view'])->name('coupon_view');
@@ -262,6 +275,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/airport')->group(function () {
         Route::get('/', [AirportController::class, 'view', 'as' => 'admin.airport.view'])->name('airport_view');
         Route::get('/view/{id}', [AirportController::class, 'display', 'as' => 'admin.airport.display'])->name('airport_display');
+        Route::get('/airport-all-ajax/{id}', [AirportController::class, 'airport_all_ajax', 'as' => 'admin.airport.airport_all_ajax'])->name('airport_all_ajax');
         Route::get('/create', [AirportController::class, 'create', 'as' => 'admin.airport.create'])->name('airport_create');
         Route::post('/create', [AirportController::class, 'store', 'as' => 'admin.airport.store'])->name('airport_store');
         Route::get('/excel', [AirportController::class, 'excel', 'as' => 'admin.airport.excel'])->name('airport_excel');

@@ -40,4 +40,9 @@ class Vehicle extends Model
     {
         return $this->hasMany('App\Models\LocalRide');
     }
+
+    public function AirportRide()
+    {
+        return $this->hasMany('App\Models\AirportRide');
+    }
 }

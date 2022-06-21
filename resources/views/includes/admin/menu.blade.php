@@ -166,14 +166,20 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'holiday-package') !== false ? 'active' : ''}}" href="#sidebarDashboards6" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'holiday-package') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards6">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false ? 'active' : ''}}" href="#sidebarDashboards6" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards6">
                                     <i class="ri-gallery-fill"></i> <span data-key="t-dashboards">Content Management</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'holiday-package') !== false ? 'show' : ''}}" id="sidebarDashboards6">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false ? 'show' : ''}}" id="sidebarDashboards6">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('holidaypackage_view')}}" class="nav-link {{strpos(url()->current(),'holiday-package') !== false ? 'active' : ''}}" data-key="t-analytics"> Holiday Package </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('dynamicwebpage_view')}}" class="nav-link {{strpos(url()->current(),'dynamic-web-pages') !== false ? 'active' : ''}}" data-key="t-analytics"> Dynamic Web Pages </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('faq_view')}}" class="nav-link {{strpos(url()->current(),'faq') !== false ? 'active' : ''}}" data-key="t-analytics"> FAQ </a>
                                         </li>
                                     </ul>
                                 </div>

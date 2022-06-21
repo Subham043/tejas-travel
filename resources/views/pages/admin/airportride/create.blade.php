@@ -23,11 +23,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">OutStation</h4>
+                    <h4 class="mb-sm-0">Airport Ride</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">OutStation</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Airport Ride</a></li>
                             <li class="breadcrumb-item active">Create</li>
                         </ol>
                     </div>
@@ -36,20 +36,20 @@
             </div>
         </div>
         <!-- end page title -->
-        <form id="countryForm" method="post" action="{{route('localride_store')}}" enctype="multipart/form-data">
+        <form id="countryForm" method="post" action="{{route('airportride_store')}}" enctype="multipart/form-data">
             @csrf
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">OutStation</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Airport Ride</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
                             
                             
                             <div class="row gy-4">
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
                                         <label for="bookingtype" class="form-label">Booking Type</label>
                                         <select id="bookingtype" name="for" onchange="bookingtypechange()"></select>
@@ -58,7 +58,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
                                         <label for="vehicletype" class="form-label">Vehicle Type</label>
                                         <select id="vehicletype" name="vehicletype"></select>
@@ -67,7 +67,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
                                         <label for="vehicle" class="form-label">Vehicle</label>
                                         <select id="vehicle" name="vehicle"></select>
@@ -76,7 +76,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
                                         <label for="state" class="form-label">State</label>
                                         <select id="state" name="state"></select>
@@ -85,11 +85,29 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="city" class="form-label">City</label>
                                         <select id="city" name="city"></select>
                                         @error('city') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="subcity" class="form-label">SubCity</label>
+                                        <select id="subcity" name="subcity" multiple></select>
+                                        @error('subcity') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="airport" class="form-label">Airport</label>
+                                        <select id="airport" name="airport"></select>
+                                        @error('airport') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -164,43 +182,34 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">One Way Fare</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Trip Fare</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
-                                <div class="col-xxl-3 col-md-12">
+                                <div class="col-xxl-4 col-md-12">
                                     <div>
-                                        <label for="one_way_price_per_km" class="form-label">One Way Price Per KM</label>
-                                        <input type="text" class="form-control" name="one_way_price_per_km" id="one_way_price_per_km" value="{{old('one_way_price_per_km')}}">
-                                        @error('one_way_price_per_km') 
+                                        <label for="base_price" class="form-label">Base Price</label>
+                                        <input type="text" class="form-control" name="base_price" id="base_price" value="{{old('base_price')}}">
+                                        @error('base_price') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-3 col-md-12">
+                                <div class="col-xxl-4 col-md-12">
                                     <div>
-                                        <label for="min_km_per_day1" class="form-label">Min KM Per Day</label>
-                                        <input type="text" class="form-control" name="min_km_per_day1" id="min_km_per_day1" value="{{old('min_km_per_day1')}}">
-                                        @error('min_km_per_day1') 
+                                        <label for="additional_price_per_km" class="form-label">Additional Price Per KM</label>
+                                        <input type="text" class="form-control" name="additional_price_per_km" id="additional_price_per_km" value="{{old('additional_price_per_km')}}">
+                                        @error('additional_price_per_km') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-3 col-md-12">
+                                <div class="col-xxl-4 col-md-12">
                                     <div>
-                                        <label for="driver_charges_per_day" class="form-label">Driver Charges Per Day</label>
-                                        <input type="text" class="form-control" name="driver_charges_per_day" id="driver_charges_per_day" value="{{old('driver_charges_per_day')}}">
-                                        @error('driver_charges_per_day') 
-                                            <div class="invalid-message">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-12">
-                                    <div>
-                                        <label for="driver_charges_per_night" class="form-label">Driver Charges Per Night</label>
-                                        <input type="text" class="form-control" name="driver_charges_per_night" id="driver_charges_per_night" value="{{old('driver_charges_per_night')}}">
-                                        @error('driver_charges_per_night') 
+                                        <label for="included_km" class="form-label">Included KM</label>
+                                        <input type="text" class="form-control" name="included_km" id="included_km" value="{{old('included_km')}}">
+                                        @error('included_km') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -235,45 +244,7 @@
             <!--end col-->
         </div>
         <!--end row-->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Round Trip Fare </h4>
-                    </div><!-- end card header -->
-                    <div class="card-body">
-                        <div class="live-preview">
-                            <div class="row gy-4">
-                                <div class="col-xxl-6 col-md-12">
-                                    <div>
-                                        <label for="round_price_per_km" class="form-label">Round Price Per KM</label>
-                                        <input type="text" class="form-control" name="round_price_per_km" id="round_price_per_km" value="{{old('round_price_per_km')}}">
-                                        @error('round_price_per_km') 
-                                            <div class="invalid-message">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xxl-6 col-md-12">
-                                    <div>
-                                        <label for="min_km_per_day2" class="form-label">Min KM Per Day</label>
-                                        <input type="text" class="form-control" name="min_km_per_day2" id="min_km_per_day2" value="{{old('min_km_per_day2')}}">
-                                        @error('min_km_per_day2') 
-                                            <div class="invalid-message">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                
-                                
-                            </div>
-                            <!--end row-->
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <!--end col-->
-        </div>
-        <!--end row-->
+        
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -602,11 +573,13 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
-@include('pages.admin.outstation._js_bookingtype_select')
-@include('pages.admin.outstation._js_state_select')
-@include('pages.admin.outstation._js_city_select')
-@include('pages.admin.outstation._js_vehicletype_select')
-@include('pages.admin.outstation._js_vehicle_select')
+@include('pages.admin.airportride._js_bookingtype_select')
+@include('pages.admin.airportride._js_state_select')
+@include('pages.admin.airportride._js_city_select')
+@include('pages.admin.airportride._js_subcity_select')
+@include('pages.admin.airportride._js_airport_select')
+@include('pages.admin.airportride._js_vehicletype_select')
+@include('pages.admin.airportride._js_vehicle_select')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -799,70 +772,53 @@ validation
         errorMessage: 'Please select a city',
     },
   ])
-  .addField('#min_km_per_day1', [
+  .addField('#airport', [
     {
       rule: 'required',
-      errorMessage: 'Minimum KM Per Day is required',
+      errorMessage: 'Please select a airport',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a airport') {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a airport',
+    },
+  ])
+  .addField('#included_km', [
+    {
+      rule: 'required',
+      errorMessage: 'Included KM is required',
     },
     {
         rule: 'customRegexp',
         value: /^[0-9]*$/,
-        errorMessage: 'Minimum KM Per Day is invalid',
+        errorMessage: 'Included KM is invalid',
     },
   ])
-  .addField('#min_km_per_day2', [
+  .addField('#base_price', [
     {
       rule: 'required',
-      errorMessage: 'Minimum KM Per Day is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[0-9]*$/,
-        errorMessage: 'Minimum KM Per Day is invalid',
-    },
-  ])
-  .addField('#one_way_price_per_km', [
-    {
-      rule: 'required',
-      errorMessage: 'One Way Price Per KM is required',
+      errorMessage: 'Base Price is required',
     },
     {
         rule: 'customRegexp',
         value: /^[1-9]*\.\d{1,2}$/,
-        errorMessage: 'One Way Price Per KM should contain decimal value',
+        errorMessage: 'Base Price should contain decimal value',
     },
   ])
-  .addField('#round_price_per_km', [
+  .addField('#additional_price_per_km', [
     {
       rule: 'required',
-      errorMessage: 'Round Price Per KM is required',
+      errorMessage: 'Additional Price Per KM is required',
     },
     {
         rule: 'customRegexp',
         value: /^[1-9]*\.\d{1,2}$/,
-        errorMessage: 'Round Price Per KM should contain decimal value',
-    },
-  ])
-  .addField('#driver_charges_per_day', [
-    {
-      rule: 'required',
-      errorMessage: 'Driver Charges Per Day is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[0-9]*$/,
-        errorMessage: 'Driver Charges Per Day is invalid',
-    },
-  ])
-  .addField('#driver_charges_per_night', [
-    {
-      rule: 'required',
-      errorMessage: 'Driver Charges Per Night is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[0-9]*$/,
-        errorMessage: 'Driver Charges Per Night is invalid',
+        errorMessage: 'Additional Price Per KM should contain decimal value',
     },
   ])
   .addField('#discount', [
@@ -1017,13 +973,7 @@ validation
     {
       rule: 'required',
       errorMessage: 'Start Date is required',
-    },
-    // {
-    //     plugin: JustValidatePluginDate(() => ({
-    //         format: 'dd/mm/yyyy',
-    //     })),
-    //     errorMessage: 'Start Date should be in dd/mm/yyyy format (e.g. 15/10/2021)',
-    // },
+    }
   ])
   .addField('input[name="end_date[]"]', [
     {
@@ -1061,6 +1011,22 @@ validation
         errorMessage: 'Please enter the to date !',
     },
   ])
+  .addField('#subcity', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select sub-cities',
+    },
+    {
+        validator: (value, fields) => {
+        if (value?.length==0) {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a sub-city',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -1083,8 +1049,8 @@ validation
         var formData = new FormData();
         formData.append('from_date',document.getElementById('from_date').value)
         formData.append('to_date',document.getElementById('to_date').value)
-        formData.append('one_way_price_per_km',document.getElementById('one_way_price_per_km').value)
-        formData.append('round_price_per_km',document.getElementById('round_price_per_km').value)
+        formData.append('base_price',document.getElementById('base_price').value)
+        formData.append('additional_price_per_km',document.getElementById('additional_price_per_km').value)
         formData.append('additional_price_festival',document.getElementById('additional_price_festival').value)
         formData.append('additional_price_weekend',document.getElementById('additional_price_weekend').value)
         formData.append('advance_during_booking',document.getElementById('advance_during_booking').value)
@@ -1092,12 +1058,10 @@ validation
         formData.append('advance_during_travel_complete',document.getElementById('advance_during_travel_complete').value)
         formData.append('gst',document.getElementById('gst').value)
         formData.append('discount',document.getElementById('discount').value)
-        formData.append('min_km_per_day1',document.getElementById('min_km_per_day1').value)
-        formData.append('min_km_per_day2',document.getElementById('min_km_per_day2').value)
-        formData.append('driver_charges_per_day',document.getElementById('driver_charges_per_day').value)
-        formData.append('driver_charges_per_night',document.getElementById('driver_charges_per_night').value)
+        formData.append('included_km',document.getElementById('included_km').value)
         formData.append('booking_type',document.getElementById('bookingtype').value)
         formData.append('vehicletype_id',document.getElementById('vehicletype').value)
+        formData.append('airport_id',document.getElementById('airport').value)
         formData.append('vehicle_id',document.getElementById('vehicle').value)
         formData.append('default_terms_condition',document.querySelector('input[name="default_terms_condition"]:checked').value)
         formData.append('terms_condition_formatted',quillTerm.getText())
@@ -1115,6 +1079,12 @@ validation
         formData.append('city_id',document.getElementById('city').value)
         formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
         formData.append('refreshUrl','{{URL::current()}}')
+
+        if(document.getElementById('subcity')?.length>0){
+            for (let index = 0; index < document.getElementById('subcity').length; index++) {
+                formData.append('subcity[]',document.getElementById('subcity')[index].value)
+            }
+        }
         
         for (let index = 0; index < count; index++) {
             formData.append('start_date[]',document.getElementsByName('start_date[]')[index].value)
@@ -1122,7 +1092,7 @@ validation
             formData.append('price[]',document.getElementsByName('price[]')[index].value)
         }
         
-        const response = await axios.post('{{route('outstation_store')}}', formData)
+        const response = await axios.post('{{route('airportride_store')}}', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);

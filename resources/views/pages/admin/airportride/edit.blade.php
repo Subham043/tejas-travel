@@ -28,7 +28,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">OutStation</a></li>
-                            <li class="breadcrumb-item active">Create</li>
+                            <li class="breadcrumb-item active">Edit</li>
                         </ol>
                     </div>
 
@@ -36,7 +36,7 @@
             </div>
         </div>
         <!-- end page title -->
-        <form id="countryForm" method="post" action="{{route('localride_store')}}" enctype="multipart/form-data">
+        <form id="countryForm" method="post" action="{{route('outstation_update', $country->id)}}" enctype="multipart/form-data">
             @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -99,7 +99,7 @@
                                     <div class="mt-4 mt-md-0">
                                         <div>
                                             <div class="form-check form-switch form-check-right mb-2">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckRightDisabled" name="status" checked>
+                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckRightDisabled" name="status" {{$country->status==1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexSwitchCheckRightDisabled">Status</label>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
         </div>
         <!--end row-->
 
-        <div class="row" id="date_row" style="display: none">
+        <div class="row" id="date_row" style="{{$country->booking_type==2 ? 'display: block;':'display: none;'}}">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
@@ -132,7 +132,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="from_date" class="form-label">From</label>
-                                        <input type="date" class="form-control" name="from_date" id="from_date" value="{{old('from_date')}}">
+                                        <input type="date" class="form-control" name="from_date" id="from_date" value="{{$country->from_date}}">
                                         @error('from_date') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -141,7 +141,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="to_date" class="form-label">To</label>
-                                        <input type="date" class="form-control" name="to_date" id="to_date" value="{{old('to_date')}}">
+                                        <input type="date" class="form-control" name="to_date" id="to_date" value="{{$country->to_date}}">
                                         @error('to_date') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -172,7 +172,7 @@
                                 <div class="col-xxl-3 col-md-12">
                                     <div>
                                         <label for="one_way_price_per_km" class="form-label">One Way Price Per KM</label>
-                                        <input type="text" class="form-control" name="one_way_price_per_km" id="one_way_price_per_km" value="{{old('one_way_price_per_km')}}">
+                                        <input type="text" class="form-control" name="one_way_price_per_km" id="one_way_price_per_km" value="{{$country->one_way_price_per_km}}">
                                         @error('one_way_price_per_km') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -181,7 +181,7 @@
                                 <div class="col-xxl-3 col-md-12">
                                     <div>
                                         <label for="min_km_per_day1" class="form-label">Min KM Per Day</label>
-                                        <input type="text" class="form-control" name="min_km_per_day1" id="min_km_per_day1" value="{{old('min_km_per_day1')}}">
+                                        <input type="text" class="form-control" name="min_km_per_day1" id="min_km_per_day1" value="{{$country->min_km_per_day1}}">
                                         @error('min_km_per_day1') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -190,7 +190,7 @@
                                 <div class="col-xxl-3 col-md-12">
                                     <div>
                                         <label for="driver_charges_per_day" class="form-label">Driver Charges Per Day</label>
-                                        <input type="text" class="form-control" name="driver_charges_per_day" id="driver_charges_per_day" value="{{old('driver_charges_per_day')}}">
+                                        <input type="text" class="form-control" name="driver_charges_per_day" id="driver_charges_per_day" value="{{$country->driver_charges_per_day}}">
                                         @error('driver_charges_per_day') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -199,7 +199,7 @@
                                 <div class="col-xxl-3 col-md-12">
                                     <div>
                                         <label for="driver_charges_per_night" class="form-label">Driver Charges Per Night</label>
-                                        <input type="text" class="form-control" name="driver_charges_per_night" id="driver_charges_per_night" value="{{old('driver_charges_per_night')}}">
+                                        <input type="text" class="form-control" name="driver_charges_per_night" id="driver_charges_per_night" value="{{$country->driver_charges_per_night}}">
                                         @error('driver_charges_per_night') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -208,7 +208,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="discount" class="form-label">Discount</label>
-                                        <input type="text" class="form-control" name="discount" id="discount" value="{{old('discount')}}">
+                                        <input type="text" class="form-control" name="discount" id="discount" value="{{$country->discount}}">
                                         @error('discount') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -217,7 +217,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="gst" class="form-label">GST</label>
-                                        <input type="text" class="form-control" name="gst" id="gst" value="{{old('gst')}}">
+                                        <input type="text" class="form-control" name="gst" id="gst" value="{{$country->gst}}">
                                         @error('gst') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -247,7 +247,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="round_price_per_km" class="form-label">Round Price Per KM</label>
-                                        <input type="text" class="form-control" name="round_price_per_km" id="round_price_per_km" value="{{old('round_price_per_km')}}">
+                                        <input type="text" class="form-control" name="round_price_per_km" id="round_price_per_km" value="{{$country->round_price_per_km}}">
                                         @error('round_price_per_km') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -256,7 +256,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="min_km_per_day2" class="form-label">Min KM Per Day</label>
-                                        <input type="text" class="form-control" name="min_km_per_day2" id="min_km_per_day2" value="{{old('min_km_per_day2')}}">
+                                        <input type="text" class="form-control" name="min_km_per_day2" id="min_km_per_day2" value="{{$country->min_km_per_day2}}">
                                         @error('min_km_per_day2') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -286,7 +286,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="additional_price_festival" class="form-label">Additional Prices On Festivals(%)</label>
-                                        <input type="text" class="form-control" name="additional_price_festival" id="additional_price_festival" value="{{old('additional_price_festival')}}">
+                                        <input type="text" class="form-control" name="additional_price_festival" id="additional_price_festival" value="{{$country->additional_price_festival}}">
                                         @error('additional_price_festival') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -295,7 +295,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="additional_price_weekend" class="form-label">Additional Prices On Weekends(%)</label>
-                                        <input type="text" class="form-control" name="additional_price_weekend" id="additional_price_weekend" value="{{old('additional_price_weekend')}}">
+                                        <input type="text" class="form-control" name="additional_price_weekend" id="additional_price_weekend" value="{{$country->additional_price_weekend}}">
                                         @error('additional_price_weekend') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -326,6 +326,62 @@
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv">
+                        @if($country->specialfareoutstation->count()>0)
+                        @foreach ($country->specialfareoutstation as $specialfareoutstation)
+                        <div class="row gy-4" id="duplicate_{{$specialfareoutstation->id}}">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Special Date Fare</h4>
+                                        <div class="flex-shrink-0">
+                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove Special Date Fare</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body">
+                                        <div class="live-preview">
+                                            <div class="row gy-4">
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="start_date" class="form-label">Start Date</label>
+                                                        <input type="date" class="form-control" name="start_date[]" value="{{$specialfareoutstation->start_date}}">
+                                                        @error('start_date') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="name" class="form-label">End Date</label>
+                                                        <input type="date" class="form-control" name="end_date[]" value="{{$specialfareoutstation->end_date}}">
+                                                        @error('end_date') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-4 col-md-6">
+                                                    <div>
+                                                        <label for="price" class="form-label">Base Price</label>
+                                                        <input type="text" class="form-control" name="price[]" value="{{$specialfareoutstation->price}}">
+                                                        @error('price') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                        @endforeach
+                        @else
                         <div class="row gy-4" id="duplicate_1">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -378,7 +434,7 @@
                             <!--end col-->
                         </div>
                         <!--end row-->
-                        
+                        @endif
                     </div>
                 </div>
             </div>
@@ -398,7 +454,7 @@
                                 <div class="col-xxl-4 col-md-12">
                                     <div>
                                         <label for="advance_during_booking" class="form-label">Advance During Booking (%)</label>
-                                        <input type="text" class="form-control" name="advance_during_booking" id="advance_during_booking" value="{{old('advance_during_booking')}}">
+                                        <input type="text" class="form-control" name="advance_during_booking" id="advance_during_booking" value="{{$country->advance_during_booking}}">
                                         @error('advance_during_booking') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -407,7 +463,7 @@
                                 <div class="col-xxl-4 col-md-12">
                                     <div>
                                         <label for="advance_during_travel_start" class="form-label">Travel Date Start (%)</label>
-                                        <input type="text" class="form-control" name="advance_during_travel_start" id="advance_during_travel_start" value="{{old('advance_during_travel_start')}}">
+                                        <input type="text" class="form-control" name="advance_during_travel_start" id="advance_during_travel_start" value="{{$country->advance_during_travel_start}}">
                                         @error('advance_during_travel_start') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -416,7 +472,7 @@
                                 <div class="col-xxl-4 col-md-12">
                                     <div>
                                         <label for="advance_during_travel_complete" class="form-label">Travel Date Complete (%)</label>
-                                        <input type="text" class="form-control" name="advance_during_travel_complete" id="advance_during_travel_complete" value="{{old('advance_during_travel_complete')}}">
+                                        <input type="text" class="form-control" name="advance_during_travel_complete" id="advance_during_travel_complete" value="{{$country->advance_during_travel_complete}}">
                                         @error('advance_during_travel_complete') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -446,19 +502,19 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <label for="default_terms_condition" class="form-label">Will you use the default terms & condition?</label>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="term1" value="1" onchange="termInputChange()" name="default_terms_condition" checked>
+                                        <input class="form-check-input" type="radio" id="term1" value="1" onchange="termInputChange()" name="default_terms_condition"  {{$country->default_terms_condition==1 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="term1">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="term2" value="2" onchange="termInputChange()" name="default_terms_condition">
+                                        <input class="form-check-input" type="radio" id="term2" value="2" onchange="termInputChange()" name="default_terms_condition"  {{$country->default_terms_condition==2 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="term2">
                                             No
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="term3"  value="3" onchange="termInputChange()" name="default_terms_condition">
+                                        <input class="form-check-input" type="radio" id="term3"  value="3" onchange="termInputChange()" name="default_terms_condition"  {{$country->default_terms_condition==3 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="term3">
                                             Leave it empty
                                         </label>
@@ -466,7 +522,7 @@
                                     <hr/>
                                     <div id="termInput" style="display:none;">
                                         <label for="name" class="form-label">Terms & Conditions</label>
-                                        <div id="editorterm"></div>
+                                        <div id="editorterm">{!!$country->terms_condition!!}</div>
                                         @error('terms_condition') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -478,19 +534,19 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <label for="default_include_exclude" class="form-label">Will you use the default includes/excludes?</label>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="include1" value="1" onchange="includeInputChange()" name="default_include_exclude" checked>
+                                        <input class="form-check-input" type="radio" id="include1" value="1" onchange="includeInputChange()" name="default_include_exclude"   {{$country->default_include_exclude==1 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="include1">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="include2" value="2" onchange="includeInputChange()" name="default_include_exclude">
+                                        <input class="form-check-input" type="radio" id="include2" value="2" onchange="includeInputChange()" name="default_include_exclude"  {{$country->default_include_exclude==2 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="include2">
                                             No
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="include3" value="3" onchange="includeInputChange()" name="default_include_exclude">
+                                        <input class="form-check-input" type="radio" id="include3" value="3" onchange="includeInputChange()" name="default_include_exclude"  {{$country->default_include_exclude==3 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="include3">
                                             Leave it empty
                                         </label>
@@ -498,7 +554,7 @@
                                     <hr/>
                                     <div id="includeInput" style="display:none;">
                                         <label for="include_exclude_formatted" class="form-label">Includes/Excludes</label>
-                                        <div id="editorinclude"></div>
+                                        <div id="editorinclude">{!!$country->include_exclude!!}</div>
                                         @error('include_exclude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -510,19 +566,19 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <label for="default_description" class="form-label">Will you use the default description?</label>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="description1" onchange="descriptionInputChange()" value="1" name="default_description" checked>
+                                        <input class="form-check-input" type="radio" id="description1" onchange="descriptionInputChange()" value="1" name="default_description"   {{$country->default_description==1 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="description1">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="description2" onchange="descriptionInputChange()" value="2" name="default_description">
+                                        <input class="form-check-input" type="radio" id="description2" onchange="descriptionInputChange()" value="2" name="default_description" {{$country->default_description==2 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="description2">
                                             No
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="description3" onchange="descriptionInputChange()" value="3" name="default_description">
+                                        <input class="form-check-input" type="radio" id="description3" onchange="descriptionInputChange()" value="3" name="default_description" {{$country->default_description==3 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="description3">
                                             Leave it empty
                                         </label>
@@ -530,7 +586,7 @@
                                     <hr/>
                                     <div id="descriptionInput" style="display:none;">
                                         <label for="name" class="form-label">Description</label>
-                                        <div id="editordescription"></div>
+                                        <div id="editordescription">{!!$country->description!!}</div>
                                         @error('description') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -542,19 +598,19 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <label for="default_notes" class="form-label">Will you use the default notes?</label>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="notes1" value="1" onchange="noteInputChange()" name="default_notes" checked>
+                                        <input class="form-check-input" type="radio" id="notes1" value="1" onchange="noteInputChange()" name="default_notes"  {{$country->default_notes==1 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="notes1">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="notes2" onchange="noteInputChange()" value="2" name="default_notes">
+                                        <input class="form-check-input" type="radio" id="notes2" onchange="noteInputChange()" value="2" name="default_notes" {{$country->default_notes==2 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="notes2">
                                             No
                                         </label>
                                     </div>
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" id="notes3" onchange="noteInputChange()" value="3" name="default_notes">
+                                        <input class="form-check-input" type="radio" id="notes3" onchange="noteInputChange()" value="3" name="default_notes" {{$country->default_notes==3 ? 'checked' : ''}}>
                                         <label class="form-check-label" for="notes3">
                                             Leave it empty
                                         </label>
@@ -562,7 +618,7 @@
                                     <hr/>
                                     <div id="notesInput" style="display:none;">
                                         <label for="name" class="form-label">Notes</label>
-                                        <div id="editornotes"></div>
+                                        <div id="editornotes">{!!$country->notes!!}</div>
                                         @error('notes') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -573,7 +629,7 @@
                                 </div>
 
                                 <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
                                 </div>
                                 
                                 
@@ -602,11 +658,11 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
-@include('pages.admin.outstation._js_bookingtype_select')
-@include('pages.admin.outstation._js_state_select')
-@include('pages.admin.outstation._js_city_select')
-@include('pages.admin.outstation._js_vehicletype_select')
-@include('pages.admin.outstation._js_vehicle_select')
+@include('pages.admin.outstation._js_bookingtype_select_edit')
+@include('pages.admin.outstation._js_state_edit_select')
+@include('pages.admin.outstation._js_city_edit_select')
+@include('pages.admin.outstation._js_vehicletype_select_edit')
+@include('pages.admin.outstation._js_vehicle_select_edit')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -686,8 +742,13 @@ const successToast = (message) =>{
 </script>
 
 <script type="text/javascript">
-    var i = 1;
-    var count = 1;
+@if($country->specialfareoutstation->count()>0)
+var i = {{$country->specialfareoutstation[0]->id}};
+var count = {{$country->specialfareoutstation->count()}};
+@else
+var i = 1;
+var count = 1;
+@endif
     
     function duplicate() {
         var div = document.getElementById('duplicate_'+i),
@@ -829,7 +890,7 @@ validation
     {
         rule: 'customRegexp',
         value: /^[1-9]*\.\d{1,2}$/,
-        errorMessage: 'One Way Price Per KM should contain decimal value',
+        errorMessage: 'Additional Price Per KM should contain decimal value',
     },
   ])
   .addField('#round_price_per_km', [
@@ -1122,7 +1183,7 @@ validation
             formData.append('price[]',document.getElementsByName('price[]')[index].value)
         }
         
-        const response = await axios.post('{{route('outstation_store')}}', formData)
+        const response = await axios.post('{{route('outstation_update', $country->id)}}', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);
@@ -1152,7 +1213,7 @@ validation
         }
       } finally{
             submitBtn.innerHTML =  `
-                Submit
+                Update
                 `
             submitBtn.disabled = false;
         }
