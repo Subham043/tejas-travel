@@ -26,6 +26,7 @@ use App\Http\Controllers\SubAdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\HolidayPackageController;
 use App\Http\Controllers\DynamicWebPageController;
+use App\Http\Controllers\FAQController;
 
 /*
 |--------------------------------------------------------------------------
@@ -311,6 +312,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [DynamicWebPageController::class, 'edit', 'as' => 'admin.dynamicwebpage.edit'])->name('dynamicwebpage_edit');
         Route::post('/edit/{id}', [DynamicWebPageController::class, 'update', 'as' => 'admin.dynamicwebpage.update'])->name('dynamicwebpage_update');
         Route::get('/delete/{id}', [DynamicWebPageController::class, 'delete', 'as' => 'admin.dynamicwebpage.delete'])->name('dynamicwebpage_delete');
+    });
+    
+    Route::prefix('/faq')->group(function () {
+        Route::get('/', [FAQController::class, 'view', 'as' => 'admin.faq.view'])->name('faq_view');
+        Route::get('/view/{id}', [FAQController::class, 'display', 'as' => 'admin.faq.display'])->name('faq_display');
+        Route::get('/create', [FAQController::class, 'create', 'as' => 'admin.faq.create'])->name('faq_create');
+        Route::post('/create', [FAQController::class, 'store', 'as' => 'admin.faq.store'])->name('faq_store');
+        Route::get('/excel', [FAQController::class, 'excel', 'as' => 'admin.faq.excel'])->name('faq_excel');
+        Route::get('/edit/{id}', [FAQController::class, 'edit', 'as' => 'admin.faq.edit'])->name('faq_edit');
+        Route::post('/edit/{id}', [FAQController::class, 'update', 'as' => 'admin.faq.update'])->name('faq_update');
+        Route::get('/delete/{id}', [FAQController::class, 'delete', 'as' => 'admin.faq.delete'])->name('faq_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

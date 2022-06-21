@@ -159,18 +159,7 @@ class DynamicWebPageController extends Controller
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = DynamicWebPage::with(['State','Amenities','Country','City'])->where('name', 'like', '%' . $search . '%')->orWhere('price', 'like', '%' . $search . '%')->orWhere('day', 'like', '%' . $search . '%')->orWhere('night', 'like', '%' . $search . '%')->orWhereHas('State', function($q)  use ($search){
-                $q->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('description', 'like', '%' . $search . '%');
-            })->orWhereHas('Amenities', function($q)  use ($search){
-                $q->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('description', 'like', '%' . $search . '%');
-            })->orWhereHas('City', function($q)  use ($search){
-                $q->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('description', 'like', '%' . $search . '%');
-            })->orWhereHas('Country', function($q)  use ($search){
-                $q->where('name', 'like', '%' . $search . '%');
-            })->paginate(10);
+            $country = DynamicWebPage::where('name', 'like', '%' . $search . '%')->orWhere('url', 'like', '%' . $search . '%')->paginate(10);
         }else{
             $country = DynamicWebPage::orderBy('id', 'DESC')->paginate(10);
         }
