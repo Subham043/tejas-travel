@@ -25,6 +25,7 @@ use App\Http\Controllers\AirportController;
 use App\Http\Controllers\SubAdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\HolidayPackageController;
+use App\Http\Controllers\DynamicWebPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -299,6 +300,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [HolidayPackageController::class, 'edit', 'as' => 'admin.holidaypackage.edit'])->name('holidaypackage_edit');
         Route::post('/edit/{id}', [HolidayPackageController::class, 'update', 'as' => 'admin.holidaypackage.update'])->name('holidaypackage_update');
         Route::get('/delete/{id}', [HolidayPackageController::class, 'delete', 'as' => 'admin.holidaypackage.delete'])->name('holidaypackage_delete');
+    });
+    
+    Route::prefix('/dynamic-web-pages')->group(function () {
+        Route::get('/', [DynamicWebPageController::class, 'view', 'as' => 'admin.dynamicwebpage.view'])->name('dynamicwebpage_view');
+        Route::get('/view/{id}', [DynamicWebPageController::class, 'display', 'as' => 'admin.dynamicwebpage.display'])->name('dynamicwebpage_display');
+        Route::get('/create', [DynamicWebPageController::class, 'create', 'as' => 'admin.dynamicwebpage.create'])->name('dynamicwebpage_create');
+        Route::post('/create', [DynamicWebPageController::class, 'store', 'as' => 'admin.dynamicwebpage.store'])->name('dynamicwebpage_store');
+        Route::get('/excel', [DynamicWebPageController::class, 'excel', 'as' => 'admin.dynamicwebpage.excel'])->name('dynamicwebpage_excel');
+        Route::get('/edit/{id}', [DynamicWebPageController::class, 'edit', 'as' => 'admin.dynamicwebpage.edit'])->name('dynamicwebpage_edit');
+        Route::post('/edit/{id}', [DynamicWebPageController::class, 'update', 'as' => 'admin.dynamicwebpage.update'])->name('dynamicwebpage_update');
+        Route::get('/delete/{id}', [DynamicWebPageController::class, 'delete', 'as' => 'admin.dynamicwebpage.delete'])->name('dynamicwebpage_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
