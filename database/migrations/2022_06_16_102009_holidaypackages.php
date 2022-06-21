@@ -34,6 +34,7 @@ return new class extends Migration
             $table->integer('day');
             $table->integer('night');
             $table->string('browser_title')->nullable();
+            $table->string('url')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('seo_meta_header')->nullable();

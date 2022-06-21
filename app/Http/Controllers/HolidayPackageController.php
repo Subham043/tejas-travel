@@ -52,6 +52,7 @@ class HolidayPackageController extends Controller
             'description' => ['required','array','min:1'],
             'description.*' => ['required'],
             'image' => ['required','image','mimes:jpeg,png,jpg,webp'],
+            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:holidaypackages'],
         );
         $messages = array(
             'about.required' => 'Please enter the about !',
@@ -59,7 +60,7 @@ class HolidayPackageController extends Controller
             'name.regex' => 'Please enter the valid name !',
             'start_date.required' => 'Please enter the start date !',
             'start_date.regex' => 'Please enter the valid start date !',
-            'end_date.required' => 'Please enter the price type !',
+            'end_date.required' => 'Please enter the end date !',
             'end_date.regex' => 'Please enter the valid end date !',
             'price_type.required' => 'Please enter the end date !',
             'price_type.regex' => 'Please enter the valid price type !',
@@ -76,8 +77,10 @@ class HolidayPackageController extends Controller
             'country_id.required' => 'Please select a country !',
             'state_id.required' => 'Please select a state !',
             'city_id.required' => 'Please select a city !',
-            'image.image' => 'Please enter a valid flag image !',
-            'image.mimes' => 'Please enter a valid flag image !',
+            'image.image' => 'Please enter a valid image !',
+            'image.mimes' => 'Please enter a valid image !',
+            'url.required' => 'Please enter the url !',
+            'url.regex' => 'Please enter the valid url !',
         );
 
         if($req->default_policy==2){
@@ -117,6 +120,9 @@ class HolidayPackageController extends Controller
         $country->country_id = $req->country_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
+        $country->url = $req->url;
+        $country->about = $req->about;
+        $country->about_formatted = $req->about_formatted;
         $country->status = $req->status == "on" ? 1 : 0;
 
         if($req->hasFile('image')){
@@ -157,7 +163,7 @@ class HolidayPackageController extends Controller
 
     public function edit($id) {
         $country = HolidayPackage::findOrFail($id);
-        return view('pages.admin.holidaypackage.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('bookingtypes', PriceType::lists());
+        return view('pages.admin.holidaypackage.edit')->with('country',$country)->with('countries', Country::all())->with('states', State::where('country_id',$country->country_id)->get())->with('cities', City::where('state_id',$country->state_id)->get())->with('bookingtypes', PriceType::lists())->with('amenities', Amenity::all());
     }
 
     public function update(Request $req, $id) {
@@ -177,6 +183,7 @@ class HolidayPackageController extends Controller
             'day' => ['required','regex:/^[0-9]*$/'],
             'night' => ['required','regex:/^[0-9]*$/'],
             'country_id' => ['required'],
+            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'state_id' => ['required'],
             'city_id' => ['required'],
             'amenity' => ['required','array','min:1'],
@@ -195,7 +202,7 @@ class HolidayPackageController extends Controller
             'name.regex' => 'Please enter the valid name !',
             'start_date.required' => 'Please enter the start date !',
             'start_date.regex' => 'Please enter the valid start date !',
-            'end_date.required' => 'Please enter the price type !',
+            'end_date.required' => 'Please enter the end date !',
             'end_date.regex' => 'Please enter the valid end date !',
             'price_type.required' => 'Please enter the end date !',
             'price_type.regex' => 'Please enter the valid price type !',
@@ -212,8 +219,10 @@ class HolidayPackageController extends Controller
             'country_id.required' => 'Please select a country !',
             'state_id.required' => 'Please select a state !',
             'city_id.required' => 'Please select a city !',
-            'image.image' => 'Please enter a valid flag image !',
-            'image.mimes' => 'Please enter a valid flag image !',
+            'image.image' => 'Please enter a valid image !',
+            'image.mimes' => 'Please enter a valid image !',
+            'url.required' => 'Please enter the url !',
+            'url.regex' => 'Please enter the valid url !',
         );
 
         if($req->default_policy==2){
@@ -226,12 +235,15 @@ class HolidayPackageController extends Controller
             $messages['include_exclude.required'] = 'Please enter the includes/excludes' ;
         }
 
+        if($country->url!==$req->url){
+            $rules['url'] = ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:holidaypackages'];
+        }
+
         $validator = Validator::make($req->all(), $rules, $messages);
         if($validator->fails()){
             return response()->json(["form_error"=>$validator->errors()], 400);
         }
 
-        $country = new HolidayPackage;
         $country->name = $req->name;
         $country->price_type = $req->price_type;
         $country->default_policy = $req->default_policy;
@@ -253,6 +265,9 @@ class HolidayPackageController extends Controller
         $country->country_id = $req->country_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
+        $country->url = $req->url;
+        $country->about = $req->about;
+        $country->about_formatted = $req->about_formatted;
         $country->status = $req->status == "on" ? 1 : 0;
 
         if($req->hasFile('image')){

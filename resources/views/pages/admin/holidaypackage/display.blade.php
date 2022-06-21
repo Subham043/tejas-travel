@@ -1,6 +1,8 @@
 @extends('layouts.admin.dashboard')
 
-
+@section('css')
+<link rel="stylesheet" href="{{ asset('admin/css/image-previewer.css')}}" type="text/css" />
+@stop
 
 @section('content')
 
@@ -11,11 +13,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Local Ride</h4>
+                    <h4 class="mb-sm-0">Holiday Package</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Local Ride</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Holiday Package</a></li>
                             <li class="breadcrumb-item active">View</li>
                         </ol>
                     </div>
@@ -31,8 +33,8 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
-                                    <a href="{{route('localride_edit', $country->id)}}" type="button" class="btn btn-success add-btn me-2" id="create-btn"><i class="ri-edit-line align-bottom me-1"></i> Edit</a>
-                                    <button onclick="deleteHandler('{{route('localride_delete', $country->id)}}')" type="button" class="btn btn-danger add-btn" id="create-btn"><i class="ri-delete-bin-line align-bottom me-1"></i> Delete</button>
+                                    <a href="{{route('holidaypackage_edit', $country->id)}}" type="button" class="btn btn-success add-btn me-2" id="create-btn"><i class="ri-edit-line align-bottom me-1"></i> Edit</a>
+                                    <button onclick="deleteHandler('{{route('holidaypackage_delete', $country->id)}}')" type="button" class="btn btn-danger add-btn" id="create-btn"><i class="ri-delete-bin-line align-bottom me-1"></i> Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -42,26 +44,26 @@
                                     
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Booking Type :</p>
-                                            <h5 class="fs-15 mb-0">{{$bookingtype[$country->booking_type]}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Name :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->name}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Package Type :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->packagetype->name}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Price Type :</p>
+                                            <h5 class="fs-15 mb-0">{{$bookingtype[$country->price_type]}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Vehicle Type :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->vehicletype->name}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Price :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->price}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Vehicle :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->vehicle->name}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Days :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->day}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -70,132 +72,50 @@
                                     <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Base Price :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->base_price}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Night :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->night}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Per KM :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->additional_price_per_km}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Start Date :</p>
+                                            <h5 class="fs-15 mb-0">Rs. {{$country->start_date}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Per Hr :</p>
-                                            <h5 class="fs-15 mb-0">Rs. {{$country->additional_price_per_hr}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">End Date :</p>
+                                            <h5 class="fs-15 mb-0">Rs. {{$country->end_date}}</h5>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Festivals :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->additional_price_festival}}%</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Country :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->country->name}}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Additional Price Weekends :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->additional_price_weekend}}%</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Advance During Booking :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->advance_during_booking}}%</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Advance Travel Start :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->advance_during_travel_start}}%</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Advance Travel Complete :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->advance_during_travel_complete}}%</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">GST :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->gst}}%</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Discount :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->discount}}%</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included KM :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_km}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included Day :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_day}}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                    <div class="row">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Included Hrs :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->included_hr}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Driver Charges Per Day :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->driver_charges_per_day}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Driver Charges Per Night :</p>
-                                            <h5 class="fs-15 mb-0">{{$country->driver_charges_per_night}}</h5>
-                                        </div>
-                                    </div>
+                                
+                            </div>
+                            
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <div class="row">
+
                                     <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">State :</p>
                                             <h5 class="fs-15 mb-0">{{$country->state->name}}</h5>
                                         </div>
                                     </div>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                            
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <div class="row">
 
-                                    
-                         
-                                    @if($country->cities->count()>0)
-                                    <div class="col-lg-3 col-sm-6 mb-2 mt-2">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Cities :</p>
-                                            @foreach ($country->cities as $cities)
-                                                <div class="badge bg-warning fs-12">{{$cities->name}}</div>
-                                            @endforeach
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">City :</p>
+                                            <h5 class="fs-15 mb-0">{{$country->city->name}}</h5>
                                         </div>
                                     </div>
-                                    @endif
+                         
                                     <div class="col-lg-3 col-sm-6 mb-2 mt-2">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Status :</p>
@@ -214,27 +134,27 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($country->specialfarelocalride->count()>0)
+                            @if($country->holidaypackagetourplan->count()>0)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Special Date Fare</h6>
-                                @foreach ($country->specialfarelocalride as $specialfarelocalride)
+                                <h6 class="fw-semibold text-uppercase">Tour Plan</h6>
+                                @foreach ($country->holidaypackagetourplan as $holidaypackagetourplan)
                                 <div class="row pt-3 pb-3">
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Start Date :</p>
-                                            <h5 class="fs-15 mb-0">{{$specialfarelocalride->start_date}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Day Name :</p>
+                                            <h5 class="fs-15 mb-0">{{$holidaypackagetourplan->day_name}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">End Date :</p>
-                                            <h5 class="fs-15 mb-0">{{$specialfarelocalride->end_date}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Title :</p>
+                                            <h5 class="fs-15 mb-0">{{$holidaypackagetourplan->title}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-12 col-sm-6 mt-5 mb-2">
                                         <div>
-                                            <p class="mb-2 text-uppercase fw-medium fs-13">Base Price :</p>
-                                            <h5 class="fs-15 mb-0">{{$specialfarelocalride->price}}</h5>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Description :</p>
+                                            <h5 class="fs-15 mb-0">{{$holidaypackagetourplan->description}}</h5>
                                         </div>
                                     </div>
                                     
@@ -242,37 +162,22 @@
                                 @endforeach
                             </div>
                             @endif
-                            @if($country->booking_type==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
-                                <div class="col-lg-3 col-sm-6">
-                                    <div>
-                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry From Date :</p>
-                                        <h5 class="fs-15 mb-0">{{$country->from_date}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div>
-                                        <p class="mb-2 text-uppercase fw-medium fs-13">Enquiry To Date :</p>
-                                        <h5 class="fs-15 mb-0">{{$country->to_date}}</h5>
-                                    </div>
-                                </div>
                                 
+                                @if($country->amenities->count()>0)
+                                <div class="col-lg-12 col-sm-6 mb-2 mt-2">
+                                    <div>
+                                        <p class="mb-2 text-uppercase fw-medium fs-13">Amenities :</p>
+                                        @foreach ($country->amenities as $amenities)
+                                            <div class="badge bg-warning fs-12">{{$amenities->name}}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
                                 
                             </div>
                             </div>
-                            @endif
-                            @if($country->default_terms_condition==2)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Terms & Condition</h6>
-                                <p>{!!$country->terms_condition!!}</p>
-                            </div>
-                            @elseif($country->default_terms_condition==1)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Terms & Condition</h6>
-                                <p>{!!$term->description_formatted!!}</p>
-                            </div>
-                            @endif
                             @if($country->default_include_exclude==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <h6 class="fw-semibold text-uppercase">Include/Exclude</h6>
@@ -284,28 +189,25 @@
                                 <p>{!!$include_exclude->description_formatted!!}</p>
                             </div>
                             @endif
-                            @if($country->default_description==2)
+                            @if($country->default_policy==2)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Description</h6>
-                                <p>{!!$country->description!!}</p>
+                                <h6 class="fw-semibold text-uppercase">Policy</h6>
+                                <p>{!!$country->policy!!}</p>
                             </div>
-                            @elseif($country->default_description==1)
+                            @elseif($country->default_policy==1)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Description</h6>
-                                <p>{!!$description->description_formatted!!}</p>
-                            </div>
-                            @endif
-                            @if($country->default_notes==2)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Notes</h6>
-                                <p>{!!$country->notes!!}</p>
-                            </div>
-                            @elseif($country->default_notes==1)
-                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
-                                <h6 class="fw-semibold text-uppercase">Notes</h6>
-                                <p>{!!$notes->description_formatted!!}</p>
+                                <h6 class="fw-semibold text-uppercase">Policy</h6>
+                                <p>{!!$policy->description_formatted!!}</p>
                             </div>
                             @endif
+                            <div id="image-container">
+                                @if($country->image)
+                                <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                    <h6 class="fw-semibold text-uppercase">Image</h6>
+                                    <img src="{{url('holidaypackage/'.$country->image)}}" class="mb-3" style="max-width:100%">
+                                </div>
+                                @endif
+                            </div>
 
                             
                         </div>
@@ -325,6 +227,7 @@
 @stop          
 
 @section('javascript')
+<script src="{{ asset('admin/js/pages/img-previewer.min.js') }}"></script>
 <script>
     function deleteHandler(url){
         iziToast.question({
@@ -358,5 +261,28 @@
             }
         });
     }
+</script>
+<script>
+    const myViewer = new ImgPreviewer('#image-container',{
+      // aspect ratio of image
+        fillRatio: 0.9,
+        // attribute that holds the image
+        dataUrlKey: 'src',
+        // additional styles
+        style: {
+            modalOpacity: 0.6,
+            headerOpacity: 0,
+            zIndex: 99
+        },
+        // zoom options
+        imageZoom: { 
+            min: 0.1,
+            max: 5,
+            step: 0.1
+        },
+        // detect whether the parent element of the image is hidden by the css style
+        bubblingLevel: 0,
+        
+    });
 </script>
 @stop

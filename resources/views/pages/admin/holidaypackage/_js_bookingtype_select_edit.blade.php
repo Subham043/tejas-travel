@@ -1,13 +1,13 @@
 <script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 <script type="text/javascript">
 
-const choicesBookingType = new Choices('#bookingtype', {
+const choicesBookingType = new Choices('#pricetype', {
     silent: false,
     items: [],
     choices: [
             {
-                value: 'Select the booking type',
-                label: 'Select the booking type',
+                value: 'Select the price type',
+                label: 'Select the price type',
                 disabled: true,
             },
         @foreach($bookingtypes as $key => $val)

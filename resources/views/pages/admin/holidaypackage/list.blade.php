@@ -11,11 +11,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Local Ride</h4>
+                    <h4 class="mb-sm-0">Holiday Package</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Local Ride</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Holiday Package</a></li>
                             <li class="breadcrumb-item active">List</li>
                         </ol>
                     </div>
@@ -29,7 +29,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Local Ride</h4>
+                        <h4 class="card-title mb-0">Holiday Package</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -37,12 +37,12 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <a href={{route('localride_create')}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
-                                        <a href={{route('localride_excel')}} type="button" class="btn btn-info add-btn" id="create-btn"><i class="ri-file-excel-fill align-bottom me-1"></i> Excel</a>
+                                        <a href={{route('holidaypackage_create')}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
+                                        <a href={{route('holidaypackage_excel')}} type="button" class="btn btn-info add-btn" id="create-btn"><i class="ri-file-excel-fill align-bottom me-1"></i> Excel</a>
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <form  method="get" action="{{route('localride_view')}}">
+                                    <form  method="get" action="{{route('holidaypackage_view')}}">
                                         <div class="d-flex justify-content-sm-end">
                                             <div class="search-box ms-2">
                                                 <input type="text" name="search" class="form-control search" placeholder="Search..." value="@if(app('request')->has('search')) {{app('request')->input('search')}} @endif">
@@ -57,13 +57,12 @@
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="sort" data-sort="customer_name">Booking Type</th>
-                                            <th class="sort" data-sort="customer_name">Package Type</th>
-                                            <th class="sort" data-sort="customer_name">Vehicle Type</th>
-                                            <th class="sort" data-sort="customer_name">Vehicle</th>
-                                            <th class="sort" data-sort="customer_name">Base Price</th>
-                                            <th class="sort" data-sort="customer_name">State</th>
+                                            <th class="sort" data-sort="customer_name">Name</th>
+                                            <th class="sort" data-sort="customer_name">Price</th>
                                             <th class="sort" data-sort="customer_name">City</th>
+                                            <th class="sort" data-sort="customer_name">Days</th>
+                                            <th class="sort" data-sort="customer_name">Nights</th>
+                                            <th class="sort" data-sort="customer_name">URL</th>
                                             <th class="sort" data-sort="status">Status</th>
                                             <th class="sort" data-sort="date">Created Date</th>
                                             <th class="sort" data-sort="action">Action</th>
@@ -73,19 +72,12 @@
 
                                         @foreach ($country->items() as $item)
                                         <tr>
-                                            <td class="customer_name">{{$bookingtype[$item->booking_type]}}</td>
-                                            <td class="customer_name">{{$item->packagetype->name}}</td>
-                                            <td class="customer_name">{{$item->vehicletype->name}}</td>
-                                            <td class="customer_name">{{$item->vehicle->name}}</td>
-                                            <td class="customer_name">{{$item->base_price}}</td>
-                                            <td class="customer_name">{{$item->state->name}}</td>
-                                            <td class="customer_name">
-                                                @if($item->cities->count()>0)
-                                                @foreach ($item->cities as $cities)
-                                                    <div class="badge bg-warning fs-12">{{$cities->name}}</div>
-                                                @endforeach
-                                                @endif
-                                            </td>
+                                            <td class="customer_name">{{$item->name}}</td>
+                                            <td class="customer_name">{{$item->price}}</td>
+                                            <td class="customer_name">{{$item->city->name}}</td>
+                                            <td class="customer_name">{{$item->day}}</td>
+                                            <td class="customer_name">{{$item->night}}</td>
+                                            <td class="customer_name">{{$item->url}}</td>
                                             @if($item->status == 1)
                                             <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
                                             @else
@@ -95,13 +87,13 @@
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
-                                                        <a href="{{route('localride_display', $item->id)}}" class="btn btn-sm btn-info edit-item-btn">View</a>
+                                                        <a href="{{route('holidaypackage_display', $item->id)}}" class="btn btn-sm btn-info edit-item-btn">View</a>
                                                     </div>
                                                     <div class="edit">
-                                                        <a href="{{route('localride_edit', $item->id)}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
+                                                        <a href="{{route('holidaypackage_edit', $item->id)}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
                                                     </div>
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('localride_delete', $item->id)}}')">Remove</button>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('holidaypackage_delete', $item->id)}}')">Remove</button>
                                                     </div>
                                                 </div>
                                             </td>

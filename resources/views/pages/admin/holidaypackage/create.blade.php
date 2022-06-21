@@ -298,11 +298,20 @@
                     <div class="card-body">
                         <div class="live-preview">
                             <div class="row gy-4">
-                                <div class="col-xxl-12 col-md-12">
+                                <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="browser_title" class="form-label">Browser Title</label>
                                         <input type="text" class="form-control" name="browser_title" id="browser_title" value="{{old('browser_title')}}">
                                         @error('browser_title') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="url" class="form-label">URL</label>
+                                        <input type="text" class="form-control" name="url" id="url" value="{{old('url')}}">
+                                        @error('url') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -327,7 +336,7 @@
                                 </div>
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
-                                        <label for="seo_meta_header" class="form-label">Meta Keywords</label>
+                                        <label for="seo_meta_header" class="form-label">SEO Meta Header</label>
                                         <textarea class="form-control" name="seo_meta_header" id="seo_meta_header" cols="30" rows="10">{{old('seo_meta_header')}}</textarea>
                                         @error('seo_meta_header') 
                                             <div class="invalid-message">{{ $message }}</div>
@@ -336,7 +345,7 @@
                                 </div>
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
-                                        <label for="seo_meta_footer" class="form-label">Meta Keywords</label>
+                                        <label for="seo_meta_footer" class="form-label">SEO Meta Footer</label>
                                         <textarea class="form-control" name="seo_meta_footer" id="seo_meta_footer" cols="30" rows="10">{{old('seo_meta_footer')}}</textarea>
                                         @error('seo_meta_footer') 
                                             <div class="invalid-message">{{ $message }}</div>
@@ -790,6 +799,17 @@ validation
         errorMessage: 'Please select a valid display image',
     },
   ])
+  .addField('#url', [
+    {
+      rule: 'required',
+      errorMessage: 'Url is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
+        errorMessage: 'Please enter the valid url !',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -810,6 +830,7 @@ validation
     
       try {
         var formData = new FormData();
+        formData.append('url',document.getElementById('url').value)
         formData.append('start_date',document.getElementById('start_date').value)
         formData.append('end_date',document.getElementById('end_date').value)
         formData.append('price',document.getElementById('price').value)
