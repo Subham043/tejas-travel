@@ -27,9 +27,9 @@ class CommonController extends Controller
         $country->description_unformatted = $req->description_unformatted;
         $result = $country->save();
         if($result){
-            return redirect()->intended(route('local_ride_terms_condition_edit'))->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('terms_condition_edit'))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended(route('local_ride_terms_condition_edit'))->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('terms_condition_edit'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -51,9 +51,9 @@ class CommonController extends Controller
         $country->description_unformatted = $req->description_unformatted;
         $result = $country->save();
         if($result){
-            return redirect()->intended(route('local_ride_include_exclude_edit'))->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('include_exclude_edit'))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended(route('local_ride_include_exclude_edit'))->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('include_exclude_edit'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -75,9 +75,9 @@ class CommonController extends Controller
         $country->description_unformatted = $req->description_unformatted;
         $result = $country->save();
         if($result){
-            return redirect()->intended(route('local_ride_description_edit'))->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('description_edit'))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended(route('local_ride_description_edit'))->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('description_edit'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 
@@ -99,9 +99,57 @@ class CommonController extends Controller
         $country->description_unformatted = $req->description_unformatted;
         $result = $country->save();
         if($result){
-            return redirect()->intended(route('local_ride_note_edit'))->with('success_status', 'Data Updated successfully.');
+            return redirect()->intended(route('note_edit'))->with('success_status', 'Data Updated successfully.');
         }else{
-            return redirect()->intended(route('local_ride_note_edit'))->with('error_status', 'Something went wrong. Please try again');
+            return redirect()->intended(route('note_edit'))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function holidaypackage_terms_condition_edit() {
+        $country = Common::findOrFail(5);
+        return view('pages.admin.common.edit')->with('country',$country)->with('page','Holiday Package - Terms & Condition');
+    }
+
+    public function holidaypackage_terms_condition_update(Request $req) {
+        $country = Common::findOrFail(5);
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter the terms & condition !'
+        ]);
+
+        $country->description_formatted = $req->description_formatted;
+        $country->description_unformatted = $req->description_unformatted;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('holidaypackage_terms_condition_edit'))->with('success_status', 'Data Updated successfully.');
+        }else{
+            return redirect()->intended(route('holidaypackage_terms_condition_edit'))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function holidaypackage_policy_edit() {
+        $country = Common::findOrFail(6);
+        return view('pages.admin.common.edit')->with('country',$country)->with('page','Holiday Package - Policy');
+    }
+
+    public function holidaypackage_policy_update(Request $req) {
+        $country = Common::findOrFail(6);
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter the policy !'
+        ]);
+
+        $country->description_formatted = $req->description_formatted;
+        $country->description_unformatted = $req->description_unformatted;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('holidaypackage_policy_edit'))->with('success_status', 'Data Updated successfully.');
+        }else{
+            return redirect()->intended(route('holidaypackage_policy_edit'))->with('error_status', 'Something went wrong. Please try again');
         }
     }
 

@@ -349,8 +349,8 @@ class HolidayPackageController extends Controller
 
     public function display($id) {
         $country = HolidayPackage::findOrFail($id);
-        $include_exclude = Common::findOrFail(2);
-        $policy = Common::findOrFail(3);
+        $include_exclude = Common::findOrFail(5);
+        $policy = Common::findOrFail(6);
         return view('pages.admin.holidaypackage.display')->with('country',$country)->with('bookingtype', PriceType::lists())->with('policy',$policy)->with('include_exclude',$include_exclude);
     }
 
