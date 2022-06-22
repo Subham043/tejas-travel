@@ -42,15 +42,15 @@ class AirportRide extends Model
 
     public function SubCities()
     {
-        return $this->belongsToMany(SubCity::class, 'airportridesubcities', 'airportride_id');
+        return $this->belongsToMany(SubCity::class, 'airportridesubcities', 'airportride_id', 'subcity_id');
     }
 
     public function GetSubCitiesId(){
-        return $this->Cities()->pluck('subcities.id')->toArray();
+        return $this->SubCities()->pluck('subcities.id')->toArray();
     }
 
     public function GetSubCitiesName(){
-        return $this->Cities()->pluck('subcities.name');
+        return $this->SubCities()->pluck('subcities.name');
     }
 
     public function Airport()

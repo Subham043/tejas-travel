@@ -136,6 +136,7 @@ class AirportRideController extends Controller
         $country = new AirportRide;
         $country->booking_type = $req->booking_type;
         $country->vehicletype_id = $req->vehicletype_id;
+        $country->airport_id = $req->airport_id;
         $country->vehicle_id = $req->vehicle_id;
         $country->default_notes = $req->default_notes;
         $country->notes = $req->notes;
@@ -191,7 +192,7 @@ class AirportRideController extends Controller
 
     public function edit($id) {
         $country = AirportRide::findOrFail($id);
-        return view('pages.admin.airportride.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicletypes', VehicleType::all())->with('bookingtypes', BookingType::lists())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get());
+        return view('pages.admin.airportride.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('airports', Airport::where('city_id',$country->city_id)->get())->with('vehicletypes', VehicleType::all())->with('bookingtypes', BookingType::lists())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get());
     }
 
     public function update(Request $req, $id) {
@@ -304,6 +305,7 @@ class AirportRideController extends Controller
 
         $country->booking_type = $req->booking_type;
         $country->vehicletype_id = $req->vehicletype_id;
+        $country->airport_id = $req->airport_id;
         $country->vehicle_id = $req->vehicle_id;
         $country->default_notes = $req->default_notes;
         $country->notes = $req->notes;
