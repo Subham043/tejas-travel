@@ -32,6 +32,7 @@ class VehicleController extends Controller
             'upload' => ['required','array','min:1'],
             'upload.*' => ['required','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicles'],
         );
         $messages = array(
             'name.required' => 'Please enter the name !',
@@ -46,6 +47,8 @@ class VehicleController extends Controller
             'image.image' => 'Please enter a valid display image !',
             'image.mimes' => 'Please enter a valid display image !',
             'description.regex' => 'Please enter the valid description !',
+            'url.required' => 'Please enter the url !',
+            'url.regex' => 'Please enter the valid url !',
         );
 
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -58,6 +61,12 @@ class VehicleController extends Controller
         $country->seating = $req->seating;
         $country->vehicletype_id = $req->vehicletype;
         $country->description = $req->description;
+        $country->browser_title = $req->browser_title;
+        $country->meta_keywords = $req->meta_keywords;
+        $country->meta_description = $req->meta_description;
+        $country->seo_meta_header = $req->seo_meta_header;
+        $country->seo_meta_footer = $req->seo_meta_footer;
+        $country->url = $req->url;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             $newImage = time().'-'.$req->image->getClientOriginalName();
@@ -116,6 +125,7 @@ class VehicleController extends Controller
             'upload' => ['nullable','array','min:1'],
             'upload.*' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         );
         $messages = array(
             'name.required' => 'Please enter the name !',
@@ -129,7 +139,13 @@ class VehicleController extends Controller
             'image.image' => 'Please enter a valid display image !',
             'image.mimes' => 'Please enter a valid display image !',
             'description.regex' => 'Please enter the valid description !',
+            'url.required' => 'Please enter the url !',
+            'url.regex' => 'Please enter the valid url !',
         );
+
+        if($country->url!==$req->url){
+            $rules['url'] = ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicles'];
+        }
 
         $validator = Validator::make($req->all(), $rules, $messages);
         if($validator->fails()){
@@ -140,6 +156,12 @@ class VehicleController extends Controller
         $country->seating = $req->seating;
         $country->vehicletype_id = $req->vehicletype;
         $country->description = $req->description;
+        $country->browser_title = $req->browser_title;
+        $country->meta_keywords = $req->meta_keywords;
+        $country->meta_description = $req->meta_description;
+        $country->seo_meta_header = $req->seo_meta_header;
+        $country->seo_meta_footer = $req->seo_meta_footer;
+        $country->url = $req->url;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
             if($country->image!=null){

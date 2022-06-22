@@ -20,6 +20,13 @@ return new class extends Migration
             $table->text('description_unformatted');
             $table->timestamps();
         });
+
+        DB::table('commons')->insert(array('name' => 'terms & condition','description_formatted' => 'test','description_unformatted' => 'test'));
+        DB::table('commons')->insert(array('name' => 'include/exclude','description_formatted' => 'test','description_unformatted' => 'test'));
+        DB::table('commons')->insert(array('name' => 'description','description_formatted' => 'test','description_unformatted' => 'test'));
+        DB::table('commons')->insert(array('name' => 'notes','description_formatted' => 'test','description_unformatted' => 'test'));
+        DB::table('commons')->insert(array('name' => 'holiday packages - terms & condition','description_formatted' => 'test','description_unformatted' => 'test'));
+        DB::table('commons')->insert(array('name' => 'holiday packages - policy','description_formatted' => 'test','description_unformatted' => 'test'));
     }
 
     /**

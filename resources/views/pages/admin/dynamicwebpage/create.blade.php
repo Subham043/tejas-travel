@@ -321,6 +321,11 @@ validation
       try {
         var formData = new FormData();
         formData.append('url',document.getElementById('url').value)
+        formData.append('browser_title',document.getElementById('browser_title').value)
+        formData.append('meta_keywords',document.getElementById('meta_keywords').value)
+        formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('seo_meta_header',document.getElementById('seo_meta_header').value)
+        formData.append('seo_meta_footer',document.getElementById('seo_meta_footer').value)
         formData.append('name',document.getElementById('name').value)
         formData.append('content_formatted',quillTerm.getText())
         formData.append('content',quillTerm.root.innerHTML)

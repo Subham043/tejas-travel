@@ -20,6 +20,12 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->text('description')->nullable();
             $table->bigInteger('vehicletype_id');
+            $table->string('browser_title')->nullable();
+            $table->string('url')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('seo_meta_header')->nullable();
+            $table->text('seo_meta_footer')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

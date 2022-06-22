@@ -20,10 +20,10 @@ return new class extends Migration
             $table->text('content_formatted')->nullable();
             $table->string('browser_title')->nullable();
             $table->string('url')->nullable();
-            $table->string('meta_keywords')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('seo_meta_header')->nullable();
-            $table->string('seo_meta_footer')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('seo_meta_header')->nullable();
+            $table->text('seo_meta_footer')->nullable();
             $table->integer('system_page')->default(1);
             $table->integer('status')->default(1);
             $table->text('image')->nullable();

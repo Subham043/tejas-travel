@@ -106,17 +106,20 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false || strpos(url()->current(),'airport-ride') !== false ? 'active' : ''}}" href="#sidebarDashboards2" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false || strpos(url()->current(),'airport-ride') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards2">
                                     <i class="ri-exchange-dollar-line"></i> <span data-key="t-dashboards">Prices</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'local-ride') !== false || strpos(url()->current(),'outstation') !== false || strpos(url()->current(),'coupon') !== false || strpos(url()->current(),'airport-ride') !== false  ? 'show' : ''}}" id="sidebarDashboards2">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('localride_view')}}" class="nav-link {{strpos(url()->current(),'local-ride') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('outstation_view')}}" class="nav-link {{strpos(url()->current(),'outstation') !== false ? 'active' : ''}}" data-key="t-analytics"> OutStation </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('airportride_view')}}" class="nav-link {{strpos(url()->current(),'airport-ride') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport Ride </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('coupon_view')}}" class="nav-link {{strpos(url()->current(),'coupon') !== false ? 'active' : ''}}" data-key="t-analytics"> Coupons </a>

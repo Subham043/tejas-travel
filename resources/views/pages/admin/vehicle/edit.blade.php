@@ -28,6 +28,8 @@
         </div>
         <!-- end page title -->
 
+        <form id="countryForm" method="post" action="{{route('vehicle_update', $country->id)}}" enctype="multipart/form-data">
+        @csrf
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -36,8 +38,6 @@
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form id="countryForm" method="post" action="{{route('vehicle_update', $country->id)}}" enctype="multipart/form-data">
-                            @csrf
                             <div class="row gy-4">
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
@@ -139,7 +139,6 @@
                                 </div>
                                 
                             </div>
-                            </form>
                             <!--end row-->
                         </div>
                         
@@ -149,7 +148,88 @@
             <!--end col-->
         </div>
         <!--end row-->
-
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">SEO</h4>
+                    </div><!-- end card header -->
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row gy-4">
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="browser_title" class="form-label">Browser Title</label>
+                                        <input type="text" class="form-control" name="browser_title" id="browser_title" value="{{old('browser_title')}}">
+                                        @error('browser_title') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="url" class="form-label">URL</label>
+                                        <input type="text" class="form-control" name="url" id="url" value="{{old('url')}}">
+                                        @error('url') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                        <textarea class="form-control" name="meta_keywords" id="meta_keywords" cols="30" rows="10">{{old('meta_keywords')}}</textarea>
+                                        @error('meta_keywords') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <textarea class="form-control" name="meta_description" id="meta_description" cols="30" rows="10">{{old('meta_description')}}</textarea>
+                                        @error('meta_description') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="seo_meta_header" class="form-label">SEO Meta Header</label>
+                                        <textarea class="form-control" name="seo_meta_header" id="seo_meta_header" cols="30" rows="10">{{old('seo_meta_header')}}</textarea>
+                                        @error('seo_meta_header') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-md-12">
+                                    <div>
+                                        <label for="seo_meta_footer" class="form-label">SEO Meta Footer</label>
+                                        <textarea class="form-control" name="seo_meta_footer" id="seo_meta_footer" cols="30" rows="10">{{old('seo_meta_footer')}}</textarea>
+                                        @error('seo_meta_footer') 
+                                        <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xxl-12 col-md-12">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
+                                </div>
+                                
+                                
+                            </div>
+                            <!--end row-->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </form>
+        
         
 
     </div> <!-- container-fluid -->
@@ -472,6 +552,17 @@ validation
         errorMessage: 'Please select a valid upload image',
     },
   ])
+  .addField('#url', [
+    {
+      rule: 'required',
+      errorMessage: 'Url is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
+        errorMessage: 'Please enter the valid url !',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
 
@@ -512,6 +603,12 @@ validation
         formData.append('description',document.getElementById('description').value)
         formData.append('vehicletype',document.getElementById('vehicletype').value)
         formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
+        formData.append('browser_title',document.getElementById('browser_title').value)
+        formData.append('meta_keywords',document.getElementById('meta_keywords').value)
+        formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('seo_meta_header',document.getElementById('seo_meta_header').value)
+        formData.append('seo_meta_footer',document.getElementById('seo_meta_footer').value)
+        formData.append('url',document.getElementById('url').value)
         formData.append('refreshUrl','{{URL::current()}}')
         if(document.getElementById('amenity')?.length>0){
             for (let index = 0; index < document.getElementById('amenity').length; index++) {

@@ -888,6 +888,11 @@ validation
     
       try {
         var formData = new FormData();
+        formData.append('browser_title',document.getElementById('browser_title').value)
+        formData.append('meta_keywords',document.getElementById('meta_keywords').value)
+        formData.append('meta_description',document.getElementById('meta_description').value)
+        formData.append('seo_meta_header',document.getElementById('seo_meta_header').value)
+        formData.append('seo_meta_footer',document.getElementById('seo_meta_footer').value)
         formData.append('url',document.getElementById('url').value)
         formData.append('start_date',document.getElementById('start_date').value)
         formData.append('end_date',document.getElementById('end_date').value)
