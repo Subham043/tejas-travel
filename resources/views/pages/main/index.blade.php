@@ -1,6 +1,55 @@
 @extends('layouts.main.index')
 
+@section('css')
+<style>
+	.x_slider_form_main_wrapper {
+		max-width: 400px;
+		padding-left: 5px;
+    	padding-right: 5px;
+	}
 
+	.align-item-center {
+		align-items: center;
+	}
+
+	.content_tabs{
+		display: flex !important;
+    	justify-content: flex-end;
+	}
+
+	.d-grid{
+		display: grid;
+	}
+	.p-x-50{
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+	.border-box{
+		box-sizing: border-box;
+	}
+
+	.home-content-tex-div{
+		box-sizing: border-box;
+		height: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.m0{
+		margin: 0 !important;
+	}
+
+	.slider-area .carousel-inner .carousel-item .caption-1{
+		background-size: 100% 100%;
+	}
+
+	.max-w-500{
+		max-width: 500px;
+	}
+	
+</style>
+@stop
 
 @section('content')
 
@@ -9,15 +58,19 @@
 		<div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel">
 			<div class="carousel-inner" role="listbox">
 				<div class="carousel-item active">
-					<div class="carousel-captions caption-1" style="min-height:auto;">
-						<div class="container">
-							<div class="row pb5">
-								<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-									<div class="home-content p10">
-										<h5 class=" mb5 text-yellow">Get 10% OFF on First Booking</h5>
-										<h2 data-animation="animated fadeInLeft">FAST AND EASY WAY TO RENT A VEHICLE</h2>
-										<p data-animation="animated bounceInUp" class="text-justify">We have an online booking facility for Car Rental, Bus Rental, Minibus (Mini Coach) Rental, Tempo Travelers(TT) Rental, SUVs and MUVs for hire. Excellent tour packages from Bangalore/Mysore to all over India. It is a long established fact that a reader will be distracted by the readable content.</p>
-										<h4 class="banner-button" data-animation="animated bounceInUp">Choose Your Journey <i class="fa-solid fa-hand-point-right fa-2xl text-theme ml8"></i></h4>
+					<div class="carousel-captions caption-1 d-grid" style="min-height:auto;">
+						<div class="container-fluid p-x-50">
+							<div class="row border-box">
+								<div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 col-12 border-box">
+									<div class="home-content pt5 d-flex pb2 border-box home-content-tex-div">
+										<div>
+											<h5 class=" mb2 text-yellow">Get 10% OFF on First Booking</h5>
+											<h2 data-animation="animated fadeInLeft" class="max-w-500">FAST AND EASY WAY TO RENT A VEHICLE</h2>
+										</div>
+										<div>
+											<p data-animation="animated bounceInUp" class="text-justify m0" >We have an online booking facility for Car Rental, Bus Rental, Minibus (Mini Coach) Rental, Tempo Travelers(TT) Rental, SUVs and MUVs for hire. Excellent tour packages from Bangalore/Mysore to all over India. It is a long established fact that a reader will be distracted by the readable content.</p>
+											{{-- <h4 class="banner-button" data-animation="animated bounceInUp">Choose Your Journey <i class="fa-solid fa-hand-point-right fa-2xl text-theme ml8"></i></h4> --}}
+										</div>
 										<!-- <div class="hs_effect_btn">
 											<ul>
 												<li data-animation="animated flipInX"><a href="#">about us<i class="fa fa-arrow-right"></i></a>
@@ -26,11 +79,11 @@
 												</li>
 											</ul>
 										</div> -->
-										<div class="clear"></div>
+										{{-- <div class="clear"></div> --}}
 									</div>
 								</div>
-								<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-none d-sm-none d-md-none  d-lg-block d-xl-block">
-									<div class="content_tabs pt5">
+								<div class="col-xl-4 col-lg-5 col-md-12 col-sm-12 col-12 d-none d-sm-none d-md-none  d-lg-block d-xl-block border-box">
+									<div class="content_tabs pt5 pb5">
 										<div class="row">
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												<div class="x_slider_form_main_wrapper float_left" data-animation="animated fadeIn">
@@ -44,7 +97,7 @@
 																<div class="jurney-type">
 																	<a href="">
 																		<div class="row p2">
-																			<div class="col-md-6">
+																			<div class="col-md-6 d-flex align-item-center">
 																				<img src="{{ asset('assets/images/home/img1.png') }}" alt="" width="100%">
 																			</div>
 																			<div class="col-md-6 jurney-content">
@@ -59,7 +112,7 @@
 																<div class="jurney-type">
 																		<a href="">
 																			<div class="row p2">
-																				<div class="col-md-6">
+																				<div class="col-md-6 d-flex align-item-center">
 																					<img src="{{ asset('assets/images/home/img2.png') }}" alt="" width="100%">
 																				</div>
 																				<div class="col-md-6 jurney-content">
@@ -76,7 +129,7 @@
 																<div class="jurney-type">
 																	<a href="">
 																		<div class="row p2">
-																			<div class="col-md-6">
+																			<div class="col-md-6 d-flex align-item-center">
 																				<img src="{{ asset('assets/images/home/img3.png') }}" alt="" width="100%">
 																			</div>
 																			<div class="col-md-6 jurney-content">
@@ -91,7 +144,7 @@
 																<div class="jurney-type">
 																		<a href="">
 																			<div class="row p2">
-																				<div class="col-md-6">
+																				<div class="col-md-6 d-flex align-item-center">
 																					<img src="{{ asset('assets/images/home/img4.png') }}" alt="" width="100%">
 																				</div>
 																				<div class="col-md-6 jurney-content">
