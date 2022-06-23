@@ -36,7 +36,7 @@
             </div>
         </div>
         <!-- end page title -->
-        <form id="countryForm" method="post" action="{{route('dynamicwebpage_store')}}" enctype="multipart/form-data">
+        <form id="countryForm" method="post" action="{{route('dynamicwebpage_update')}}" enctype="multipart/form-data">
             @csrf
         <div class="row">
             <div class="col-lg-12">

@@ -28,6 +28,7 @@ use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\HolidayPackageController;
 use App\Http\Controllers\DynamicWebPageController;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\SEOMetaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -326,6 +327,14 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [DynamicWebPageController::class, 'edit', 'as' => 'admin.dynamicwebpage.edit'])->name('dynamicwebpage_edit');
         Route::post('/edit/{id}', [DynamicWebPageController::class, 'update', 'as' => 'admin.dynamicwebpage.update'])->name('dynamicwebpage_update');
         Route::get('/delete/{id}', [DynamicWebPageController::class, 'delete', 'as' => 'admin.dynamicwebpage.delete'])->name('dynamicwebpage_delete');
+    });
+
+    Route::prefix('/seo-meta')->group(function () {
+        Route::get('/', [SEOMetaController::class, 'view', 'as' => 'admin.seometa.view'])->name('seometa_view');
+        Route::get('/view/{id}', [SEOMetaController::class, 'display', 'as' => 'admin.seometa.display'])->name('seometa_display');
+        Route::get('/excel', [SEOMetaController::class, 'excel', 'as' => 'admin.seometa.excel'])->name('seometa_excel');
+        Route::get('/edit/{id}', [SEOMetaController::class, 'edit', 'as' => 'admin.seometa.edit'])->name('seometa_edit');
+        Route::post('/edit/{id}', [SEOMetaController::class, 'update', 'as' => 'admin.seometa.update'])->name('seometa_update');
     });
     
     Route::prefix('/faq')->group(function () {
