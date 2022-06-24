@@ -163,7 +163,7 @@
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
                                         <label for="address-latitude" class="form-label">Latitude</label>
-                                        <input type="text" class="form-control" name="latitude" id="address-latitude" value="{{old('latitude')}}" readonly disabled>
+                                        <input type="text" class="form-control" name="latitude" id="address-latitude" value="{{old('latitude')}}">
                                         @error('latitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -172,7 +172,7 @@
                                 <div class="col-xxl-6 col-md-6">
                                     <div>
                                         <label for="address-longitude" class="form-label">Longitude</label>
-                                        <input type="text" class="form-control" name="longitude" id="address-longitude" value="{{old('longitude')}}" readonly disabled>
+                                        <input type="text" class="form-control" name="longitude" id="address-longitude" value="{{old('longitude')}}">
                                         @error('longitude') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
