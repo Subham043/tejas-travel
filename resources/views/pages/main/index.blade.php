@@ -6,6 +6,16 @@
 		max-width: 400px;
 		padding-left: 5px;
     	padding-right: 5px;
+		width: 400px;
+		background: url({{ asset('assets/images/Image-81.jpg') }}) #f2f2f2;
+		background-size: contain;
+		background-position: bottom;
+		background-repeat: no-repeat;
+	}
+
+	.jurney-type{
+		background: #fff;
+		border: 2px solid #ccc;
 	}
 
 	.align-item-center {
@@ -46,6 +56,135 @@
 
 	.max-w-500{
 		max-width: 500px;
+	}
+
+	.radio-selection-container, .car-selection-container, .car-button-container{
+		width: 100%;
+	}
+
+	.selection-radio-box{
+		padding: 10px 10px;
+		text-align: center;
+		border: 2px solid #ccc;
+		background: #fff;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.selection-radio-box:hover{
+		background: #3097fe;
+		border: 2px solid #3097fe;
+		cursor: pointer;
+	}
+
+	.selection-radio-box:hover > *{
+		color: white;
+	}
+
+	.selection-radio-box label{
+		margin-bottom: 0;
+		margin-left: 5px;
+		font-size: 18px;
+		letter-spacing: 1px;
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.selection-radio-box input[type="radio"]{
+		cursor:pointer;
+	}
+
+	.selection-radio-box input[type="radio"]:checked {
+		accent-color: #fff;
+	}
+
+	.selection-radio-box input[type="radio"]:checked + .selection-radio-box::before {
+		background: #3097fe !important;
+	}
+
+	.car-selection-box{
+		width: 92%;
+		text-align: center;
+		border: 2px solid #ccc;
+		background: #fff;
+		border-radius: 5px;
+		margin-bottom: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.car-selection-box:hover > .car-text-box{
+		background: #3097fe;
+		color: #fff;
+		border-top: 0.5px solid #3097fe;
+	}
+
+	.car-selection-box:hover > .car-text-box::before{
+		background: #fff;
+	}
+	.car-selection-box:hover > .car-text-box h4{
+		color: #fff;
+	}
+
+	.car-selection-box .car-image-box,.car-selection-box .car-text-box{
+		width: 100%;
+		padding: 10px 5px;
+	}
+
+	.car-selection-box .car-text-box{
+		border-top: 0.5px solid #ccc;
+		position: relative;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.car-selection-box .car-text-box::before{
+		width: 20%;
+		height: 7px;
+		background: #3097fe;
+		content: "";
+		position: absolute;
+		top: 0;
+		display: inline;
+		left: 40%;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.car-selection-box .car-image-box img{
+		object-fit: contain;
+		max-width: 100%;
+	}
+
+	.car-selection-box .car-text-box h4{
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 7px;
+		margin-top: 7px;
+		transition: all 0.3s ease-in-out;
+		text-transform: capitalize;
+	}
+
+	.car-selection-box .car-text-box p{
+		font-size: 0.7rem;
+    	line-height: 1.4;
+	}
+
+	.car-button-container{text-align: center}
+
+	.car-button-container button{
+		background: #3097fe;
+		padding: 10px 20px;
+		text-transform: capitalize;
+		color: #fff;
+		letter-spacing: 1px;
+		cursor: pointer;
+		outline: none;
+		border: 1px solid #3097fe;
+		border-radius: 5px
 	}
 	
 </style>
@@ -90,7 +229,7 @@
 													<div class="x_slider_form_heading_wrapper float_left">
 														<h3>Select Your Journey Type</h3>
 													</div>
-													<div class="col-md-12 mt5">
+													<div class="col-md-12 mt5 d-none">
 														
 														<div class="row">
 															<div class="col-md-12">
@@ -116,7 +255,7 @@
 																					<img src="{{ asset('assets/images/home/img2.png') }}" alt="" width="100%">
 																				</div>
 																				<div class="col-md-6 jurney-content">
-																					<h4>Within City</h4>
+																					<h4>Local Ride</h4>
 																					<p>It is a long established fact that a reader will be distracted by the readable content.</p>
 																				</div>
 																			</div>
@@ -251,6 +390,80 @@
 															</div>
 														</div>
 													</div> -->
+													</div>
+													<div class="col-md-12 mt5 ">
+														<div class="radio-selection-container">
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="vahicletype" id="onewaytrip"> 
+																		<label for="onewaytrip">
+																			<span>One Way Trip</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="vahicletype" id="roundtrip"> 
+																		<label for="roundtrip">
+																			<span>Round Trip</span>
+																		</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="car-selection-container  mt5">
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="car-selection-box">
+																		<div class="car-image-box">
+																			<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="">
+																		</div>
+																		<div class="car-text-box">
+																			<h4>CAB</h4>
+																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="car-selection-box">
+																		<div class="car-image-box">
+																			<img src="{{ asset('assets/images/Image-86.jpg') }}" alt="">
+																		</div>
+																		<div class="car-text-box">
+																			<h4>TEMPO TRAVELLER</h4>
+																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="car-selection-box">
+																		<div class="car-image-box">
+																			<img src="{{ asset('assets/images/Image-87.jpg') }}" alt="">
+																		</div>
+																		<div class="car-text-box">
+																			<h4>MINI BUS</h4>
+																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="car-selection-box">
+																		<div class="car-image-box">
+																			<img src="{{ asset('assets/images/Image-89.jpg') }}" alt="">
+																		</div>
+																		<div class="car-text-box">
+																			<h4>BUS</h4>
+																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="car-button-container  mt5">
+															<button>NEXT</button>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
