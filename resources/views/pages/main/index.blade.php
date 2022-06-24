@@ -229,7 +229,7 @@
 													<div class="x_slider_form_heading_wrapper float_left">
 														<h3>Select Your Journey Type</h3>
 													</div>
-													<div class="col-md-12 mt5 d-none">
+													<div class="col-md-12 mt5">
 														
 														<div class="row">
 															<div class="col-md-12">
@@ -391,7 +391,7 @@
 														</div>
 													</div> -->
 													</div>
-													<div class="col-md-12 mt5 ">
+													<div class="col-md-12 mt5 d-none">
 														<div class="radio-selection-container">
 															<div class="row">
 																<div class="col-md-6">

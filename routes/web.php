@@ -26,6 +26,7 @@ use App\Http\Controllers\AirportController;
 use App\Http\Controllers\SubAdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\HolidayPackageController;
+use App\Http\Controllers\HolidayPackageMainController;
 use App\Http\Controllers\DynamicWebPageController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\SEOMetaController;
@@ -51,6 +52,8 @@ Route::get('/car-booking', [CarBookingController::class, 'index', 'as' => 'car_b
 Route::get('/car-detail', [CarBookingController::class, 'detail', 'as' => 'car_booking.detail'])->name('car_detail');
 Route::get('/car-checkout', [CarBookingController::class, 'checkout', 'as' => 'car_booking.checkout'])->name('car_checkout');
 Route::get('/car-booking-complete', [CarBookingController::class, 'complete', 'as' => 'car_booking.complete'])->name('car_complete');
+Route::get('/holiday-packages', [HolidayPackageMainController::class, 'index', 'as' => 'holiday_package.index'])->name('holiday_package');
+Route::get('/holiday-packages/{url}', [HolidayPackageMainController::class, 'detail', 'as' => 'holiday_package.detail'])->name('holiday_package_detail');
 
 Route::post('/insert-enquiry', [EnquiryController::class, 'insert_enquiry', 'as' => 'insert_enquiry.insert_enquiry'])->name('insert_enquiry');
 Route::post('/insert-complaint', [ComplaintController::class, 'insert_complaint', 'as' => 'insert_complaint.insert_complaint'])->name('insert_complaint');
@@ -310,6 +313,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/holiday-package')->group(function () {
         Route::get('/', [HolidayPackageController::class, 'view', 'as' => 'admin.holidaypackage.view'])->name('holidaypackage_view');
         Route::get('/view/{id}', [HolidayPackageController::class, 'display', 'as' => 'admin.holidaypackage.display'])->name('holidaypackage_display');
+        Route::get('/preview/{url}', [HolidayPackageController::class, 'preview', 'as' => 'admin.holidaypackage.preview'])->name('holidaypackage_preview');
         Route::get('/create', [HolidayPackageController::class, 'create', 'as' => 'admin.holidaypackage.create'])->name('holidaypackage_create');
         Route::post('/create', [HolidayPackageController::class, 'store', 'as' => 'admin.holidaypackage.store'])->name('holidaypackage_store');
         Route::get('/excel', [HolidayPackageController::class, 'excel', 'as' => 'admin.holidaypackage.excel'])->name('holidaypackage_excel');

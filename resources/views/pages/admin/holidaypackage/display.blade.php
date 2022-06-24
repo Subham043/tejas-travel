@@ -154,7 +154,7 @@
                                     <div class="col-lg-12 col-sm-6 mt-5 mb-2">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Description :</p>
-                                            <h5 class="fs-15 mb-0">{{$holidaypackagetourplan->description}}</h5>
+                                            <h5 class="fs-15 mb-0">{!!$holidaypackagetourplan->description!!}</h5>
                                         </div>
                                     </div>
                                     

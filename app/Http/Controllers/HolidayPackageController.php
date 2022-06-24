@@ -37,7 +37,7 @@ class HolidayPackageController extends Controller
             'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'start_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'end_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
-            'price' => ['required','regex:/^[1-9]*\.\d{1,2}$/'],
+            'price' => ['required','regex:/^[0-9]*\.\d{1,2}$/'],
             'day' => ['required','regex:/^[0-9]*$/'],
             'night' => ['required','regex:/^[0-9]*$/'],
             'country_id' => ['required'],
@@ -179,7 +179,7 @@ class HolidayPackageController extends Controller
             'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'start_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'end_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
-            'price' => ['required','regex:/^[1-9]*\.\d{1,2}$/'],
+            'price' => ['required','regex:/^[0-9]*\.\d{1,2}$/'],
             'day' => ['required','regex:/^[0-9]*$/'],
             'night' => ['required','regex:/^[0-9]*$/'],
             'country_id' => ['required'],
@@ -352,6 +352,13 @@ class HolidayPackageController extends Controller
         $include_exclude = Common::findOrFail(5);
         $policy = Common::findOrFail(6);
         return view('pages.admin.holidaypackage.display')->with('country',$country)->with('bookingtype', PriceType::lists())->with('policy',$policy)->with('include_exclude',$include_exclude);
+    }
+
+    public function preview($url) {
+        $country = HolidayPackage::where('url', $url)->firstOrFail();
+        $include_exclude = Common::findOrFail(5);
+        $policy = Common::findOrFail(6);
+        return view('pages.main.holiday_package_detail')->with('title',$country->name)->with('country',$country)->with('policy',$policy)->with('include_exclude',$include_exclude);
     }
 
     public function excel(){

@@ -708,7 +708,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Price should contain decimal value',
     },
   ])
@@ -812,12 +812,7 @@ validation
     {
       rule: 'required',
       errorMessage: 'Description is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
-        errorMessage: 'Please enter the valid description !',
-    },
+    }
   ])
   .addField('#start_date', [
     {
