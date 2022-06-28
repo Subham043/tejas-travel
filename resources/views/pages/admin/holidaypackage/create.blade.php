@@ -264,7 +264,7 @@
                                                 <div class="col-xxl-12 col-md-12">
                                                     <div>
                                                         <label for="title" class="form-label">Description</label>
-                                                        <textarea name="desc[]" class="form-control" cols="30" rows="10"></textarea>
+                                                        <textarea name="desc[]" class="form-control desc-editior" cols="30" rows="10"></textarea>
                                                         @error('title') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror

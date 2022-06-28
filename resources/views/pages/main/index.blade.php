@@ -58,7 +58,7 @@
 		max-width: 500px;
 	}
 
-	.radio-selection-container, .car-selection-container, .car-button-container{
+	.radio-selection-container, .car-selection-container, .car-button-container, .selected-car-container{
 		width: 100%;
 	}
 
@@ -186,7 +186,161 @@
 		border: 1px solid #3097fe;
 		border-radius: 5px
 	}
+
+	.selected-car-container{
+		width: 100%;
+		background: #fff;
+		border: 1px solid #3097fe;
+		border-radius: 5px;
+	}
+
+	.selected-car-row{
+		align-items: center;
+		width: 100%;
+		margin: 0;
+	}
+
+	.selected-car-col{
+		padding: 5px 10px;
+	}
+
+	.selected-car-col h4{
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 7px;
+		margin-top: 7px;
+		transition: all 0.3s ease-in-out;
+		text-transform: capitalize;
+	}
+
+	.selected-car-col p{
+		font-size: 0.7rem;
+    	line-height: 1.4;
+		height: 2em;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		width: 100%;
+	}
+
+	.selected-car-col img{
+		object-fit: contain;
+		max-width: 100%;
+	}
+
+	.selected-car-col button{
+		background: #3097fe;
+		padding: 5px 10px;
+		text-transform: uppercase;
+		color: #fff;
+		letter-spacing: 1px;
+		cursor: pointer;
+		outline: none;
+		border: 1px solid #3097fe;
+		border-radius: 5px;
+		width: 100%;
+	}
 	
+	.pickup-input-container{
+		width: 100%;
+	}
+
+	.pickup-input-container h4{
+		font-size: 1.3rem;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	.pickup-input-container .pickup-input-row{
+		width: 100%;
+		margin: 0;
+	}
+
+	.icon-col{
+		background: #3097fe;
+		padding: 5px 10px;
+		color: #fff;
+		border-top-left-radius: 5px;
+    	border-bottom-left-radius: 5px;
+		display: grid;
+		place-content: center;
+		font-size: 2rem;
+	}
+
+	.input-col{
+		background: #fff;
+		padding: 5px 10px;
+		border-top-right-radius: 5px;
+    	border-bottom-right-radius: 5px;
+	}
+
+	.input-container{
+		width: 100%;
+		margin-top: 15px;
+	}
+
+	.input-col label{
+		display: block;
+		font-weight: 700;
+		margin: 0;
+	}
+
+	.input-col .input-text{
+		border: none;
+		outline: none;
+		width: 100%;
+	}
+
+	.input-col .input-text::placeholder{
+		color: black;
+		font-weight: 800;
+		letter-spacing: 1px;
+	}
+
+	.package-container h4{
+		font-size: 1.3rem;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	.package-container .package-col{
+		margin-bottom: 15px;
+	}
+
+	.package-container .selection-radio-box{
+		align-items: center;
+	}
+
+	.package-container .selection-radio-box label{
+		text-align: left;
+		font-size: 16px;
+		margin-left: 15px;
+		line-height: 1;
+	}
+
+	.button-col{
+		background: #fff;
+		padding: 5px 10px;
+		border-top-right-radius: 5px;
+    	border-bottom-right-radius: 5px;
+		color: #3097fe;
+		display: grid;
+		place-content: center;
+	}
+
+	.button-col button{
+		color: #3097fe;
+		border: none;
+		outline: none;
+		background: white;
+		transition: 0.3s all ease-in-out;
+	}
+
+	.button-col button:hover{
+		transform: scale(1.2);
+		cursor: pointer;
+	}
+
 </style>
 @stop
 
@@ -229,7 +383,7 @@
 													<div class="x_slider_form_heading_wrapper float_left">
 														<h3>Select Your Journey Type</h3>
 													</div>
-													<div class="col-md-12 mt5">
+													<div class="col-md-12 mt5 d-none">
 														
 														<div class="row">
 															<div class="col-md-12">
@@ -412,7 +566,7 @@
 																</div>
 															</div>
 														</div>
-														<div class="car-selection-container  mt5">
+														<div class="car-selection-container mt5"  id="vehicle_type">
 															<div class="row">
 																<div class="col-md-6">
 																	<div class="car-selection-box">
@@ -462,6 +616,301 @@
 														</div>
 														<div class="car-button-container  mt5">
 															<button>NEXT</button>
+														</div>
+													</div>
+													<div class="col-md-12 mt5 d-none" id="single_location">
+														<div class="selected-car-container">
+															<div class="row selected-car-row">
+																<div class="col-md-4 selected-car-col">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<h4>CAB</h4>
+																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<button>Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="pickup-input-container mt5">
+															<h4>Pick Up & Destination</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-arrow"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-dot"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Drop</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="pickup-input-container mt5">
+															<h4>Date & Time</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-calendar-days"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="car-button-container  mt5">
+															<button>SEARCH</button>
+														</div>
+													</div>
+
+													<div class="col-md-12 mt5 d-none" id="local_ride">
+														<div class="selected-car-container">
+															<div class="row selected-car-row">
+																<div class="col-md-4 selected-car-col">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<h4>CAB</h4>
+																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<button>Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="pickup-input-container mt5">
+															<h4>Pick Up & Destination</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-arrow"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="pickup-input-container mt5">
+															<h4>Date & Time</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-calendar-days"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="radio-selection-container package-container mt5">
+															<h4>Package</h4>
+															<div class="row mt3">
+																<div class="col-md-6 package-col">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="packagetype" id="hr1"> 
+																		<label for="hr1">
+																			<span>8 hours & 80 kms</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6 package-col">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="packagetype" id="hr2"> 
+																		<label for="hr2">
+																			<span>8 hours & 80 kms</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6 package-col">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="packagetype" id="hr3"> 
+																		<label for="hr3">
+																			<span>8 hours & 80 kms</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6 package-col">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="packagetype" id="hr4"> 
+																		<label for="hr4">
+																			<span>8 hours & 80 kms</span>
+																		</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="car-button-container  mt5">
+															<button>SEARCH</button>
+														</div>
+													</div>
+
+													<div class="col-md-12 mt5 d-none" id="airport_ride">
+														<div class="selected-car-container">
+															<div class="row selected-car-row">
+																<div class="col-md-4 selected-car-col">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<h4>CAB</h4>
+																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<button>Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="pickup-input-container mt5">
+															<h4>Pick Up & Destination</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-arrow"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-dot"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Drop</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="pickup-input-container mt5">
+															<h4>Date & Time</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-calendar-days"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="car-button-container  mt5">
+															<button>SEARCH</button>
+														</div>
+													</div>
+
+													<div class="col-md-12 mt5" id="multiple_location">
+														<div class="selected-car-container">
+															<div class="row selected-car-row">
+																<div class="col-md-4 selected-car-col">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<h4>CAB</h4>
+																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																</div>
+																<div class="col-md-4 selected-car-col">
+																	<button>Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="pickup-input-container mt5">
+															<h4>Pick Up & Destination</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-arrow"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-dot"></i>
+																	</div>
+																	<div class="col-md-8 input-col">
+																		<label for="">Drop</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																	</div>
+																	<div class="col-md-2 button-col">
+																		<button>
+																			<i class="fa-solid fa-circle-plus"></i>
+																		</button>
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-location-dot"></i>
+																	</div>
+																	<div class="col-md-8 input-col">
+																		<label for="">Drop</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																	</div>
+																	<div class="col-md-2 button-col">
+																		<button>
+																			<i class="fa-solid fa-xmark"></i>
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="pickup-input-container mt5">
+															<h4>Date & Time</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-calendar-days"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">To</label>
+																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="car-button-container  mt5">
+															<button>SEARCH</button>
 														</div>
 													</div>
 												</div>
