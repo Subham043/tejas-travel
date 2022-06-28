@@ -1,6 +1,7 @@
 @extends('layouts.main.index')
 
 @section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flatpickr.css') }}" />
 <style>
 	.x_slider_form_main_wrapper {
 		max-width: 400px;
@@ -341,6 +342,12 @@
 		cursor: pointer;
 	}
 
+	#duplicateDestinationContainer{
+		max-height: 150px;
+		overflow: hidden;
+		overflow-y: auto;
+	}
+
 </style>
 @stop
 
@@ -381,14 +388,14 @@
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												<div class="x_slider_form_main_wrapper float_left" data-animation="animated fadeIn">
 													<div class="x_slider_form_heading_wrapper float_left">
-														<h3>Select Your Journey Type</h3>
+														<h3 id="screenTitle">Select Your Journey Type</h3>
 													</div>
-													<div class="col-md-12 mt5 d-none">
+													<div class="col-md-12 mt5" id="journeyType">
 														
 														<div class="row">
 															<div class="col-md-12">
-																<div class="jurney-type">
-																	<a href="">
+																<div class="jurney-type" onclick="changeToVehicleTypeScreen(1)">
+																	<a href="javascript:void(0)">
 																		<div class="row p2">
 																			<div class="col-md-6 d-flex align-item-center">
 																				<img src="{{ asset('assets/images/home/img1.png') }}" alt="" width="100%">
@@ -402,8 +409,8 @@
 																</div>
 															</div>
 															<div class="col-md-12 mt2">
-																<div class="jurney-type">
-																		<a href="">
+																<div class="jurney-type" onclick="changeToVehicleTypeScreen(2)">
+																		<a href="javascript:void(0)">
 																			<div class="row p2">
 																				<div class="col-md-6 d-flex align-item-center">
 																					<img src="{{ asset('assets/images/home/img2.png') }}" alt="" width="100%">
@@ -419,8 +426,8 @@
 														</div>
 														<div class="row mt2">
 															<div class="col-md-12">
-																<div class="jurney-type">
-																	<a href="">
+																<div class="jurney-type" onclick="changeToVehicleTypeScreen(3)">
+																	<a href="javascript:void(0)">
 																		<div class="row p2">
 																			<div class="col-md-6 d-flex align-item-center">
 																				<img src="{{ asset('assets/images/home/img3.png') }}" alt="" width="100%">
@@ -434,8 +441,8 @@
 																</div>
 															</div>
 															<div class="col-md-12 mt2">
-																<div class="jurney-type">
-																		<a href="">
+																<div class="jurney-type" onclick="changeToVehicleTypeScreen(4)">
+																		<a href="javascript:void(0)">
 																			<div class="row p2">
 																				<div class="col-md-6 d-flex align-item-center">
 																					<img src="{{ asset('assets/images/home/img4.png') }}" alt="" width="100%">
@@ -545,27 +552,8 @@
 														</div>
 													</div> -->
 													</div>
-													<div class="col-md-12 mt5 d-none">
-														<div class="radio-selection-container">
-															<div class="row">
-																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="vahicletype" id="onewaytrip"> 
-																		<label for="onewaytrip">
-																			<span>One Way Trip</span>
-																		</label>
-																	</div>
-																</div>
-																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="vahicletype" id="roundtrip"> 
-																		<label for="roundtrip">
-																			<span>Round Trip</span>
-																		</label>
-																	</div>
-																</div>
-															</div>
-														</div>
+													<div class="col-md-12 mt5" id="vehicleTypeScreen" style="display: none">
+														
 														<div class="car-selection-container mt5"  id="vehicle_type">
 															<div class="row">
 																<div class="col-md-6">
@@ -615,10 +603,12 @@
 															</div>
 														</div>
 														<div class="car-button-container  mt5">
-															<button>NEXT</button>
+															<button onclick="goToFirstScreen()">PREVIOUS</button>
+															<button onclick="changeToDetailEntryScreen()">NEXT</button>
 														</div>
 													</div>
-													<div class="col-md-12 mt5 d-none" id="single_location">
+													<div class="col-md-12 mt5" id="oustation"  style="display: none">
+														
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
@@ -629,7 +619,28 @@
 																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<button>Change</button>
+																	<button onclick="goBackScreen(1)">Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="radio-selection-container mt5">
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="vahicletype" id="onewaytrip"> 
+																		<label for="onewaytrip">
+																			<span>One Way Trip</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="vahicletype" id="roundtrip"> 
+																		<label for="roundtrip">
+																			<span>Round Trip</span>
+																		</label>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -680,7 +691,7 @@
 														</div>
 													</div>
 
-													<div class="col-md-12 mt5 d-none" id="local_ride">
+													<div class="col-md-12 mt5" id="local_ride" style="display: none">
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
@@ -691,7 +702,7 @@
 																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<button>Change</button>
+																	<button onclick="goBackScreen(2)">Change</button>
 																</div>
 															</div>
 														</div>
@@ -769,7 +780,7 @@
 														</div>
 													</div>
 
-													<div class="col-md-12 mt5 d-none" id="airport_ride">
+													<div class="col-md-12 mt5" id="airport_ride" style="display: none">
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
@@ -780,7 +791,28 @@
 																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<button>Change</button>
+																	<button onclick="goBackScreen(4)">Change</button>
+																</div>
+															</div>
+														</div>
+
+														<div class="radio-selection-container mt5">
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="ridetype" id="pickup"> 
+																		<label for="pickup">
+																			<span>Pickup</span>
+																		</label>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="selection-radio-box">
+																		<input type="radio" name="ridetype" id="drop"> 
+																		<label for="drop">
+																			<span>Drop</span>
+																		</label>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -831,7 +863,7 @@
 														</div>
 													</div>
 
-													<div class="col-md-12 mt5" id="multiple_location">
+													<div class="col-md-12 mt5" id="multiple_location" style="display: none">
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
@@ -842,7 +874,7 @@
 																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<button>Change</button>
+																	<button onclick="goBackScreen(3)">Change</button>
 																</div>
 															</div>
 														</div>
@@ -870,25 +902,28 @@
 																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
 																	</div>
 																	<div class="col-md-2 button-col">
-																		<button>
+																		<button onclick="duplicate()" title="add multiple location" id="addDestinationBtn">
 																			<i class="fa-solid fa-circle-plus"></i>
 																		</button>
 																	</div>
 																</div>
 															</div>
-															<div class="input-container mt5">
-																<div class="row pickup-input-row">
-																	<div class="col-md-2 icon-col">
-																		<i class="fa-solid fa-location-dot"></i>
-																	</div>
-																	<div class="col-md-8 input-col">
-																		<label for="">Drop</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
-																	</div>
-																	<div class="col-md-2 button-col">
-																		<button>
-																			<i class="fa-solid fa-xmark"></i>
-																		</button>
+															
+															<div id="duplicateDestinationContainer">
+																<div class="input-container mt5" id="duplicate_destination_0" style="display: none">
+																	<div class="row pickup-input-row">
+																		<div class="col-md-2 icon-col">
+																			<i class="fa-solid fa-location-dot"></i>
+																		</div>
+																		<div class="col-md-8 input-col">
+																			<label for="">Drop</label>
+																			<input type="text" name="destination[]" id="" class="input-text" placeholder="Enter destination address">
+																		</div>
+																		<div class="col-md-2 button-col">
+																			<button onclick="remove()" title="remove multiple location">
+																				<i class="fa-solid fa-xmark"></i>
+																			</button>
+																		</div>
 																	</div>
 																</div>
 															</div>
@@ -903,7 +938,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																		<input type="text" name="" id="datetimepicker_input" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
@@ -3656,4 +3691,99 @@ Destinations</h3>
 		</div>
 	</div>
 
- @stop   
+ @stop  
+ 
+ @section('javascript')
+ <script src="{{ asset('assets/js/flatpickr.js') }}"></script>
+ <script>
+	//  const flatpickr = require("flatpickr");
+	 flatpickr("#datetimepicker_input", {});
+ </script>
+
+<script type="text/javascript">
+    var i = 1;
+    var count = 1;
+    
+    function duplicate() {
+		if(count!=6){
+			var div = document.getElementById('duplicate_destination_0'),
+			clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+			clone.id = "duplicate_destination_"+(++i);
+			clone.style = "display:block;";
+			++count;
+			document.getElementById('duplicateDestinationContainer').appendChild(clone);
+			document.getElementsByName('destination[]')[count-1].value = "";
+			toggleAddDestinationButton()
+		}
+
+		
+    }
+    function remove() {
+        // console.log(this.event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
+        if(count!=0){
+            this.event.target.parentNode.parentNode.parentNode.parentNode.remove();
+            --count;
+        }
+		toggleAddDestinationButton()
+    }
+
+	function toggleAddDestinationButton(){
+		if(count==5){
+			document.getElementById('addDestinationBtn').style.display = 'none'
+		}else{
+			document.getElementById('addDestinationBtn').style.display = 'block'
+		}
+	}
+</script>
+
+<script>
+	var nextScreen = 1;
+	function changeToVehicleTypeScreen(to){
+		nextScreen = to;
+		document.getElementById('screenTitle').innerText = 'SELECT YOUR VEHICLE TYPE'
+		document.getElementById('journeyType').style.display = 'none'
+		document.getElementById('vehicleTypeScreen').style.display = 'block'
+	}
+	function changeToDetailEntryScreen(){
+		document.getElementById('vehicleTypeScreen').style.display = 'none'
+		switch(nextScreen){
+			case 1: document.getElementById('oustation').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'OUTSTATION'
+			break;
+			case 2: document.getElementById('local_ride').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'LOCAL RIDE'
+			break;
+			case 3: document.getElementById('multiple_location').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'MULTI-LOCATION'
+			break;
+			case 4: document.getElementById('airport_ride').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'AIRPORT'
+			break;
+			
+		}
+	}
+
+	function goBackScreen(from){
+		document.getElementById('vehicleTypeScreen').style.display = 'block'
+		document.getElementById('screenTitle').innerText = 'SELECT YOUR VEHICLE TYPE'
+		nextScreen = from;
+		switch(nextScreen){
+			case 1: document.getElementById('oustation').style.display = 'none'
+			break;
+			case 2: document.getElementById('local_ride').style.display = 'none'
+			break;
+			case 3: document.getElementById('multiple_location').style.display = 'none'
+			break;
+			case 4: document.getElementById('airport_ride').style.display = 'none'
+			break;
+			
+		}
+	}
+
+	function goToFirstScreen(){
+		document.getElementById('screenTitle').innerText = 'SELECT YOUR JOURNEY TYPE'
+		document.getElementById('journeyType').style.display = 'block'
+		document.getElementById('vehicleTypeScreen').style.display = 'none'
+	}
+</script>
+ @stop

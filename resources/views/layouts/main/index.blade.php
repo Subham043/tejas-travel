@@ -103,6 +103,8 @@ Version: 1.0.0
 		@endif
 
 	</script>
+
+
 	
     @yield('javascript')
 </body>
