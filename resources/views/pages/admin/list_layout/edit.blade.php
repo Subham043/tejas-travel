@@ -1,6 +1,16 @@
 @extends('layouts.admin.dashboard')
 
+@section('css')
+<link href="{{ asset('admin/libs/quill/quill.core.css' ) }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('admin/libs/quill/quill.bubble.css' ) }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('admin/libs/quill/quill.snow.css' ) }}" rel="stylesheet" type="text/css" />
 
+<style>
+    #editordescription{
+        min-height: 200px;
+    }
+</style>
+@stop
 
 @section('content')
 
@@ -24,7 +34,7 @@
             </div>
         </div>
         <!-- end page title -->
-        <form id="countryForm" method="post" action="{{route('vehicletypeseo_list_layout_update', [$country->vehicletypesseo_id, $country->id])}}" enctype="multipart/form-data">
+        <form id="countryForm" method="post" action="{{route('list_layout_update', [$country->id])}}" enctype="multipart/form-data">
             @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -42,6 +52,16 @@
                                         <label for="heading" class="form-label">Heading</label>
                                         <input type="text" class="form-control" name="heading" id="heading" value="{{$country->heading}}">
                                         @error('heading') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xxl-12 col-md-12">
+                                    <div>
+                                        <label for="description" class="form-label">Description</label>
+                                        <div id="editordescription">{!!$country->description!!}</div>
+                                        @error('description_unformatted') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -77,9 +97,9 @@
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv">
-                        @if($country->vehicletypeseolistlayoutlist->count()>0)
-                        @foreach ($country->vehicletypeseolistlayoutlist as $vehicletypeseolistlayoutlist)
-                        <div class="row gy-4" id="duplicate_{{$vehicletypeseolistlayoutlist->id}}">
+                        @if($country->listlayoutlist->count()>0)
+                        @foreach ($country->listlayoutlist as $listlayoutlist)
+                        <div class="row gy-4" id="duplicate_{{$listlayoutlist->id}}">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header align-items-center d-flex">
@@ -96,7 +116,7 @@
                                                 <div class="col-xxl-6 col-md-12">
                                                     <div>
                                                         <label for="list" class="form-label">List</label>
-                                                        <input type="text" class="form-control" name="list[]" value="{{$vehicletypeseolistlayoutlist->list}}">
+                                                        <input type="text" class="form-control" name="list[]" value="{{$listlayoutlist->list}}">
                                                         @error('list') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -105,7 +125,7 @@
                                                 <div class="col-xxl-6 col-md-12">
                                                     <div>
                                                         <label for="link" class="form-label">Link</label>
-                                                        <input type="text" class="form-control" name="link[]" value="{{$vehicletypeseolistlayoutlist->link}}">
+                                                        <input type="text" class="form-control" name="link[]" value="{{$listlayoutlist->link}}">
                                                         @error('link') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -173,7 +193,7 @@
             </div>
             <!--end col-->
 
-            <div class="col-xxl-12 col-md-12">
+            <div class="col-xxl-12 col-md-12 mb-5">
                 <button type="submit" id="submitBtn" class="btn btn-primary waves-effect waves-light">Update</button>
             </div>
         </div>
@@ -193,6 +213,13 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
+<script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
+
+<script type="text/javascript">
+var quillDescription = new Quill('#editordescription', {
+    theme: 'snow'
+});
+</script>
 
 <script type="text/javascript">
 
@@ -216,9 +243,9 @@
     </script>
     
     <script type="text/javascript">
-        @if($country->vehicletypeseolistlayoutlist->count()>0)
-        var i = {{$country->vehicletypeseolistlayoutlist[0]->id}};
-        var count = {{$country->vehicletypeseolistlayoutlist->count()}};
+        @if($country->listlayoutlist->count()>0)
+        var i = {{$country->listlayoutlist[0]->id}};
+        var count = {{$country->listlayoutlist->count()}};
         @else
         var i = 1;
         var count = 1;
@@ -300,6 +327,8 @@ validation
     try {
         var formData = new FormData();
         formData.append('heading',document.getElementById('heading').value)
+        formData.append('description_unformatted',quillDescription.getText())
+        formData.append('description',quillDescription.root.innerHTML)
         // formData.append('refreshUrl','{{URL::current()}}')
         
         for (let index = 0; index < count; index++) {
@@ -307,7 +336,7 @@ validation
             formData.append('link[]',document.getElementsByName('link[]')[index].value)
         }
         
-        const response = await axios.post('{{route('vehicletypeseo_list_layout_update', [$country->vehicletypesseo_id, $country->id])}}', formData)
+        const response = await axios.post('{{route('list_layout_update', [$country->id])}}', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);

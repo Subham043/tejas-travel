@@ -26,7 +26,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Content Layout</a></li>
-                            <li class="breadcrumb-item active">Edit</li>
+                            <li class="breadcrumb-item active">Create</li>
                         </ol>
                     </div>
 
@@ -43,34 +43,34 @@
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form id="countryForm" method="post" action="{{route('vehicletypeseo_content_layout_update', [$country->vehicletypesseo_id, $country->id])}}" enctype="multipart/form-data">
+                            <form id="countryForm" method="post" action="{{route('content_layout_store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
-
                                 <div class="col-xxl-12 col-md-12">
                                     <div>
                                         <label for="heading" class="form-label">Heading</label>
-                                        <input type="text" class="form-control" name="heading" id="heading" value="{{$country->heading}}">
+                                        <input type="text" class="form-control" name="heading" id="heading" value="{{old('heading')}}">
                                         @error('heading') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-xxl-12 col-md-12">
                                     <div>
                                         <label for="description" class="form-label">Description</label>
-                                        <div id="editordescription">{!!$country->description!!}</div>
-                                        <input type="hidden" id="description_unformatted" name="description_unformatted" value="{!!$country->description_unformatted!!}">
-                                        <input type="hidden" id="description" name="description" value="{!!$country->description!!}">
+                                        <div id="editordescription"></div>
+                                        <input type="hidden" id="description_unformatted" name="description_unformatted">
+                                        <input type="hidden" id="description" name="description">
                                         @error('description_unformatted') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+                                
+                                <!--end col-->
 
                                 <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Create</button>
                                 </div>
                                 
                             </div>
@@ -112,7 +112,7 @@ const validation = new JustValidate('#countryForm', {
 });
 // apply rules to form fields
 validation
-.addField('#heading', [
+  .addField('#heading', [
     {
       rule: 'required',
       errorMessage: 'Heading is required',

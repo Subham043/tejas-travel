@@ -37,11 +37,11 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <a href={{route('vehicletypeseo_list_layout_create', $vehicleseotype_id)}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
+                                        <a href={{route('list_layout_create')}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <form  method="get" action="{{route('vehicletypeseo_list_layout_view', $vehicleseotype_id)}}">
+                                    <form  method="get" action="{{route('list_layout_view')}}">
                                         <div class="d-flex justify-content-sm-end">
                                             <div class="search-box ms-2">
                                                 <input type="text" name="search" class="form-control search" placeholder="Search..." value="@if(app('request')->has('search')) {{app('request')->input('search')}} @endif">
@@ -70,13 +70,13 @@
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
-                                                        <a href="{{route('vehicletypeseo_list_layout_display', [$item->vehicletypesseo_id, $item->id])}}" class="btn btn-sm btn-info edit-item-btn">View</a>
+                                                        <a href="{{route('list_layout_display', [$item->id])}}" class="btn btn-sm btn-info edit-item-btn">View</a>
                                                     </div>
                                                     <div class="edit">
-                                                        <a href="{{route('vehicletypeseo_list_layout_edit', [$item->vehicletypesseo_id, $item->id])}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
+                                                        <a href="{{route('list_layout_edit', [$item->id])}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
                                                     </div>
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('vehicletypeseo_list_layout_delete', [$item->vehicletypesseo_id, $item->id])}}')">Remove</button>
+                                                        <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('list_layout_delete', [$item->id])}}')">Remove</button>
                                                     </div>
                                                 </div>
                                             </td>

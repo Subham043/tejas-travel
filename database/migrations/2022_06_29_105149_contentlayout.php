@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vehicletypesseolistlayout', function (Blueprint $table) {
+        Schema::create('contentlayout', function (Blueprint $table) {
             $table->id();
             $table->text('heading')->nullable();
-            $table->bigInteger('vehicletypesseo_id');
+            $table->text('description')->nullable();
+            $table->text('description_unformatted')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicletypesseolistlayout');
+        Schema::dropIfExists('contentlayout');
     }
 };

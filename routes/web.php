@@ -31,6 +31,8 @@ use App\Http\Controllers\DynamicWebPageController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\SEOMetaController;
 use App\Http\Controllers\VehicleTypeSeoController;
+use App\Http\Controllers\ListLayoutController;
+use App\Http\Controllers\ContentLayoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -370,24 +372,26 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
             Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_image', 'as' => 'admin.vehicletypeseo_image.update'])->name('vehicletypeseo_image_update');
             Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_image', 'as' => 'admin.vehicletypeseo_image.delete'])->name('vehicletypeseo_image_delete');
         });
-        Route::prefix('/list-layout/{vehicleseotype_id}')->group(function () {
-            Route::get('/', [VehicleTypeSeoController::class, 'view_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.view'])->name('vehicletypeseo_list_layout_view');
-            Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.display'])->name('vehicletypeseo_list_layout_display');
-            Route::get('/create', [VehicleTypeSeoController::class, 'create_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.create'])->name('vehicletypeseo_list_layout_create');
-            Route::post('/create', [VehicleTypeSeoController::class, 'store_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.store'])->name('vehicletypeseo_list_layout_store');
-            Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.edit'])->name('vehicletypeseo_list_layout_edit');
-            Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.update'])->name('vehicletypeseo_list_layout_update');
-            Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.delete'])->name('vehicletypeseo_list_layout_delete');
-        });
-        Route::prefix('/content-layout/{vehicleseotype_id}')->group(function () {
-            Route::get('/', [VehicleTypeSeoController::class, 'view_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.view'])->name('vehicletypeseo_content_layout_view');
-            Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.display'])->name('vehicletypeseo_content_layout_display');
-            Route::get('/create', [VehicleTypeSeoController::class, 'create_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.create'])->name('vehicletypeseo_content_layout_create');
-            Route::post('/create', [VehicleTypeSeoController::class, 'store_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.store'])->name('vehicletypeseo_content_layout_store');
-            Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.edit'])->name('vehicletypeseo_content_layout_edit');
-            Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.update'])->name('vehicletypeseo_content_layout_update');
-            Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.delete'])->name('vehicletypeseo_content_layout_delete');
-        });
+        
+    });
+
+    Route::prefix('/list-layout')->group(function () {
+        Route::get('/', [ListLayoutController::class, 'view_list_layout', 'as' => 'admin.list_layout.view'])->name('list_layout_view');
+        Route::get('/view/{id}', [ListLayoutController::class, 'display_list_layout', 'as' => 'admin.list_layout.display'])->name('list_layout_display');
+        Route::get('/create', [ListLayoutController::class, 'create_list_layout', 'as' => 'admin.list_layout.create'])->name('list_layout_create');
+        Route::post('/create', [ListLayoutController::class, 'store_list_layout', 'as' => 'admin.list_layout.store'])->name('list_layout_store');
+        Route::get('/edit/{id}', [ListLayoutController::class, 'edit_list_layout', 'as' => 'admin.list_layout.edit'])->name('list_layout_edit');
+        Route::post('/edit/{id}', [ListLayoutController::class, 'update_list_layout', 'as' => 'admin.list_layout.update'])->name('list_layout_update');
+        Route::get('/delete/{id}', [ListLayoutController::class, 'delete_list_layout', 'as' => 'admin.list_layout.delete'])->name('list_layout_delete');
+    });
+    Route::prefix('/content-layout')->group(function () {
+        Route::get('/', [ContentLayoutController::class, 'view_content_layout', 'as' => 'admin.content_layout.view'])->name('content_layout_view');
+        Route::get('/view/{id}', [ContentLayoutController::class, 'display_content_layout', 'as' => 'admin.content_layout.display'])->name('content_layout_display');
+        Route::get('/create', [ContentLayoutController::class, 'create_content_layout', 'as' => 'admin.content_layout.create'])->name('content_layout_create');
+        Route::post('/create', [ContentLayoutController::class, 'store_content_layout', 'as' => 'admin.content_layout.store'])->name('content_layout_store');
+        Route::get('/edit/{id}', [ContentLayoutController::class, 'edit_content_layout', 'as' => 'admin.content_layout.edit'])->name('content_layout_edit');
+        Route::post('/edit/{id}', [ContentLayoutController::class, 'update_content_layout', 'as' => 'admin.content_layout.update'])->name('content_layout_update');
+        Route::get('/delete/{id}', [ContentLayoutController::class, 'delete_content_layout', 'as' => 'admin.content_layout.delete'])->name('content_layout_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

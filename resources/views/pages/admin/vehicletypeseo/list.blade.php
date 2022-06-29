@@ -99,12 +99,6 @@
                                                     <div class="edit">
                                                         <a href="{{route('vehicletypeseo_image_view', $item->id)}}" class="btn btn-sm btn-warning edit-item-btn">Banner Images</a>
                                                     </div>
-                                                    <div class="edit">
-                                                        <a href="{{route('vehicletypeseo_list_layout_view', $item->id)}}" class="btn btn-sm btn-dark edit-item-btn">List Layout</a>
-                                                    </div>
-                                                    <div class="edit">
-                                                        <a href="{{route('vehicletypeseo_content_layout_view', $item->id)}}" class="btn btn-sm btn-primary edit-item-btn">Content Layout</a>
-                                                    </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('vehicletypeseo_delete', $item->id)}}')">Remove</button>
                                                     </div>

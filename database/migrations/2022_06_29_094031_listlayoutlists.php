@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vehicletypesseocontentlayout', function (Blueprint $table) {
+        Schema::create('listlayoutlists', function (Blueprint $table) {
             $table->id();
-            $table->text('heading')->nullable();
-            $table->text('description')->nullable();
-            $table->text('description_unformatted')->nullable();
-            $table->bigInteger('vehicletypesseo_id');
+            $table->text('list')->nullable();
+            $table->text('link')->nullable();
+            $table->bigInteger('listlayout_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicletypesseocontentlayout');
+        Schema::dropIfExists('listlayoutlists');
     }
 };
