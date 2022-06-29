@@ -379,6 +379,15 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
             Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.update'])->name('vehicletypeseo_list_layout_update');
             Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.delete'])->name('vehicletypeseo_list_layout_delete');
         });
+        Route::prefix('/content-layout/{vehicleseotype_id}')->group(function () {
+            Route::get('/', [VehicleTypeSeoController::class, 'view_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.view'])->name('vehicletypeseo_content_layout_view');
+            Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.display'])->name('vehicletypeseo_content_layout_display');
+            Route::get('/create', [VehicleTypeSeoController::class, 'create_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.create'])->name('vehicletypeseo_content_layout_create');
+            Route::post('/create', [VehicleTypeSeoController::class, 'store_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.store'])->name('vehicletypeseo_content_layout_store');
+            Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.edit'])->name('vehicletypeseo_content_layout_edit');
+            Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.update'])->name('vehicletypeseo_content_layout_update');
+            Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_content_layout', 'as' => 'admin.vehicletypeseo_content_layout.delete'])->name('vehicletypeseo_content_layout_delete');
+        });
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

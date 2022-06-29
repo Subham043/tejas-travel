@@ -37,7 +37,7 @@
                             
                             <div class="row gy-4">
 
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-12 col-md-12">
                                     <div>
                                         <label for="heading" class="form-label">Heading</label>
                                         <input type="text" class="form-control" name="heading" id="heading" value="{{$country->heading}}">
@@ -52,116 +52,7 @@
                                 
                             </div>
                            
-                            <!--end row-->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header align-items-center d-flex">
-                                            <h4 class="card-title mb-0 flex-grow-1">Lists</h4>
-                                            <div class="flex-shrink-0">
-                                                <div class="form-check form-switch form-switch-right form-switch-md">
-                                                    <button type="button" class="btn rounded-pill btn-secondary waves-effect" onclick="duplicate()" >Add List</button>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card header -->
-                                        <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv">
-                                            @if($country->vehicletypeseolistlayoutlist->count()>0)
-                                            @foreach ($country->vehicletypeseolistlayoutlist as $vehicletypeseolistlayoutlist)
-                                            <div class="row gy-4" id="duplicate_{{$vehicletypeseolistlayoutlist->id}}">
-                                                <div class="col-lg-12">
-                                                    <div class="card">
-                                                        <div class="card-header align-items-center d-flex">
-                                                            <h4 class="card-title mb-0 flex-grow-1">List</h4>
-                                                            <div class="flex-shrink-0">
-                                                                <div class="form-check form-switch form-switch-right form-switch-md">
-                                                                    <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove List</button>
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- end card header -->
-                                                        <div class="card-body">
-                                                            <div class="live-preview">
-                                                                <div class="row gy-4">
-                                                                    <div class="col-xxl-6 col-md-12">
-                                                                        <div>
-                                                                            <label for="list" class="form-label">List</label>
-                                                                            <input type="text" class="form-control" name="list[]" value="{{$vehicletypeseolistlayoutlist->list}}">
-                                                                            @error('list') 
-                                                                                <div class="invalid-message">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xxl-6 col-md-12">
-                                                                        <div>
-                                                                            <label for="link" class="form-label">Link</label>
-                                                                            <input type="text" class="form-control" name="link[]" value="{{$vehicletypeseolistlayoutlist->link}}">
-                                                                            @error('link') 
-                                                                                <div class="invalid-message">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end col-->
-                                            </div>
-                                            <!--end row-->
-                                            @endforeach
-                                            @else
-                                            <div class="row gy-4" id="duplicate_1">
-                                                <div class="col-lg-12">
-                                                    <div class="card">
-                                                        <div class="card-header align-items-center d-flex">
-                                                            <h4 class="card-title mb-0 flex-grow-1">List</h4>
-                                                            <div class="flex-shrink-0">
-                                                                <div class="form-check form-switch form-switch-right form-switch-md">
-                                                                    <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove List</button>
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- end card header -->
-                                                        <div class="card-body">
-                                                            <div class="live-preview">
-                                                                <div class="row gy-4">
-                                                                    <div class="col-xxl-6 col-md-12">
-                                                                        <div>
-                                                                            <label for="list" class="form-label">List</label>
-                                                                            <input type="text" class="form-control" name="list[]" value="{{old('list')}}">
-                                                                            @error('list') 
-                                                                                <div class="invalid-message">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xxl-6 col-md-12">
-                                                                        <div>
-                                                                            <label for="link" class="form-label">Link</label>
-                                                                            <input type="text" class="form-control" name="link[]" value="{{old('link')}}">
-                                                                            @error('link') 
-                                                                                <div class="invalid-message">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end col-->
-                                            </div>
-                                            <!--end row-->
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
+                            
 
                         </div>
                         
@@ -169,11 +60,125 @@
                 </div>
             </div>
             <!--end col-->
+           
+        </div>
+        <!--end row-->
+
+        <!--end row-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Lists</h4>
+                        <div class="flex-shrink-0">
+                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                <button type="button" class="btn rounded-pill btn-secondary waves-effect" onclick="duplicate()" >Add List</button>
+                            </div>
+                        </div>
+                    </div><!-- end card header -->
+                    <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv">
+                        @if($country->vehicletypeseolistlayoutlist->count()>0)
+                        @foreach ($country->vehicletypeseolistlayoutlist as $vehicletypeseolistlayoutlist)
+                        <div class="row gy-4" id="duplicate_{{$vehicletypeseolistlayoutlist->id}}">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">List</h4>
+                                        <div class="flex-shrink-0">
+                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove List</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body">
+                                        <div class="live-preview">
+                                            <div class="row gy-4">
+                                                <div class="col-xxl-6 col-md-12">
+                                                    <div>
+                                                        <label for="list" class="form-label">List</label>
+                                                        <input type="text" class="form-control" name="list[]" value="{{$vehicletypeseolistlayoutlist->list}}">
+                                                        @error('list') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-md-12">
+                                                    <div>
+                                                        <label for="link" class="form-label">Link</label>
+                                                        <input type="text" class="form-control" name="link[]" value="{{$vehicletypeseolistlayoutlist->link}}">
+                                                        @error('link') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                        @endforeach
+                        @else
+                        <div class="row gy-4" id="duplicate_1">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">List</h4>
+                                        <div class="flex-shrink-0">
+                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove()" >Remove List</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body">
+                                        <div class="live-preview">
+                                            <div class="row gy-4">
+                                                <div class="col-xxl-6 col-md-12">
+                                                    <div>
+                                                        <label for="list" class="form-label">List</label>
+                                                        <input type="text" class="form-control" name="list[]" value="{{old('list')}}">
+                                                        @error('list') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-md-12">
+                                                    <div>
+                                                        <label for="link" class="form-label">Link</label>
+                                                        <input type="text" class="form-control" name="link[]" value="{{old('link')}}">
+                                                        @error('link') 
+                                                            <div class="invalid-message">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+
             <div class="col-xxl-12 col-md-12">
                 <button type="submit" id="submitBtn" class="btn btn-primary waves-effect waves-light">Update</button>
             </div>
         </div>
         <!--end row-->
+
     </form>
         
 
