@@ -30,6 +30,7 @@ use App\Http\Controllers\HolidayPackageMainController;
 use App\Http\Controllers\DynamicWebPageController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\SEOMetaController;
+use App\Http\Controllers\VehicleTypeSeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -350,6 +351,25 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [FAQController::class, 'edit', 'as' => 'admin.faq.edit'])->name('faq_edit');
         Route::post('/edit/{id}', [FAQController::class, 'update', 'as' => 'admin.faq.update'])->name('faq_update');
         Route::get('/delete/{id}', [FAQController::class, 'delete', 'as' => 'admin.faq.delete'])->name('faq_delete');
+    });
+    
+    Route::prefix('/vehicle-type-seo')->group(function () {
+        Route::get('/', [VehicleTypeSeoController::class, 'view', 'as' => 'admin.vehicletypeseo.view'])->name('vehicletypeseo_view');
+        Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display', 'as' => 'admin.vehicletypeseo.display'])->name('vehicletypeseo_display');
+        Route::get('/create', [VehicleTypeSeoController::class, 'create', 'as' => 'admin.vehicletypeseo.create'])->name('vehicletypeseo_create');
+        Route::post('/create', [VehicleTypeSeoController::class, 'store', 'as' => 'admin.vehicletypeseo.store'])->name('vehicletypeseo_store');
+        Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit', 'as' => 'admin.vehicletypeseo.edit'])->name('vehicletypeseo_edit');
+        Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update', 'as' => 'admin.vehicletypeseo.update'])->name('vehicletypeseo_update');
+        Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete', 'as' => 'admin.vehicletypeseo.delete'])->name('vehicletypeseo_delete');
+        Route::prefix('/banner-images/{vehicleseotype_id}')->group(function () {
+            Route::get('/', [VehicleTypeSeoController::class, 'view_image', 'as' => 'admin.vehicletypeseo_image.view'])->name('vehicletypeseo_image_view');
+            Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display_image', 'as' => 'admin.vehicletypeseo_image.display'])->name('vehicletypeseo_image_display');
+            Route::get('/create', [VehicleTypeSeoController::class, 'create_image', 'as' => 'admin.vehicletypeseo_image.create'])->name('vehicletypeseo_image_create');
+            Route::post('/create', [VehicleTypeSeoController::class, 'store_image', 'as' => 'admin.vehicletypeseo_image.store'])->name('vehicletypeseo_image_store');
+            Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit_image', 'as' => 'admin.vehicletypeseo_image.edit'])->name('vehicletypeseo_image_edit');
+            Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_image', 'as' => 'admin.vehicletypeseo_image.update'])->name('vehicletypeseo_image_update');
+            Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_image', 'as' => 'admin.vehicletypeseo_image.delete'])->name('vehicletypeseo_image_delete');
+        });
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
