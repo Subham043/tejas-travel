@@ -152,6 +152,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('holidaypackage_policy_edit')}}" class="nav-link {{strpos(url()->current(),'common-holiday-package-policy') !== false ? 'active' : ''}}" data-key="t-analytics"> Holiday Package - Policy </a>
                                         </li>
+                                        
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
@@ -169,11 +170,11 @@
                                 </div>
                             </li> <!-- end Dashboard Menu -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false ? 'active' : ''}}" href="#sidebarDashboards6" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="{{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards6">
+                                <a class="nav-link menu-link {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false || strpos(url()->current(),'list-layout') !== false || strpos(url()->current(),'content-layout') !== false || strpos(url()->current(),'vehicle-type-seo') !== false ? 'active' : ''}}" href="#sidebarDashboards6" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="{{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false || strpos(url()->current(),'list-layout') !== false || strpos(url()->current(),'content-layout') !== false || strpos(url()->current(),'vehicle-type-seo') !== false ? 'true' : 'false'}}" aria-controls="sidebarDashboards6">
                                     <i class="ri-gallery-fill"></i> <span data-key="t-dashboards">Content Management</span>
                                 </a>
-                                <div class="collapse menu-dropdown {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false ? 'show' : ''}}" id="sidebarDashboards6">
+                                <div class="collapse menu-dropdown {{strpos(url()->current(),'holiday-package') !== false || strpos(url()->current(),'dynamic-web-pages') !== false || strpos(url()->current(),'faq') !== false || strpos(url()->current(),'seo-meta') !== false || strpos(url()->current(),'list-layout') !== false || strpos(url()->current(),'content-layout') !== false || strpos(url()->current(),'vehicle-type-seo') !== false ? 'show' : ''}}" id="sidebarDashboards6">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{route('holidaypackage_view')}}" class="nav-link {{strpos(url()->current(),'holiday-package') !== false ? 'active' : ''}}" data-key="t-analytics"> Holiday Package </a>
@@ -186,6 +187,15 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('seometa_view')}}" class="nav-link {{strpos(url()->current(),'seo-meta') !== false ? 'active' : ''}}" data-key="t-analytics"> SEO META </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('list_layout_view')}}" class="nav-link {{strpos(url()->current(),'list-layout') !== false ? 'active' : ''}}" data-key="t-analytics"> List Layout </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('content_layout_view')}}" class="nav-link {{strpos(url()->current(),'content-layout') !== false ? 'active' : ''}}" data-key="t-analytics"> Content Layout </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('vehicletypeseo_view')}}" class="nav-link {{strpos(url()->current(),'vehicle-type-seo') !== false ? 'active' : ''}}" data-key="t-analytics"> VehicleType SEO </a>
                                         </li>
                                     </ul>
                                 </div>

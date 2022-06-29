@@ -8,6 +8,8 @@ use App\Models\City;
 use App\Models\SubCity;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use App\Models\ListLayout;
+use App\Models\ContentLayout;
 
 class VehicleTypesSeo extends Model
 {
@@ -45,5 +47,31 @@ class VehicleTypesSeo extends Model
     public function VehicleTypeSeoImage()
     {
         return $this->hasMany('App\Models\VehicleTypeSeoImage', 'vehicletypesseo_id');
+    }
+
+    public function ListLayouts()
+    {
+        return $this->belongsToMany(ListLayout::class, 'vehicletypesseocontentlayouts', 'listlayout_id', 'vehicletypesseo_id');
+    }
+
+    public function GetListLayoutsId(){
+        return $this->ListLayouts()->pluck('listlayouts.id')->toArray();
+    }
+
+    public function GetListLayoutsName(){
+        return $this->ListLayouts()->pluck('listlayouts.name');
+    }
+    
+    public function ContentLayouts()
+    {
+        return $this->belongsToMany(ContentLayout::class, 'vehicletypesseocontentlayouts', 'contentlayout_id', 'vehicletypesseo_id');
+    }
+
+    public function ContentLayoutsId(){
+        return $this->ContentLayouts()->pluck('contentlayouts.id')->toArray();
+    }
+
+    public function ContentLayoutsName(){
+        return $this->ContentLayouts()->pluck('contentlayouts.name');
     }
 }
