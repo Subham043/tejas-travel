@@ -370,6 +370,15 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
             Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_image', 'as' => 'admin.vehicletypeseo_image.update'])->name('vehicletypeseo_image_update');
             Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_image', 'as' => 'admin.vehicletypeseo_image.delete'])->name('vehicletypeseo_image_delete');
         });
+        Route::prefix('/list-layout/{vehicleseotype_id}')->group(function () {
+            Route::get('/', [VehicleTypeSeoController::class, 'view_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.view'])->name('vehicletypeseo_list_layout_view');
+            Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.display'])->name('vehicletypeseo_list_layout_display');
+            Route::get('/create', [VehicleTypeSeoController::class, 'create_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.create'])->name('vehicletypeseo_list_layout_create');
+            Route::post('/create', [VehicleTypeSeoController::class, 'store_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.store'])->name('vehicletypeseo_list_layout_store');
+            Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.edit'])->name('vehicletypeseo_list_layout_edit');
+            Route::post('/edit/{id}', [VehicleTypeSeoController::class, 'update_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.update'])->name('vehicletypeseo_list_layout_update');
+            Route::get('/delete/{id}', [VehicleTypeSeoController::class, 'delete_list_layout', 'as' => 'admin.vehicletypeseo_list_layout.delete'])->name('vehicletypeseo_list_layout_delete');
+        });
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

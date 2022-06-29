@@ -587,8 +587,13 @@ const successToast = (message) =>{
 </script>
 
 <script type="text/javascript">
+    @if($country->holidaypackagetourplan->count()>0)
+    var i = {{$country->holidaypackagetourplan[0]->id}};
+    var count = {{$country->holidaypackagetourplan->count()}};
+    @else
     var i = 1;
     var count = 1;
+    @endif
     
     function duplicate() {
         var div = document.getElementById('duplicate_'+i),

@@ -46,4 +46,9 @@ class VehicleTypesSeo extends Model
     {
         return $this->hasMany('App\Models\VehicleTypeSeoImage', 'vehicletypesseo_id');
     }
+    
+    public function VehicleTypeSeoListLayout()
+    {
+        return $this->hasMany('App\Models\VehicleTypeSeoListLayout', 'vehicletypesseo_id');
+    }
 }

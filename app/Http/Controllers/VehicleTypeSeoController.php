@@ -11,6 +11,8 @@ use App\Models\VehicleType;
 use App\Models\PackageType;
 use App\Models\VehicleTypeSeoImage;
 use App\Models\VehicleTypeSeoVehicle;
+use App\Models\VehicleTypeSeoListLayout;
+use App\Models\VehicleTypeSeoListLayoutList;
 use Illuminate\Support\Facades\Validator;
 use URL;
 use Image;
@@ -283,6 +285,124 @@ class VehicleTypeSeoController extends Controller
         $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
         $country = VehicleTypeSeoImage::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
         return view('pages.admin.vehicletypeseo_image.display')->with('country',$country)->with('vehicleseotype_id', $vehicleseotype_id);
+    }
+
+    // list-layout section
+
+    public function create_list_layout($vehicleseotype_id) {
+        $country = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        return view('pages.admin.vehicletypeseo_list_layout.create')->with('country',$country);
+    }
+
+    public function store_list_layout(Request $req, $vehicleseotype_id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $rules = [
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'list' => ['required','array','min:1'],
+            'list.*' => ['required'],
+            'link' => ['nullable','array','min:1'],
+            'link.*' => ['nullable'],
+        ];
+        $messages = [
+            'heading.regex' => 'Please enter the valid heading !',
+        ];
+
+        $validator = Validator::make($req->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json(["form_error"=>$validator->errors()], 400);
+        }
+
+        $country = new VehicleTypeSeoListLayout;
+        $country->heading = $req->heading;
+        $country->vehicletypesseo_id = $vehicleseotype_id;
+        $result = $country->save();
+
+        for($i=0; $i < count($req->list); $i++) { 
+            $city = new VehicleTypeSeoListLayoutList;
+            $city->vehicletypesseolistlayout_id = $country->id;
+            $city->list = $req->list[$i];
+            $city->link = $req->link[$i];
+            $city->save();
+        }
+        
+        if($result){
+            return response()->json(["url"=>empty($req->refreshUrl)?route('vehicletypeseo_list_layout_view', $vehicleseotype_id):$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+        }else{
+            return response()->json(["error"=>"something went wrong. Please try again"], 400);
+        }
+
+    }
+
+    public function edit_list_layout($vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoListLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        return view('pages.admin.vehicletypeseo_list_layout.edit')->with('country',$country);
+    }
+
+    public function update_list_layout(Request $req, $vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoListLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        $rules = [
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'list' => ['required','array','min:1'],
+            'list.*' => ['required'],
+            'link' => ['nullable','array','min:1'],
+            'link.*' => ['nullable'],
+        ];
+        $messages = [
+            'heading.regex' => 'Please enter the valid heading !',
+        ];
+
+        $validator = Validator::make($req->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json(["form_error"=>$validator->errors()], 400);
+        }
+
+        $country->heading = $req->heading;
+        $country->vehicletypesseo_id = $vehicleseotype_id;
+        $result = $country->save();
+
+        $deleteVehicleTypeSeoListLayoutList = VehicleTypeSeoListLayoutList::where('vehicletypesseolistlayout_id',$country->id)->delete();
+
+        for($i=0; $i < count($req->list); $i++) { 
+            $city = new VehicleTypeSeoListLayoutList;
+            $city->vehicletypesseolistlayout_id = $country->id;
+            $city->list = $req->list[$i];
+            $city->link = $req->link[$i];
+            $city->save();
+        }
+
+        if($result){
+            return response()->json(["url"=>empty($req->refreshUrl)?route('vehicletypeseo_list_layout_view', $vehicleseotype_id):$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
+        }else{
+            return response()->json(["error"=>"something went wrong. Please try again"], 400);
+        }
+    }
+
+    public function delete_list_layout($vehicleseotype_id, $id){
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoListLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        $country->delete();
+        return redirect()->intended(route('vehicletypeseo_list_layout_view', $vehicleseotype_id))->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function view_list_layout(Request $request, $vehicleseotype_id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $country = VehicleTypeSeoListLayout::where(function ($query) use ($search) {
+                $query->where('heading', 'like', '%' . $search . '%');
+            })->paginate(10);
+        }else{
+            $country = VehicleTypeSeoListLayout::orderBy('id', 'DESC')->paginate(10);
+        }
+        return view('pages.admin.vehicletypeseo_list_layout.list')->with('country', $country)->with('vehicleseotype_id', $vehicleseotype_id);
+    }
+
+    public function display_list_layout($vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoListLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        return view('pages.admin.vehicletypeseo_list_layout.display')->with('country',$country)->with('vehicleseotype_id', $vehicleseotype_id);
     }
 
 
