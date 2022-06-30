@@ -35,6 +35,7 @@ use App\Http\Controllers\ListLayoutController;
 use App\Http\Controllers\ContentLayoutController;
 use App\Http\Controllers\VehicleSeoController;
 use App\Http\Controllers\HolidayPackageSeoController;
+use App\Http\Controllers\TestimonialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -425,6 +426,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
             Route::get('/delete/{id}', [HolidayPackageSeoController::class, 'delete_image', 'as' => 'admin.holidaypackageseo_image.delete'])->name('holidaypackageseo_image_delete');
         });
         
+    });
+    
+    Route::prefix('/testimonial')->group(function () {
+        Route::get('/', [TestimonialController::class, 'view', 'as' => 'admin.testimonial.view'])->name('testimonial_view');
+        Route::get('/view/{id}', [TestimonialController::class, 'display', 'as' => 'admin.testimonial.display'])->name('testimonial_display');
+        Route::get('/create', [TestimonialController::class, 'create', 'as' => 'admin.testimonial.create'])->name('testimonial_create');
+        Route::post('/create', [TestimonialController::class, 'store', 'as' => 'admin.testimonial.store'])->name('testimonial_store');
+        Route::get('/edit/{id}', [TestimonialController::class, 'edit', 'as' => 'admin.testimonial.edit'])->name('testimonial_edit');
+        Route::post('/edit/{id}', [TestimonialController::class, 'update', 'as' => 'admin.testimonial.update'])->name('testimonial_update');
+        Route::get('/delete/{id}', [TestimonialController::class, 'delete', 'as' => 'admin.testimonial.delete'])->name('testimonial_delete');
+        Route::get('/excel', [TestimonialController::class, 'excel', 'as' => 'admin.testimonial.excel'])->name('testimonial_excel');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
