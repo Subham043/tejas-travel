@@ -23,11 +23,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Vehicle Type Seo</h4>
+                    <h4 class="mb-sm-0">Holiday Package Seo</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Vehicle Type Seo</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Holiday Package Seo</a></li>
                             <li class="breadcrumb-item active">Edit</li>
                         </ol>
                     </div>
@@ -36,38 +36,29 @@
             </div>
         </div>
         <!-- end page title -->
-        <form id="countryForm" method="post" action="{{route('vehicletypeseo_update', $country->id)}}" enctype="multipart/form-data">
+        <form id="countryForm" method="post" action="{{route('holidaypackageseo_update', $country->id)}}" enctype="multipart/form-data">
             @csrf
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Vehicle Type Seo</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Holiday Package Seo</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
                             
                             
                             <div class="row gy-4">
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
-                                        <label for="vehicletype" class="form-label">Vehicle Type</label>
-                                        <select id="vehicletype" name="vehicletype"></select>
-                                        @error('vehicletype') 
+                                        <label for="holidaypackage" class="form-label">Holiday Package</label>
+                                        <select id="holidaypackage" name="holidaypackage"></select>
+                                        @error('holidaypackage') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
-                                    <div>
-                                        <label for="vehicle" class="form-label">Vehicle</label>
-                                        <select id="vehicle" name="vehicle" multiple></select>
-                                        @error('vehicle') 
-                                            <div class="invalid-message">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="state" class="form-label">State</label>
                                         <select id="state" name="state"></select>
@@ -76,7 +67,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="city" class="form-label">City</label>
                                         <select id="city" name="city"></select>
@@ -418,10 +409,9 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
-@include('pages.admin.vehicletypeseo._js_state_edit_select')
-@include('pages.admin.vehicletypeseo._js_city_edit_select')
-@include('pages.admin.vehicletypeseo._js_vehicletype_select_edit')
-@include('pages.admin.vehicletypeseo._js_vehicle_select_edit')
+@include('pages.admin.holidaypackageseo._js_state_edit_select')
+@include('pages.admin.holidaypackageseo._js_city_edit_select')
+@include('pages.admin.holidaypackageseo._js_holidaypackage_select_edit')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -515,20 +505,20 @@ const validation = new JustValidate('#countryForm', {
 });
 // apply rules to form fields
 validation
-  .addField('#vehicletype', [
+  .addField('#holidaypackage', [
     {
       rule: 'required',
-      errorMessage: 'Please select a vehicle type',
+      errorMessage: 'Please select a holiday package',
     },
     {
         validator: (value, fields) => {
-        if (value === 'Select a vehicle type') {
+        if (value === 'Select a holiday package') {
             return false;
         }
 
         return true;
         },
-        errorMessage: 'Please select a vehicle type',
+        errorMessage: 'Please select a holiday package',
     },
   ])
   .addField('#city', [
@@ -561,22 +551,6 @@ validation
         return true;
         },
         errorMessage: 'Please select a state',
-    },
-  ])
-  .addField('#vehicle', [
-    {
-      rule: 'required',
-      errorMessage: 'Please select a vehicle',
-    },
-    {
-        validator: (value, fields) => {
-        if (value?.length==0) {
-            return false;
-        }
-
-        return true;
-        },
-        errorMessage: 'Please select a vehicle',
     },
   ])
   .addField('#editordescription', [
@@ -644,7 +618,7 @@ validation
     
       try {
         var formData = new FormData();
-        formData.append('vehicletype_id',document.getElementById('vehicletype').value)
+        formData.append('holidaypackage_id',document.getElementById('holidaypackage').value)
         formData.append('description_unformatted',quillDescription.getText())
         formData.append('description',quillDescription.root.innerHTML)
         formData.append('state_id',document.getElementById('state').value)
@@ -657,11 +631,6 @@ validation
         formData.append('seo_meta_footer',document.getElementById('seo_meta_footer').value)
         formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
         // formData.append('refreshUrl','{{URL::current()}}')
-        if(document.getElementById('vehicle')?.length>0){
-            for (let index = 0; index < document.getElementById('vehicle').length; index++) {
-                formData.append('vehicle[]',document.getElementById('vehicle')[index].value)
-            }
-        }
 
         for (let index = 0; index < count; index++) {
             formData.append('list[]',document.getElementsByName('list[]')[index].value)
@@ -671,7 +640,7 @@ validation
             formData.append('content[]',document.getElementsByName('content[]')[index2].value)
         }
         
-        const response = await axios.post('{{route('vehicletypeseo_update', $country->id)}}', formData)
+        const response = await axios.post('{{route('holidaypackageseo_update', $country->id)}}', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);
@@ -679,8 +648,8 @@ validation
       } catch (error) {
           console.log(error);
           console.log(error.response);
-        if(error?.response?.data?.form_error?.vehicletype_id){
-            errorToast(error?.response?.data?.form_error?.vehicletype_id[0])
+        if(error?.response?.data?.form_error?.holidaypackage_id){
+            errorToast(error?.response?.data?.form_error?.holidaypackage_id[0])
         }
         if(error?.response?.data?.form_error?.state_id){
             errorToast(error?.response?.data?.form_error?.state_id[0])

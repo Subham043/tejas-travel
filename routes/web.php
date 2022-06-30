@@ -34,6 +34,7 @@ use App\Http\Controllers\VehicleTypeSeoController;
 use App\Http\Controllers\ListLayoutController;
 use App\Http\Controllers\ContentLayoutController;
 use App\Http\Controllers\VehicleSeoController;
+use App\Http\Controllers\HolidayPackageSeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -403,6 +404,26 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [VehicleSeoController::class, 'edit', 'as' => 'admin.vehicleseo.edit'])->name('vehicleseo_edit');
         Route::post('/edit/{id}', [VehicleSeoController::class, 'update', 'as' => 'admin.vehicleseo.update'])->name('vehicleseo_update');
         Route::get('/delete/{id}', [VehicleSeoController::class, 'delete', 'as' => 'admin.vehicleseo.delete'])->name('vehicleseo_delete');
+        
+    });
+
+    Route::prefix('/holiday-package-seo')->group(function () {
+        Route::get('/', [HolidayPackageSeoController::class, 'view', 'as' => 'admin.holidaypackageseo.view'])->name('holidaypackageseo_view');
+        Route::get('/view/{id}', [HolidayPackageSeoController::class, 'display', 'as' => 'admin.holidaypackageseo.display'])->name('holidaypackageseo_display');
+        Route::get('/create', [HolidayPackageSeoController::class, 'create', 'as' => 'admin.holidaypackageseo.create'])->name('holidaypackageseo_create');
+        Route::post('/create', [HolidayPackageSeoController::class, 'store', 'as' => 'admin.holidaypackageseo.store'])->name('holidaypackageseo_store');
+        Route::get('/edit/{id}', [HolidayPackageSeoController::class, 'edit', 'as' => 'admin.holidaypackageseo.edit'])->name('holidaypackageseo_edit');
+        Route::post('/edit/{id}', [HolidayPackageSeoController::class, 'update', 'as' => 'admin.holidaypackageseo.update'])->name('holidaypackageseo_update');
+        Route::get('/delete/{id}', [HolidayPackageSeoController::class, 'delete', 'as' => 'admin.holidaypackageseo.delete'])->name('holidaypackageseo_delete');
+        Route::prefix('/banner-images/{holidaypackageseo_id}')->group(function () {
+            Route::get('/', [HolidayPackageSeoController::class, 'view_image', 'as' => 'admin.holidaypackageseo_image.view'])->name('holidaypackageseo_image_view');
+            Route::get('/view/{id}', [HolidayPackageSeoController::class, 'display_image', 'as' => 'admin.holidaypackageseo_image.display'])->name('holidaypackageseo_image_display');
+            Route::get('/create', [HolidayPackageSeoController::class, 'create_image', 'as' => 'admin.holidaypackageseo_image.create'])->name('holidaypackageseo_image_create');
+            Route::post('/create', [HolidayPackageSeoController::class, 'store_image', 'as' => 'admin.holidaypackageseo_image.store'])->name('holidaypackageseo_image_store');
+            Route::get('/edit/{id}', [HolidayPackageSeoController::class, 'edit_image', 'as' => 'admin.holidaypackageseo_image.edit'])->name('holidaypackageseo_image_edit');
+            Route::post('/edit/{id}', [HolidayPackageSeoController::class, 'update_image', 'as' => 'admin.holidaypackageseo_image.update'])->name('holidaypackageseo_image_update');
+            Route::get('/delete/{id}', [HolidayPackageSeoController::class, 'delete_image', 'as' => 'admin.holidaypackageseo_image.delete'])->name('holidaypackageseo_image_delete');
+        });
         
     });
 

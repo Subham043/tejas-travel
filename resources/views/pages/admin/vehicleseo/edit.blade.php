@@ -622,7 +622,7 @@ validation
         formData.append('description_unformatted',quillDescription.getText())
         formData.append('description',quillDescription.root.innerHTML)
         formData.append('state_id',document.getElementById('state').value)
-        formData.append('city_id',document.getElementById('vehicle').value)
+        formData.append('city_id',document.getElementById('city').value)
         formData.append('url',document.getElementById('url').value)
         formData.append('browser_title',document.getElementById('browser_title').value)
         formData.append('meta_keywords',document.getElementById('meta_keywords').value)
