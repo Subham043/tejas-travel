@@ -28,7 +28,7 @@ class VehicleTypesSeo extends Model
 
     public function Vehicles()
     {
-        return $this->belongsToMany(Vehicle::class, 'vehicletypesseovehicles', 'vehicle_id', 'vehicletypesseo_id');
+        return $this->belongsToMany(Vehicle::class, 'vehicletypesseovehicles', 'vehicletypesseo_id', 'vehicle_id');
     }
 
     public function GetVehiclesId(){
@@ -51,27 +51,27 @@ class VehicleTypesSeo extends Model
 
     public function ListLayouts()
     {
-        return $this->belongsToMany(ListLayout::class, 'vehicletypesseocontentlayouts', 'listlayout_id', 'vehicletypesseo_id');
+        return $this->belongsToMany(ListLayout::class, 'vehicletypesseolistlayouts', 'vehicletypesseo_id', 'listlayout_id');
     }
 
     public function GetListLayoutsId(){
-        return $this->ListLayouts()->pluck('listlayouts.id')->toArray();
+        return $this->ListLayouts()->pluck('listlayout.id')->toArray();
     }
 
     public function GetListLayoutsName(){
-        return $this->ListLayouts()->pluck('listlayouts.name');
+        return $this->ListLayouts()->pluck('listlayout.name');
     }
     
     public function ContentLayouts()
     {
-        return $this->belongsToMany(ContentLayout::class, 'vehicletypesseocontentlayouts', 'contentlayout_id', 'vehicletypesseo_id');
+        return $this->belongsToMany(ContentLayout::class, 'vehicletypesseocontentlayouts', 'vehicletypesseo_id', 'contentlayout_id');
     }
 
-    public function ContentLayoutsId(){
-        return $this->ContentLayouts()->pluck('contentlayouts.id')->toArray();
+    public function GetContentLayoutsId(){
+        return $this->ContentLayouts()->pluck('contentlayout.id')->toArray();
     }
 
-    public function ContentLayoutsName(){
-        return $this->ContentLayouts()->pluck('contentlayouts.name');
+    public function GetContentLayoutsName(){
+        return $this->ContentLayouts()->pluck('contentlayout.name');
     }
 }

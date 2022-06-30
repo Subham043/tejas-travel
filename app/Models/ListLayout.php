@@ -18,7 +18,7 @@ class ListLayout extends Model
 
     public function VehicleTypesSeos()
     {
-        return $this->belongsToMany(VehicleTypesSeo::class, 'vehicletypesseocontentlayouts', 'vehicletypesseo_id', 'listlayout_id');
+        return $this->belongsToMany(VehicleTypesSeo::class, 'vehicletypesseolistlayouts', 'vehicletypesseo_id', 'listlayout_id');
     }
 
     public function GetVehicleTypesSeosId(){

@@ -104,6 +104,52 @@
                                 <p>{!!$country->description!!}</p>
                             </div>
 
+                            @if($country->listlayouts->count()>0)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">List Layout</h6>
+                                @foreach ($country->listlayouts as $listlayouts)
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Heading :</p>
+                                            <h5 class="fs-15 mb-0">{{$listlayouts->heading}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Description :</p>
+                                            <h5 class="fs-15 mb-0">{!!$listlayouts->description!!}</h5>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+
+                            @if($country->contentlayouts->count()>0)
+                            <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
+                                <h6 class="fw-semibold text-uppercase">Content Layout</h6>
+                                @foreach ($country->contentlayouts as $contentlayouts)
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Heading :</p>
+                                            <h5 class="fs-15 mb-0">{!!$contentlayouts->heading!!}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">Description :</p>
+                                            <h5 class="fs-15 mb-0">{!!$contentlayouts->description!!}</h5>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+
                             
                         </div>
                     </div>

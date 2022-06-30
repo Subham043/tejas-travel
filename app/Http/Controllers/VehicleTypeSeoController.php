@@ -14,13 +14,17 @@ use App\Models\VehicleTypeSeoVehicle;
 use Illuminate\Support\Facades\Validator;
 use URL;
 use Image;
+use App\Models\ListLayout;
+use App\Models\ContentLayout;
+use App\Models\VehicleTypeSeoListLayout;
+use App\Models\VehicleTypeSeoContentLayout;
 
 class VehicleTypeSeoController extends Controller
 {
 
     public function create() {
   
-        return view('pages.admin.vehicletypeseo.create')->with('states', State::all())->with('vehicletypes', VehicleType::all());
+        return view('pages.admin.vehicletypeseo.create')->with('states', State::all())->with('vehicletypes', VehicleType::all())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
     }
 
     public function store(Request $req) {
@@ -31,6 +35,10 @@ class VehicleTypeSeoController extends Controller
             'vehicle' => ['required','array','min:1'],
             'vehicle.*' => ['required','regex:/^[0-9]*$/'],
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicletypesseos'],
+            'list' => ['required','array','min:1'],
+            'list.*' => ['required','regex:/^[0-9]*$/'],
+            'content' => ['required','array','min:1'],
+            'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
@@ -69,6 +77,20 @@ class VehicleTypeSeoController extends Controller
             $city->vehicle_id = $req->vehicle[$i];
             $city->save();
         }
+
+        for($i=0; $i < count($req->list); $i++) { 
+            $city = new VehicleTypeSeoListLayout;
+            $city->vehicletypesseo_id = $country->id;
+            $city->listlayout_id = $req->list[$i];
+            $city->save();
+        }
+        
+        for($i=0; $i < count($req->content); $i++) { 
+            $city = new VehicleTypeSeoContentLayout;
+            $city->vehicletypesseo_id = $country->id;
+            $city->contentlayout_id = $req->content[$i];
+            $city->save();
+        }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?route('vehicletypeseo_view'):$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
@@ -79,7 +101,7 @@ class VehicleTypeSeoController extends Controller
 
     public function edit($id) {
         $country = VehicleTypesSeo::findOrFail($id);
-        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get());
+        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
     }
 
     public function update(Request $req, $id) {
@@ -92,6 +114,10 @@ class VehicleTypeSeoController extends Controller
             'vehicle' => ['required','array','min:1'],
             'vehicle.*' => ['required','regex:/^[0-9]*$/'],
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'list' => ['required','array','min:1'],
+            'list.*' => ['required','regex:/^[0-9]*$/'],
+            'content' => ['required','array','min:1'],
+            'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
@@ -133,6 +159,24 @@ class VehicleTypeSeoController extends Controller
             $city = new VehicleTypeSeoVehicle;
             $city->vehicletypesseo_id = $country->id;
             $city->vehicle_id = $req->vehicle[$i];
+            $city->save();
+        }
+
+        $deleteVehicleTypeSeoListLayout = VehicleTypeSeoListLayout::where('vehicletypesseo_id',$country->id)->delete();
+
+        for($i=0; $i < count($req->list); $i++) { 
+            $city = new VehicleTypeSeoListLayout;
+            $city->vehicletypesseo_id = $country->id;
+            $city->listlayout_id = $req->list[$i];
+            $city->save();
+        }
+
+        $deleteVehicleTypeSeoContentLayout = VehicleTypeSeoContentLayout::where('vehicletypesseo_id',$country->id)->delete();
+        
+        for($i=0; $i < count($req->content); $i++) { 
+            $city = new VehicleTypeSeoContentLayout;
+            $city->vehicletypesseo_id = $country->id;
+            $city->contentlayout_id = $req->content[$i];
             $city->save();
         }
         
