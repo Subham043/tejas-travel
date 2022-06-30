@@ -41,8 +41,8 @@ class VehicleTypeSeoController extends Controller
             'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
-            'vehicle_id.required' => 'Please enter the vehicle !',
-            'vehicle_id.regex' => 'Please enter the valid vehicle !',
+            'vehicletype_id.required' => 'Please enter the vehicle type !',
+            'vehicletype_id.regex' => 'Please enter the valid vehicle type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',
@@ -120,8 +120,8 @@ class VehicleTypeSeoController extends Controller
             'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
-            'vehicle_id.required' => 'Please enter the vehicle !',
-            'vehicle_id.regex' => 'Please enter the valid vehicle !',
+            'vehicletype_id.required' => 'Please enter the vehicle type !',
+            'vehicletype_id.regex' => 'Please enter the valid vehicle type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',

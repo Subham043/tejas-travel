@@ -33,6 +33,7 @@ use App\Http\Controllers\SEOMetaController;
 use App\Http\Controllers\VehicleTypeSeoController;
 use App\Http\Controllers\ListLayoutController;
 use App\Http\Controllers\ContentLayoutController;
+use App\Http\Controllers\VehicleSeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -392,6 +393,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [ContentLayoutController::class, 'edit_content_layout', 'as' => 'admin.content_layout.edit'])->name('content_layout_edit');
         Route::post('/edit/{id}', [ContentLayoutController::class, 'update_content_layout', 'as' => 'admin.content_layout.update'])->name('content_layout_update');
         Route::get('/delete/{id}', [ContentLayoutController::class, 'delete_content_layout', 'as' => 'admin.content_layout.delete'])->name('content_layout_delete');
+    });
+
+    Route::prefix('/vehicle-seo')->group(function () {
+        Route::get('/', [VehicleSeoController::class, 'view', 'as' => 'admin.vehicleseo.view'])->name('vehicleseo_view');
+        Route::get('/view/{id}', [VehicleSeoController::class, 'display', 'as' => 'admin.vehicleseo.display'])->name('vehicleseo_display');
+        Route::get('/create', [VehicleSeoController::class, 'create', 'as' => 'admin.vehicleseo.create'])->name('vehicleseo_create');
+        Route::post('/create', [VehicleSeoController::class, 'store', 'as' => 'admin.vehicleseo.store'])->name('vehicleseo_store');
+        Route::get('/edit/{id}', [VehicleSeoController::class, 'edit', 'as' => 'admin.vehicleseo.edit'])->name('vehicleseo_edit');
+        Route::post('/edit/{id}', [VehicleSeoController::class, 'update', 'as' => 'admin.vehicleseo.update'])->name('vehicleseo_update');
+        Route::get('/delete/{id}', [VehicleSeoController::class, 'delete', 'as' => 'admin.vehicleseo.delete'])->name('vehicleseo_delete');
+        
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');
