@@ -86,6 +86,9 @@
                                                         <a href="{{route('vehicleseo_display', $item->id)}}" class="btn btn-sm btn-info edit-item-btn">View</a>
                                                     </div>
                                                     <div class="edit">
+                                                        <a href="{{route('vehicleseo_preview', $item->id)}}" target="_blank" class="btn btn-sm btn-warning edit-item-btn">Preview</a>
+                                                    </div>
+                                                    <div class="edit">
                                                         <a href="{{route('vehicleseo_edit', $item->id)}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
                                                     </div>
                                                     <div class="remove">

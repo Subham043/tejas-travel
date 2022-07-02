@@ -61,8 +61,8 @@
                                     <div>
                                         <label for="description" class="form-label">Description</label>
                                         <div id="editordescription">{!!$country->description!!}</div>
-                                        <input type="hidden" id="description_unformatted" name="description_unformatted" value="{!!$country->description_unformatted!!}">
-                                        <input type="hidden" id="description" name="description" value="{!!$country->description!!}">
+                                        <input type="hidden" id="description_unformatted" name="description_unformatted">
+                                        <input type="hidden" id="description" name="description">
                                         @error('description_unformatted') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror

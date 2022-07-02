@@ -219,6 +219,11 @@ class VehicleTypeSeoController extends Controller
         return view('pages.admin.vehicletypeseo.display')->with('country',$country);
     }
 
+    public function preview($id) {
+        $country = VehicleTypesSeo::findOrFail($id);
+        return view('pages.admin.vehicletypeseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country);
+    }
+
     // banner-image section
 
     public function create_image($vehicleseotype_id) {

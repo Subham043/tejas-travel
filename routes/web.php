@@ -361,6 +361,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/vehicle-type-seo')->group(function () {
         Route::get('/', [VehicleTypeSeoController::class, 'view', 'as' => 'admin.vehicletypeseo.view'])->name('vehicletypeseo_view');
         Route::get('/view/{id}', [VehicleTypeSeoController::class, 'display', 'as' => 'admin.vehicletypeseo.display'])->name('vehicletypeseo_display');
+        Route::get('/preview/{id}', [VehicleTypeSeoController::class, 'preview', 'as' => 'admin.vehicletypeseo.preview'])->name('vehicletypeseo_preview');
         Route::get('/create', [VehicleTypeSeoController::class, 'create', 'as' => 'admin.vehicletypeseo.create'])->name('vehicletypeseo_create');
         Route::post('/create', [VehicleTypeSeoController::class, 'store', 'as' => 'admin.vehicletypeseo.store'])->name('vehicletypeseo_store');
         Route::get('/edit/{id}', [VehicleTypeSeoController::class, 'edit', 'as' => 'admin.vehicletypeseo.edit'])->name('vehicletypeseo_edit');
@@ -399,6 +400,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
 
     Route::prefix('/vehicle-seo')->group(function () {
         Route::get('/', [VehicleSeoController::class, 'view', 'as' => 'admin.vehicleseo.view'])->name('vehicleseo_view');
+        Route::get('/preview/{id}', [VehicleSeoController::class, 'preview', 'as' => 'admin.vehicleseo.preview'])->name('vehicleseo_preview');
         Route::get('/view/{id}', [VehicleSeoController::class, 'display', 'as' => 'admin.vehicleseo.display'])->name('vehicleseo_display');
         Route::get('/create', [VehicleSeoController::class, 'create', 'as' => 'admin.vehicleseo.create'])->name('vehicleseo_create');
         Route::post('/create', [VehicleSeoController::class, 'store', 'as' => 'admin.vehicleseo.store'])->name('vehicleseo_store');

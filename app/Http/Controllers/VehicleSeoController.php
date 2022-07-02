@@ -193,5 +193,10 @@ class VehicleSeoController extends Controller
         return view('pages.admin.vehicleseo.display')->with('country',$country);
     }
 
+    public function preview($id) {
+        $country = VehicleSeo::findOrFail($id);
+        return view('pages.admin.vehicleseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country);
+    }
+
     
 }
