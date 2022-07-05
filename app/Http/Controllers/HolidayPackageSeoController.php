@@ -252,7 +252,7 @@ class HolidayPackageSeoController extends Controller
         ]);
 
         $country->alt = $req->alt;
-        if($req->hasFile('image')){
+        if($req->hasFile('image') && file_exists(public_path('holidaypackageseo/'.$country->image))){
             if($country->image!=null){
                 unlink(public_path('holidaypackageseo/'.$country->image)); 
                 unlink(public_path('holidaypackageseo/compressed-'.$country->image)); 
@@ -276,7 +276,7 @@ class HolidayPackageSeoController extends Controller
     public function delete_image($holidaypackageseo_id, $id){
         $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
         $country = HolidayPackageSeoImage::where('id', $id)->where('holidaypackageseo_id', $holidaypackageseo_id)->firstOrFail();
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('holidaypackageseo/'.$country->image))){
             unlink(public_path('holidaypackageseo/'.$country->image)); 
             unlink(public_path('holidaypackageseo/compressed-'.$country->image)); 
         }

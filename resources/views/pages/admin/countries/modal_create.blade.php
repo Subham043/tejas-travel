@@ -97,7 +97,7 @@
         },
         {
             rule: 'customRegexp',
-            value: /^[a-zA-Z\s]*$/,
+            value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
             errorMessage: 'Name is invalid',
         },
       ])

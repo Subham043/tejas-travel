@@ -284,7 +284,7 @@ class VehicleTypeSeoController extends Controller
 
         $country->alt = $req->alt;
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('vehicletypeseo/'.$country->image))){
                 unlink(public_path('vehicletypeseo/'.$country->image)); 
                 unlink(public_path('vehicletypeseo/compressed-'.$country->image)); 
             }
@@ -307,7 +307,7 @@ class VehicleTypeSeoController extends Controller
     public function delete_image($vehicleseotype_id, $id){
         $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
         $country = VehicleTypeSeoImage::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('vehicletypeseo/'.$country->image))){
             unlink(public_path('vehicletypeseo/'.$country->image)); 
             unlink(public_path('vehicletypeseo/compressed-'.$country->image)); 
         }

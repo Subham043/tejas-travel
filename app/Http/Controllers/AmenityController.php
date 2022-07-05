@@ -19,7 +19,7 @@ class AmenityController extends Controller
 
     public function store(Request $req) {
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'for' => ['required','regex:/^[0-9]*$/'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -65,7 +65,7 @@ class AmenityController extends Controller
     public function update(Request $req, $id) {
         $country = Amenity::findOrFail($id);
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'for' => ['required','regex:/^[0-9]*$/'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -86,7 +86,7 @@ class AmenityController extends Controller
         $country->description = $req->description;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('amenity/'.$country->image))){
                 unlink(public_path('amenity/'.$country->image)); 
                 unlink(public_path('amenity/compressed-'.$country->image)); 
             }
@@ -108,7 +108,7 @@ class AmenityController extends Controller
 
     public function delete($id){
         $country = Amenity::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('amenity/'.$country->image))){
             unlink(public_path('amenity/'.$country->image)); 
             unlink(public_path('amenity/compressed-'.$country->image)); 
         }

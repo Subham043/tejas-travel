@@ -271,7 +271,7 @@ class HolidayPackageController extends Controller
         $country->status = $req->status == "on" ? 1 : 0;
 
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('holidaypackage/'.$country->image))){
                 unlink(public_path('holidaypackage/'.$country->image)); 
                 unlink(public_path('holidaypackage/compressed-'.$country->image)); 
             }
@@ -318,7 +318,7 @@ class HolidayPackageController extends Controller
 
     public function delete($id){
         $country = HolidayPackage::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('holidaypackage/'.$country->image))){
             unlink(public_path('holidaypackage/'.$country->image)); 
             unlink(public_path('holidaypackage/compressed-'.$country->image)); 
         }

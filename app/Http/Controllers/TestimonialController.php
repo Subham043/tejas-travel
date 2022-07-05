@@ -95,7 +95,7 @@ class TestimonialController extends Controller
         $country->designation = $req->designation;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('testimonial/'.$country->image))){
                 unlink(public_path('testimonial/'.$country->image)); 
                 unlink(public_path('testimonial/compressed-'.$country->image)); 
             }
@@ -117,7 +117,7 @@ class TestimonialController extends Controller
 
     public function delete($id){
         $country = Testimonial::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('testimonial/'.$country->image))){
             unlink(public_path('testimonial/'.$country->image)); 
             unlink(public_path('testimonial/compressed-'.$country->image)); 
         }

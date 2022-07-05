@@ -18,7 +18,7 @@ class AccommodationController extends Controller
 
     public function store(Request $req) {
         $validator = $req->validate([
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
             'name.required' => 'Please enter the name !',
@@ -44,7 +44,7 @@ class AccommodationController extends Controller
     public function update(Request $req, $id) {
         $country = Accommodation::findOrFail($id);
         $validator = $req->validate([
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [
             'name.required' => 'Please enter the name !',

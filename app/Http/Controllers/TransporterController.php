@@ -24,7 +24,7 @@ class TransporterController extends Controller
 
     public function store(Request $req) {
         $rules = array(
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'email' => ['required','email'],
             'phone' => ['required','regex:/^[0-9]*$/'],
             'state' => ['required'],
@@ -83,7 +83,7 @@ class TransporterController extends Controller
     public function update(Request $req, $id) {
         $country = Transporter::findOrFail($id);
         $rules = array(
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'email' => ['required','email'],
             'phone' => ['required','regex:/^[0-9]*$/'],
             'state' => ['required'],

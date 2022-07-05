@@ -19,7 +19,7 @@ class AirportController extends Controller
 
     public function store(Request $req) {
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'country' => ['required'],
             'state' => ['required'],
             'city' => ['required'],
@@ -65,7 +65,7 @@ class AirportController extends Controller
     public function update(Request $req, $id) {
         $country = Airport::findOrFail($id);
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'country' => ['required'],
             'state' => ['required'],
             'city' => ['required'],

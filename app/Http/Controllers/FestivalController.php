@@ -24,7 +24,7 @@ class FestivalController extends Controller
 
     public function store(Request $req) {
         $rules = array(
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'start_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'holiday_type' => ['required','regex:/^[0-9]*$/'],
@@ -80,7 +80,7 @@ class FestivalController extends Controller
     public function update(Request $req, $id) {
         $country = Festival::findOrFail($id);
         $rules = array(
-            'name' => ['required','regex:/^[a-zA-Z0-9\s]*$/'],
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'start_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'holiday_type' => ['required','regex:/^[0-9]*$/'],

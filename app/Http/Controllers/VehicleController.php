@@ -23,7 +23,7 @@ class VehicleController extends Controller
 
     public function store(Request $req) {
         $rules = array(
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'seating' => ['required','numeric','regex:/^[0-9]*$/'],
             'vehicletype' => ['required','regex:/^[0-9]*$/'],
             'amenity' => ['required','array','min:1'],
@@ -116,7 +116,7 @@ class VehicleController extends Controller
     public function update(Request $req, $id) {
         $country = Vehicle::findOrFail($id);
         $rules = array(
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'seating' => ['required','numeric','regex:/^[0-9]*$/'],
             'vehicletype' => ['required','regex:/^[0-9]*$/'],
             'amenity' => ['required','array','min:1'],

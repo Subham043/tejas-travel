@@ -20,7 +20,7 @@ class CountryController extends Controller
 
     public function store(Request $req) {
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'dial' => ['required','regex:/^(\+?\d{1,3}|\d{1,4})$/'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -64,7 +64,7 @@ class CountryController extends Controller
     public function ajax_store(Request $req) {
 
         $rules = array(
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'dial' => ['required','regex:/^(\+?\d{1,3}|\d{1,4})$/'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -119,7 +119,7 @@ class CountryController extends Controller
     public function update(Request $req, $id) {
         $country = Country::findOrFail($id);
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'dial' => ['required','regex:/^(\+?\d{1,3}|\d{1,4})$/'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -140,7 +140,7 @@ class CountryController extends Controller
         $country->description = $req->description;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('country/'.$country->image))){
                 unlink(public_path('country/'.$country->image)); 
                 unlink(public_path('country/compressed-'.$country->image)); 
             }
@@ -164,7 +164,7 @@ class CountryController extends Controller
 
     public function delete($id){
         $country = Country::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('country/'.$country->image))){
             unlink(public_path('country/'.$country->image)); 
             unlink(public_path('country/compressed-'.$country->image)); 
         }

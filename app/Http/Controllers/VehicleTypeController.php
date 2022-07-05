@@ -18,7 +18,7 @@ class VehicleTypeController extends Controller
 
     public function store(Request $req) {
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
@@ -62,7 +62,7 @@ class VehicleTypeController extends Controller
     public function update(Request $req, $id) {
         $country = VehicleType::findOrFail($id);
         $validator = $req->validate([
-            'name' => ['required','string','regex:/^[a-zA-Z\s]*$/'],
+            'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
@@ -79,7 +79,7 @@ class VehicleTypeController extends Controller
         $country->description = $req->description;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){ 
+            if($country->image!=null && file_exists(public_path('vehicletype/'.$country->image))){ 
                 unlink(public_path('vehicletype/'.$country->image)); 
                 unlink(public_path('vehicletype/compressed-'.$country->image)); 
             }
@@ -101,7 +101,7 @@ class VehicleTypeController extends Controller
 
     public function delete($id){
         $country = VehicleType::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('vehicletype/'.$country->image))){
             unlink(public_path('vehicletype/'.$country->image)); 
             unlink(public_path('vehicletype/compressed-'.$country->image)); 
         }
