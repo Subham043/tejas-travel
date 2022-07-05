@@ -164,7 +164,7 @@ class VehicleController extends Controller
         $country->url = $req->url;
         $country->status = $req->status == "on" ? 1 : 0;
         if($req->hasFile('image')){
-            if($country->image!=null){
+            if($country->image!=null && file_exists(public_path('vehicle/'.$country->image))){
                 unlink(public_path('vehicle/'.$country->image)); 
                 unlink(public_path('vehicle/compressed-'.$country->image)); 
             }
@@ -210,14 +210,16 @@ class VehicleController extends Controller
 
     public function delete($id){
         $country = Vehicle::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('vehicle/'.$country->image))){
             unlink(public_path('vehicle/'.$country->image)); 
             unlink(public_path('vehicle/compressed-'.$country->image)); 
         }
         if($country->vehicledisplayimage->count()>0){
             foreach ($country->vehicledisplayimage as $vehicledisplayimage) {
-                unlink(public_path('vehicle/'.$vehicledisplayimage->image));
-                unlink(public_path('vehicle/compressed-'.$vehicledisplayimage->image));
+                if($vehicledisplayimage->image!=null && file_exists(public_path('vehicle/'.$vehicledisplayimage->image))){
+                    unlink(public_path('vehicle/'.$vehicledisplayimage->image));
+                    unlink(public_path('vehicle/compressed-'.$vehicledisplayimage->image));
+                }
             }
             $deleteVehicleDisplayImage = VehicleDisplayImage::where('vehicle_id',$country->id)->delete();
         }
@@ -228,7 +230,7 @@ class VehicleController extends Controller
 
     public function delete_upload_image($id){
         $country = VehicleDisplayImage::findOrFail($id);
-        if($country->image!=null){
+        if($country->image!=null && file_exists(public_path('vehicle/'.$country->image))){
             unlink(public_path('vehicle/'.$country->image)); 
             unlink(public_path('vehicle/compressed-'.$country->image)); 
         }

@@ -70,25 +70,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="x_car_detail_main_wrapper float_left">
+                            @if($country->vehicletypeseoimage->count()>0)
                             <div class="lr_bc_slider_first_wrapper">
                                 <div class="owl-carousel owl-theme">
+                                    @foreach ($country->vehicletypeseoimage as $vehicletypeseoimage)
                                     <div class="item">
                                         <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc2.jpg')}}" alt="fresh_food_img">
+                                            <img src="{{url('vehicletypeseo/'.$vehicletypeseoimage->image)}}" alt="{{$vehicletypeseoimage->alt}}">
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc3.jpg')}}" alt="fresh_food_img">
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc4.jpg')}}" alt="fresh_food_img">
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
+                            @endif
                             <div class="x_car_detail_slider_bottom_cont float_left">
                                 <div class="x_car_detail_slider_bottom_cont_left">
                                     <h3>Dakota zaris</h3>

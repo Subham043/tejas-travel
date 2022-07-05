@@ -72,21 +72,24 @@
                         <div class="x_car_detail_main_wrapper float_left">
                             <div class="lr_bc_slider_first_wrapper">
                                 <div class="owl-carousel owl-theme">
+                                    @if($country->vehicle->count()>0)
+                                    @if($country->vehicle->vehicledisplayimage->count()>0)
+                                    @foreach ($country->vehicle->vehicledisplayimage as $vehicledisplayimage)
                                     <div class="item">
                                         <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc2.jpg')}}" alt="fresh_food_img">
+                                            <img src="{{url('vehicle/'.$vehicledisplayimage->image)}}" alt="fresh_food_img">
                                         </div>
                                     </div>
+                                    @endforeach
+                                    @endif
+                                    @endif
+                                    @if($country->vehicle->image)
                                     <div class="item">
                                         <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc3.jpg')}}" alt="fresh_food_img">
+                                            <img src="{{url('vehicle/'.$country->vehicle->image)}}" alt="fresh_food_img">
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="lr_bc_slider_img_wrapper">
-                                            <img src="{{ asset('assets/images/bc4.jpg')}}" alt="fresh_food_img">
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="x_car_detail_slider_bottom_cont float_left">

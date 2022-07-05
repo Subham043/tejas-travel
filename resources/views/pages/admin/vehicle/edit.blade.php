@@ -161,7 +161,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="browser_title" class="form-label">Browser Title</label>
-                                        <input type="text" class="form-control" name="browser_title" id="browser_title" value="{{old('browser_title')}}">
+                                        <input type="text" class="form-control" name="browser_title" id="browser_title" value="{{$country->browser_title}}">
                                         @error('browser_title') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -170,7 +170,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="url" class="form-label">URL</label>
-                                        <input type="text" class="form-control" name="url" id="url" value="{{old('url')}}">
+                                        <input type="text" class="form-control" name="url" id="url" value="{{$country->url}}">
                                         @error('url') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -179,7 +179,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                                        <textarea class="form-control" name="meta_keywords" id="meta_keywords" cols="30" rows="10">{{old('meta_keywords')}}</textarea>
+                                        <textarea class="form-control" name="meta_keywords" id="meta_keywords" cols="30" rows="10">{!!$country->meta_keywords!!}</textarea>
                                         @error('meta_keywords') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -188,7 +188,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="meta_description" class="form-label">Meta Description</label>
-                                        <textarea class="form-control" name="meta_description" id="meta_description" cols="30" rows="10">{{old('meta_description')}}</textarea>
+                                        <textarea class="form-control" name="meta_description" id="meta_description" cols="30" rows="10">{!!$country->meta_description!!}</textarea>
                                         @error('meta_description') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -197,7 +197,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="seo_meta_header" class="form-label">SEO Meta Header</label>
-                                        <textarea class="form-control" name="seo_meta_header" id="seo_meta_header" cols="30" rows="10">{{old('seo_meta_header')}}</textarea>
+                                        <textarea class="form-control" name="seo_meta_header" id="seo_meta_header" cols="30" rows="10">{!!$country->seo_meta_header!!}</textarea>
                                         @error('seo_meta_header') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -206,7 +206,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="seo_meta_footer" class="form-label">SEO Meta Footer</label>
-                                        <textarea class="form-control" name="seo_meta_footer" id="seo_meta_footer" cols="30" rows="10">{{old('seo_meta_footer')}}</textarea>
+                                        <textarea class="form-control" name="seo_meta_footer" id="seo_meta_footer" cols="30" rows="10">{!!$country->seo_meta_footer!!}</textarea>
                                         @error('seo_meta_footer') 
                                         <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -214,7 +214,7 @@
                                 </div>
                                 
                                 <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
                                 </div>
                                 
                                 
@@ -651,7 +651,7 @@ validation
         }
       } finally{
             submitBtn.innerHTML =  `
-                Submit
+                Update
                 `
             submitBtn.disabled = false;
         }
