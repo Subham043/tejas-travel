@@ -56,4 +56,9 @@ class Transporter extends Model
     public function GetVehiclesName(){
         return $this->Vehicles()->pluck('vehicles.name');
     }
+
+    public function TransporterDriver()
+    {
+        return $this->hasMany('App\Models\TransporterDriver', 'transporter_id');
+    }
 }

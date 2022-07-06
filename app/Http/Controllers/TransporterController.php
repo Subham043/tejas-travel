@@ -14,6 +14,7 @@ use App\Models\Vehicle;
 use App\Models\TransporterCity;
 use App\Models\TransporterSubCity;
 use App\Models\TransporterVehicle;
+use App\Models\TransporterDriver;
 use URL;
 
 class TransporterController extends Controller
@@ -163,14 +164,23 @@ class TransporterController extends Controller
     public function view(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = Transporter::with(['State','Cities','Vehicles'])->where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')->orWhere('phone', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhereHas('State', function($q)  use ($search){
+            $country = Transporter::with(['State','TransporterDriver','Cities','SubCities','Vehicles'])->where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')->orWhere('phone', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')->orWhereHas('State', function($q)  use ($search){
                 $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->orWhereHas('Cities', function($q)  use ($search){
                 $q->where('name', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->orWhereHas('Vehicles', function($q)  use ($search){
+            })->orWhereHas('SubCities', function($q)  use ($search){
                 $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%');
+            })->orWhereHas('Vehicles', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%');
+            })->orWhereHas('TransporterDriver', function($q)  use ($search){
+                $q->where('name', 'like', '%' . $search . '%')
+                ->where('email', 'like', '%' . $search . '%')
+                ->where('phone', 'like', '%' . $search . '%')
                       ->orWhere('description', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
@@ -186,6 +196,109 @@ class TransporterController extends Controller
 
     public function excel(){
         return Excel::download(new TransporterExport, 'transporter.xlsx');
+    }
+
+    // driver section
+
+    public function create_driver($transporter_id) {
+        $country = Transporter::findOrFail($transporter_id);
+        return view('pages.admin.transporter_driver.create')->with('country',$country);
+    }
+
+    public function store_driver(Request $req, $transporter_id) {
+        $data = Transporter::findOrFail($transporter_id);
+        $validator = $req->validate([
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'email' => ['required','email'],
+            'phone' => ['required','regex:/^[0-9]*$/'],
+        ],
+        [
+            'name.required' => 'Please enter the name !',
+            'name.regex' => 'Please enter the valid name !',
+            'email.required' => 'Please enter the email !',
+            'email.email' => 'Please enter the valid email !',
+            'phone.required' => 'Please enter the phone !',
+            'phone.regex' => 'Please enter the valid phone !',
+        ]);
+
+        $country = new TransporterDriver;
+        $country->name = $req->name;
+        $country->email = $req->email;
+        $country->phone = $req->phone;
+        $country->transporter_id = $transporter_id;
+        $country->description = $req->description;
+        $country->status = $req->status == "on" ? 1 : 0;
+
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('transporter_driver_view', $transporter_id))->with('success_status', 'Data Stored successfully.');
+        }else{
+            return redirect()->intended(route('transporter_driver_create', $transporter_id))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function edit_driver($transporter_id, $id) {
+        $data = Transporter::findOrFail($transporter_id);
+        $country = TransporterDriver::where('id', $id)->where('transporter_id', $transporter_id)->firstOrFail();
+        return view('pages.admin.transporter_driver.edit')->with('country',$country);
+    }
+
+    public function update_driver(Request $req, $transporter_id, $id) {
+        $data = Transporter::findOrFail($transporter_id);
+        $country = TransporterDriver::where('id', $id)->where('transporter_id', $transporter_id)->firstOrFail();
+        $validator = $req->validate([
+            'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'email' => ['required','email'],
+            'phone' => ['required','regex:/^[0-9]*$/'],
+        ],
+        [
+            'name.required' => 'Please enter the name !',
+            'name.regex' => 'Please enter the valid name !',
+            'email.required' => 'Please enter the email !',
+            'email.email' => 'Please enter the valid email !',
+            'phone.required' => 'Please enter the phone !',
+            'phone.regex' => 'Please enter the valid phone !',
+        ]);
+
+        $country->name = $req->name;
+        $country->email = $req->email;
+        $country->phone = $req->phone;
+        $country->description = $req->description;
+        $country->status = $req->status == "on" ? 1 : 0;
+
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('transporter_driver_edit', [$transporter_id, $country->id]))->with('success_status', 'Data Updated successfully.');
+        }else{
+            return redirect()->intended(route('transporter_driver_edit', [$transporter_id, $country->id]))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function delete_driver($transporter_id, $id){
+        $data = Transporter::findOrFail($transporter_id);
+        $country = TransporterDriver::where('id', $id)->where('transporter_id', $transporter_id)->firstOrFail();
+
+        $country->delete();
+        return redirect()->intended(route('transporter_driver_view', $transporter_id))->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function view_driver(Request $request, $transporter_id) {
+        $data = Transporter::findOrFail($transporter_id);
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $country = TransporterDriver::where(function ($query) use ($search) {
+                $query->where('alt', 'like', '%' . $search . '%');
+            })->paginate(10);
+        }else{
+            $country = TransporterDriver::orderBy('id', 'DESC')->paginate(10);
+        }
+        return view('pages.admin.transporter_driver.list')->with('country', $country)->with('transporter_id', $transporter_id);
+    }
+
+    public function display_driver($transporter_id, $id) {
+        $data = Transporter::findOrFail($transporter_id);
+        $country = TransporterDriver::where('id', $id)->where('transporter_id', $transporter_id)->firstOrFail();
+        return view('pages.admin.transporter_driver.display')->with('country',$country)->with('transporter_id', $transporter_id);
     }
 
 

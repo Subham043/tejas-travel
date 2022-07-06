@@ -169,6 +169,17 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', [TransporterController::class, 'edit', 'as' => 'admin.transporter.edit'])->name('transporter_edit');
         Route::post('/edit/{id}', [TransporterController::class, 'update', 'as' => 'admin.transporter.update'])->name('transporter_update');
         Route::get('/delete/{id}', [TransporterController::class, 'delete', 'as' => 'admin.transporter.delete'])->name('transporter_delete');
+
+        Route::prefix('/driver/{transporter_id}')->group(function () {
+            Route::get('/', [TransporterController::class, 'view_driver', 'as' => 'admin.transporter_driver.view'])->name('transporter_driver_view');
+            Route::get('/view/{id}', [TransporterController::class, 'display_driver', 'as' => 'admin.transporter_driver.display'])->name('transporter_driver_display');
+            Route::get('/create', [TransporterController::class, 'create_driver', 'as' => 'admin.transporter_driver.create'])->name('transporter_driver_create');
+            Route::post('/create', [TransporterController::class, 'store_driver', 'as' => 'admin.transporter_driver.store'])->name('transporter_driver_store');
+            Route::get('/edit/{id}', [TransporterController::class, 'edit_driver', 'as' => 'admin.transporter_driver.edit'])->name('transporter_driver_edit');
+            Route::post('/edit/{id}', [TransporterController::class, 'update_driver', 'as' => 'admin.transporter_driver.update'])->name('transporter_driver_update');
+            Route::get('/delete/{id}', [TransporterController::class, 'delete_driver', 'as' => 'admin.transporter_driver.delete'])->name('transporter_driver_delete');
+        });
+
     });
 
     Route::prefix('/vehicle')->group(function () {
