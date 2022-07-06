@@ -1,7 +1,8 @@
 @extends('layouts.main.index')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flatpickr.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/clocklet.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/mc-calendar.min.css') }}" />
 <style>
 	.x_slider_form_main_wrapper {
 		max-width: 400px;
@@ -366,7 +367,7 @@
 @stop
 
 @section('content')
-
+@php $vehicletypes = $vehicleTypes; @endphp
 	<!-- hs Slider Start -->
 	<div class="slider-area float_left">
 		<div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel">
@@ -570,50 +571,21 @@
 														
 														<div class="car-selection-container mt5"  id="vehicle_type">
 															<div class="row">
+
+																@foreach ($vehicletypes as $key=>$value)
 																<div class="col-md-6">
-																	<div onclick="selectVehicleType('vehicletype1_selection')" id="vehicletype1_selection" class="car-selection-box">
+																	<div onclick="selectVehicleType('vehicletype{{$value->id}}_selection_{{$value->id}}',{{$value->id}},'{{$value->name}}','{{$value->description}}','{{url('vehicletype/'.$value->image)}}')" id="vehicletype{{$value->id}}_selection_{{$value->id}}" class="car-selection-box">
 																		<div class="car-image-box">
-																			<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="">
+																			<img src="{{url('vehicletype/'.$value->image)}}" alt="">
 																		</div>
 																		<div class="car-text-box">
-																			<h4>CAB</h4>
-																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																			<h4>{{$value->name}}</h4>
+																			<p>{{$value->description}}</p>
 																		</div>
 																	</div>
 																</div>
-																<div class="col-md-6">
-																	<div onclick="selectVehicleType('vehicletype2_selection')" id="vehicletype2_selection" class="car-selection-box">
-																		<div class="car-image-box">
-																			<img src="{{ asset('assets/images/Image-86.jpg') }}" alt="">
-																		</div>
-																		<div class="car-text-box">
-																			<h4>TEMPO TRAVELLER</h4>
-																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
-																		</div>
-																	</div>
-																</div>
-																<div class="col-md-6">
-																	<div onclick="selectVehicleType('vehicletype3_selection')" id="vehicletype3_selection" class="car-selection-box">
-																		<div class="car-image-box">
-																			<img src="{{ asset('assets/images/Image-87.jpg') }}" alt="">
-																		</div>
-																		<div class="car-text-box">
-																			<h4>MINI BUS</h4>
-																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
-																		</div>
-																	</div>
-																</div>
-																<div class="col-md-6">
-																	<div onclick="selectVehicleType('vehicletype4_selection')" id="vehicletype4_selection" class="car-selection-box">
-																		<div class="car-image-box">
-																			<img src="{{ asset('assets/images/Image-89.jpg') }}" alt="">
-																		</div>
-																		<div class="car-text-box">
-																			<h4>BUS</h4>
-																			<p>Sedan SUV or Hatchback For uptown 7 people</p>
-																		</div>
-																	</div>
-																</div>
+																@endforeach
+																
 															</div>
 														</div>
 														<div class="car-button-container  mt5">
@@ -626,11 +598,11 @@
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
-																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" id="outstation_image" alt="" srcset="">
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<h4>CAB</h4>
-																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																	<h4 id="outstation_name">CAB</h4>
+																	<p id="outstation_desc">Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
 																	<button onclick="goBackScreen(1)">Change</button>
@@ -693,19 +665,41 @@
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">Pickup Date & Time</label>
-																		<input type="text" name="outstation_datetime" id="outstation_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Pickup Date</label>
+																		<input type="text" name="outstation_date" id="outstation_date" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
-															<div class="input-container" id="outstation_roundtrip_datetime" style="display: none">
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-clock"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Pickup Time</label>
+																		<input type="text" name="outstation_time" id="outstation_time" class="input-text" placeholder="1 May, 6:30 PM" data-clocklet="format: h:mm a">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container" id="outstation_roundtrip_date" style="display: none">
 																<div class="row pickup-input-row">
 																	<div class="col-md-2 icon-col">
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">Returning Date & Time</label>
-																		<input type="text" name="outstation_return_datetime" id="outstation_return_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Returning Date</label>
+																		<input type="text" name="outstation_return_date" id="outstation_return_date" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container" id="outstation_roundtrip_time" style="display: none">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-clock"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Returning Time</label>
+																		<input type="text" name="outstation_return_time" id="outstation_return_time" class="input-text" placeholder="1 May, 6:30 PM" data-clocklet="format: h:mm a">
 																	</div>
 																</div>
 															</div>
@@ -720,11 +714,11 @@
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
-																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" id="local_ride_image" alt="" srcset="">
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<h4>CAB</h4>
-																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																	<h4 id="local_ride_name">CAB</h4>
+																	<p id="local_ride_desc">Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
 																	<button onclick="goBackScreen(2)">Change</button>
@@ -755,11 +749,23 @@
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">To</label>
-																		<input type="text" name="local_ride_datetime" id="local_ride_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Pickup Date</label>
+																		<input type="text" name="local_ride_date" id="local_ride_date" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-clock"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Pickup Time</label>
+																		<input type="text" name="local_ride_time" id="local_ride_time" class="input-text" placeholder="1 May, 6:30 PM" data-clocklet="format: h:mm a">
+																	</div>
+																</div>
+															</div>
+															
 														</div>
 
 														<div class="radio-selection-container package-container mt5">
@@ -809,11 +815,11 @@
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
-																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" id="airport_image" alt="" srcset="">
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<h4>CAB</h4>
-																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																	<h4 id="airport_name">CAB</h4>
+																	<p id="airport_desc">Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
 																	<button onclick="goBackScreen(4)">Change</button>
@@ -876,8 +882,19 @@
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">To</label>
-																		<input type="text" name="airport_datetime" id="airport_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Pickup Date</label>
+																		<input type="text" name="airport_date" id="airport_date" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-clock"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Pickup Time</label>
+																		<input type="text" name="airport_time" id="airport_time" class="input-text" placeholder="1 May, 6:30 PM" data-clocklet="format: h:mm a">
 																	</div>
 																</div>
 															</div>
@@ -892,11 +909,11 @@
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
 																<div class="col-md-4 selected-car-col">
-																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="" srcset="">
+																	<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" id="multiple_location_image" alt="" srcset="">
 																</div>
 																<div class="col-md-4 selected-car-col">
-																	<h4>CAB</h4>
-																	<p>Sedan SUV or Hatchback For uptown 7 people</p>
+																	<h4 id="multiple_location_name">CAB</h4>
+																	<p id="multiple_location_desc">Sedan SUV or Hatchback For uptown 7 people</p>
 																</div>
 																<div class="col-md-4 selected-car-col">
 																	<button onclick="goBackScreen(3)">Change</button>
@@ -962,8 +979,19 @@
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">To</label>
-																		<input type="text" name="" id="multilocation_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Pickup Date</label>
+																		<input type="text" name="" id="multilocation_date" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-clock"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Pickup Time</label>
+																		<input type="text" name="multilocation_time" id="multilocation_time" class="input-text" placeholder="1 May, 6:30 PM" data-clocklet="format: h:mm a">
 																	</div>
 																</div>
 															</div>
@@ -1297,7 +1325,7 @@
 							<br>Vestibulum imperdiet nibh vel magna lacinia commodo ultricies,</p>
 					</div>
 				</div>
-				@php $vehicletypes = $vehicleTypes; @endphp
+				
 				<div class="col-md-12">
 					<div class="x_offer_tabs_wrapper">
 						<ul class="nav nav-tabs">
@@ -3395,11 +3423,47 @@ Destinations</h3>
  @stop  
  
  @section('javascript')
- <script src="{{ asset('assets/js/flatpickr.js') }}"></script>
+ {{-- <script src="{{ asset('assets/js/foundation-datepicker.js') }}"></script> --}}
+ <script src="{{ asset('assets/js/clocklet.min.js') }}"></script>
+ <script src="{{ asset('assets/js/mc-calendar.min.js') }}"></script>
  <script>
-	//  const flatpickr = require("flatpickr");
-	 flatpickr("#datetimepicker_input", {});
+
+const datePicker = MCDatepicker.create({
+  el: '#outstation_date',
+  bodyType: 'inline',
+  closeOnBlur: true,
+  theme: {
+        theme_color: '#3097fe'
+    }
+});
+const datePicker1 = MCDatepicker.create({
+  el: '#local_ride_date',
+  bodyType: 'inline',
+  closeOnBlur: true,
+  theme: {
+        theme_color: '#3097fe'
+    }
+});
+const datePicker2 = MCDatepicker.create({
+  el: '#airport_date',
+  bodyType: 'inline',
+  closeOnBlur: true,
+  theme: {
+        theme_color: '#3097fe'
+    }
+});
+const datePicker3 = MCDatepicker.create({
+  el: '#multilocation_date',
+  bodyType: 'inline',
+  closeOnBlur: true,
+  theme: {
+        theme_color: '#3097fe'
+    }
+});
+
  </script>
+
+ 
 
 <script type="text/javascript">
     var i = 1;
@@ -3473,6 +3537,10 @@ Destinations</h3>
 	var selectedDateTime = ""
 	var selectedPackageType = ""
 	var selectedPackageTypeId = ""
+	var mainIdVehicleType = ""
+	var mainNameVehicleType = ""
+	var mainDescVehicleType = ""
+	var mainImageVehicleType = ""
 
 	function changeToVehicleTypeScreen(to){
 		
@@ -3492,21 +3560,33 @@ Destinations</h3>
 			document.getElementById('screenTitle').innerText = 'OUTSTATION'
 			selectedTripType = 'OUTSTATION'
 			selectedTripTypeId = 'OUTSTATION'
+			document.getElementById('outstation_name').innerText = mainNameVehicleType
+			document.getElementById('outstation_desc').innerText = mainDescVehicleType
+			document.getElementById('outstation_image').src = mainImageVehicleType
 			break;
 			case 2: document.getElementById('local_ride').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'LOCAL RIDE'
 			selectedTripType = 'LOCAL RIDE'
 			selectedTripTypeId = 'LOCAL RIDE'
+			document.getElementById('local_ride_name').innerText = mainNameVehicleType
+			document.getElementById('local_ride_desc').innerText = mainDescVehicleType
+			document.getElementById('local_ride_image').src = mainImageVehicleType
 			break;
 			case 3: document.getElementById('multiple_location').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'MULTI-LOCATION'
 			selectedTripType = 'MULTI-LOCATION'
 			selectedTripTypeId = 'MULTI-LOCATION'
+			document.getElementById('multiple_location_name').innerText = mainNameVehicleType
+			document.getElementById('multiple_location_desc').innerText = mainDescVehicleType
+			document.getElementById('multiple_location_image').src = mainImageVehicleType
 			break;
 			case 4: document.getElementById('airport_ride').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'AIRPORT'
 			selectedTripType = 'AIRPORT'
 			selectedTripTypeId = 'AIRPORT'
+			document.getElementById('airport_name').innerText = mainNameVehicleType
+			document.getElementById('airport_desc').innerText = mainDescVehicleType
+			document.getElementById('airport_image').src = mainImageVehicleType
 			break;
 			
 		}
@@ -3568,14 +3648,24 @@ Destinations</h3>
 				break;
 				return false;
 			}
-			if(document.getElementById('outstation_datetime').value == ""){
-				errorToast("Please enter pickup date & time")
+			if(document.getElementById('outstation_date').value == ""){
+				errorToast("Please enter pickup date")
+				break;
+				return false;
+			}
+			if(document.getElementById('outstation_time').value == ""){
+				errorToast("Please enter pickup time")
 				break;
 				return false;
 			}
 			if(selectedSubTripType=='roundtrip'){
-				if(document.getElementById('outstation_return_datetime').value == ""){
-					errorToast("Please enter return date & time")
+				if(document.getElementById('outstation_return_date').value == ""){
+					errorToast("Please enter return date")
+					break;
+					return false;
+				}
+				if(document.getElementById('outstation_return_time').value == ""){
+					errorToast("Please enter return time")
 					break;
 					return false;
 				}
@@ -3590,8 +3680,13 @@ Destinations</h3>
 				break;
 				return false;
 			}
-			if(document.getElementById('local_ride_datetime').value == ""){
-				errorToast("Please enter pickup date & time")
+			if(document.getElementById('local_ride_date').value == ""){
+				errorToast("Please enter pickup date")
+				break;
+				return false;
+			}
+			if(document.getElementById('local_ride_time').value == ""){
+				errorToast("Please enter pickup time")
 				break;
 				return false;
 			}
@@ -3616,8 +3711,13 @@ Destinations</h3>
 				}
 				
 			}
-			if(document.getElementById('multilocation_datetime').value == ""){
-				errorToast("Please enter pickup date & time")
+			if(document.getElementById('multilocation_date').value == ""){
+				errorToast("Please enter pickup date")
+				break;
+				return false;
+			}
+			if(document.getElementById('multilocation_time').value == ""){
+				errorToast("Please enter pickup time")
 				break;
 				return false;
 			}
@@ -3636,8 +3736,13 @@ Destinations</h3>
 				break;
 				return false;
 			}
-			if(document.getElementById('airport_datetime').value == ""){
-				errorToast("Please enter pickup date & time")
+			if(document.getElementById('airport_date').value == ""){
+				errorToast("Please enter pickup date")
+				break;
+				return false;
+			}
+			if(document.getElementById('airport_time').value == ""){
+				errorToast("Please enter pickup time")
 				break;
 				return false;
 			}
@@ -3650,7 +3755,7 @@ Destinations</h3>
 		
 	}
 
-	function selectVehicleType(id){
+	function selectVehicleType(id, main_id, main_name, main_description, main_image){
 		// console.log(id)
 		if(selectedVehicleTypeId==""){
 			var element = document.getElementById(id)
@@ -3665,6 +3770,10 @@ Destinations</h3>
 			selectedVehicleTypeId=id;
 			selectedVehicleType=id;
 		}
+		mainIdVehicleType = main_id
+		mainNameVehicleType = main_name
+		mainDescVehicleType = main_description
+		mainImageVehicleType = main_image
 	}
 
 	function selectTripType(id){
@@ -3676,9 +3785,11 @@ Destinations</h3>
 			selectedSubTripTypeId=id;
 			selectedSubTripType=id;
 			if(id=='roundtrip'){
-				document.getElementById('outstation_roundtrip_datetime').style.display = 'block'
+				document.getElementById('outstation_roundtrip_date').style.display = 'block'
+				document.getElementById('outstation_roundtrip_time').style.display = 'block'
 			}else{
-				document.getElementById('outstation_roundtrip_datetime').style.display = 'none'
+				document.getElementById('outstation_roundtrip_date').style.display = 'none'
+				document.getElementById('outstation_roundtrip_time').style.display = 'none'
 			}
 		}else{
 			document.getElementById(selectedSubTripTypeId).parentNode.classList.remove('selected-radio-box')
@@ -3687,9 +3798,11 @@ Destinations</h3>
 			selectedSubTripTypeId=id;
 			selectedSubTripType=id;
 			if(id=='roundtrip'){
-				document.getElementById('outstation_roundtrip_datetime').style.display = 'block'
+				document.getElementById('outstation_roundtrip_date').style.display = 'block'
+				document.getElementById('outstation_roundtrip_time').style.display = 'block'
 			}else{
-				document.getElementById('outstation_roundtrip_datetime').style.display = 'none'
+				document.getElementById('outstation_roundtrip_date').style.display = 'none'
+				document.getElementById('outstation_roundtrip_time').style.display = 'none'
 			}
 		}
 		

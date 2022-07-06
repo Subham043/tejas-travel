@@ -19,7 +19,7 @@ class VehicleTypeController extends Controller
     public function store(Request $req) {
         $validator = $req->validate([
             'name' => ['required','string','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
-            'image' => ['nullable','image','mimes:jpeg,png,jpg,webp'],
+            'image' => ['required','image','mimes:jpeg,png,jpg,webp'],
             'description' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
         ],
         [

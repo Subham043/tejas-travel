@@ -124,6 +124,22 @@ validation
         errorMessage: 'Name is invalid',
     },
   ])
+  .addField('#image', [
+    {
+        rule: 'minFilesCount',
+        value: 0,
+        errorMessage: 'Please select a display image',
+    },
+    {
+        rule: 'files',
+        value: {
+            files: {
+                extensions: ['jpeg', 'png', 'jpg', 'webp']
+            },
+        },
+        errorMessage: 'Please select a valid display image',
+    },
+  ])
   .onSuccess((event) => {
     event.target.submit();
   });
