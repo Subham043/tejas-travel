@@ -387,10 +387,10 @@ class OutStationController extends Controller
 
     public function display($id) {
         $country = OutStation::findOrFail($id);
-        $term = Common::findOrFail(1);
-        $include_exclude = Common::findOrFail(2);
-        $description = Common::findOrFail(3);
-        $notes = Common::findOrFail(4);
+        $term = Common::findOrFail(7);
+        $include_exclude = Common::findOrFail(8);
+        $description = Common::findOrFail(9);
+        $notes = Common::findOrFail(10);
         return view('pages.admin.outstation.display')->with('country',$country)->with('bookingtype', BookingType::lists())->with('term',$term)->with('include_exclude',$include_exclude)->with('description',$description)->with('notes',$notes);
     }
 

@@ -394,10 +394,10 @@ class AirportRideController extends Controller
 
     public function display($id) {
         $country = AirportRide::findOrFail($id);
-        $term = Common::findOrFail(1);
-        $include_exclude = Common::findOrFail(2);
-        $description = Common::findOrFail(3);
-        $notes = Common::findOrFail(4);
+        $term = Common::findOrFail(11);
+        $include_exclude = Common::findOrFail(12);
+        $description = Common::findOrFail(13);
+        $notes = Common::findOrFail(14);
         return view('pages.admin.airportride.display')->with('country',$country)->with('bookingtype', BookingType::lists())->with('term',$term)->with('include_exclude',$include_exclude)->with('description',$description)->with('notes',$notes);
     }
 
