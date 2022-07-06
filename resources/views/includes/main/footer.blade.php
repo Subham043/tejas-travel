@@ -52,13 +52,13 @@
                 <div class="x_footer_bottom_box_wrapper_second float_left">
                     <h3>Information</h3>
                     <ul>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; About</a>
+                        <li><a href="{{route('about')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; About</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Service</a>
+                        <li><a href="{{route('holiday_package')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Holiday Packages</a>
                         </li>
                         <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Terms and Conditions</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Become a Driver</a>
+                        <li><a href="{{route('partner')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Become a Partner</a>
                         </li>
                         <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Best Price Guarantee</a>
                         </li>
@@ -79,7 +79,7 @@
                         </li>
                         <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; How it words ?</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Contact Us</a>
+                        <li><a href="{{route('contact')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Contact Us</a>
                         </li>
                     </ul>
                 </div>

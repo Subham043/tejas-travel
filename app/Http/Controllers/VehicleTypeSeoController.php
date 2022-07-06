@@ -18,6 +18,7 @@ use App\Models\ListLayout;
 use App\Models\ContentLayout;
 use App\Models\VehicleTypeSeoListLayout;
 use App\Models\VehicleTypeSeoContentLayout;
+use App\Models\Testimonial;
 
 class VehicleTypeSeoController extends Controller
 {
@@ -221,7 +222,7 @@ class VehicleTypeSeoController extends Controller
 
     public function preview($id) {
         $country = VehicleTypesSeo::findOrFail($id);
-        return view('pages.admin.vehicletypeseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country);
+        return view('pages.admin.vehicletypeseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country)->with('testimonials',Testimonial::all());
     }
 
     // banner-image section

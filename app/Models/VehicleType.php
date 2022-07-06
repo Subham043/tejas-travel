@@ -13,7 +13,7 @@ class VehicleType extends Model
 
     public function Vehicle()
     {
-        return $this->hasMany('App\Models\Vehicle');
+        return $this->hasMany('App\Models\Vehicle', 'vehicletype_id');
     }
 
     public function LocalRide()

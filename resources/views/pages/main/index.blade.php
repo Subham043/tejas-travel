@@ -75,13 +75,13 @@
 		transition: all 0.3s ease-in-out;
 	}
 
-	.selection-radio-box:hover{
+	.selection-radio-box:hover, .selected-radio-box{
 		background: #3097fe;
 		border: 2px solid #3097fe;
 		cursor: pointer;
 	}
 
-	.selection-radio-box:hover > *{
+	.selection-radio-box:hover > *, .selected-radio-box > *{
 		color: white;
 	}
 
@@ -102,7 +102,7 @@
 		accent-color: #fff;
 	}
 
-	.selection-radio-box input[type="radio"]:checked + .selection-radio-box::before {
+	.selection-radio-box input[type="radio"]:checked + .selection-radio-box {
 		background: #3097fe !important;
 	}
 
@@ -119,16 +119,16 @@
 		transition: all 0.3s ease-in-out;
 	}
 
-	.car-selection-box:hover > .car-text-box{
+	.car-selection-box:hover > .car-text-box, .car-selected-box .car-text-box{
 		background: #3097fe;
 		color: #fff;
 		border-top: 0.5px solid #3097fe;
 	}
 
-	.car-selection-box:hover > .car-text-box::before{
-		background: #fff;
+	.car-selection-box:hover > .car-text-box::before, .car-selected-box .car-text-box::before{
+		background: #fff !important;
 	}
-	.car-selection-box:hover > .car-text-box h4{
+	.car-selection-box:hover > .car-text-box h4, .car-selected-box .car-text-box h4{
 		color: #fff;
 	}
 
@@ -348,6 +348,20 @@
 		overflow-y: auto;
 	}
 
+	.text-hidden-3{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		-webkit-box-orient: vertical;
+	}
+
+	.img-contain{
+		object-fit: contain;
+		width:100%;
+	}
+
 </style>
 @stop
 
@@ -557,7 +571,7 @@
 														<div class="car-selection-container mt5"  id="vehicle_type">
 															<div class="row">
 																<div class="col-md-6">
-																	<div class="car-selection-box">
+																	<div onclick="selectVehicleType('vehicletype1_selection')" id="vehicletype1_selection" class="car-selection-box">
 																		<div class="car-image-box">
 																			<img src="{{ asset('assets/images/Toyota-Corolla.png') }}" alt="">
 																		</div>
@@ -568,7 +582,7 @@
 																	</div>
 																</div>
 																<div class="col-md-6">
-																	<div class="car-selection-box">
+																	<div onclick="selectVehicleType('vehicletype2_selection')" id="vehicletype2_selection" class="car-selection-box">
 																		<div class="car-image-box">
 																			<img src="{{ asset('assets/images/Image-86.jpg') }}" alt="">
 																		</div>
@@ -579,7 +593,7 @@
 																	</div>
 																</div>
 																<div class="col-md-6">
-																	<div class="car-selection-box">
+																	<div onclick="selectVehicleType('vehicletype3_selection')" id="vehicletype3_selection" class="car-selection-box">
 																		<div class="car-image-box">
 																			<img src="{{ asset('assets/images/Image-87.jpg') }}" alt="">
 																		</div>
@@ -590,7 +604,7 @@
 																	</div>
 																</div>
 																<div class="col-md-6">
-																	<div class="car-selection-box">
+																	<div onclick="selectVehicleType('vehicletype4_selection')" id="vehicletype4_selection" class="car-selection-box">
 																		<div class="car-image-box">
 																			<img src="{{ asset('assets/images/Image-89.jpg') }}" alt="">
 																		</div>
@@ -607,7 +621,7 @@
 															<button onclick="changeToDetailEntryScreen()">NEXT</button>
 														</div>
 													</div>
-													<div class="col-md-12 mt5" id="oustation"  style="display: none">
+													<div class="col-md-12 mt5" id="outstation"  style="display: none">
 														
 														<div class="selected-car-container">
 															<div class="row selected-car-row">
@@ -627,16 +641,16 @@
 														<div class="radio-selection-container mt5">
 															<div class="row">
 																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="vahicletype" id="onewaytrip"> 
+																	<div class="selection-radio-box selected-radio-box" onclick="selectTripType('onewaytrip')">
+																		<input type="radio" name="outstation_subtriptype" id="onewaytrip" checked> 
 																		<label for="onewaytrip">
 																			<span>One Way Trip</span>
 																		</label>
 																	</div>
 																</div>
 																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="vahicletype" id="roundtrip"> 
+																	<div class="selection-radio-box" onclick="selectTripType('roundtrip')">
+																		<input type="radio" name="outstation_subtriptype" id="roundtrip"> 
 																		<label for="roundtrip">
 																			<span>Round Trip</span>
 																		</label>
@@ -654,7 +668,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																		<input type="text" name="outstation_pickup" id="outstation_pickup" class="input-text" placeholder="Enter pickup address">
 																	</div>
 																</div>
 															</div>
@@ -665,7 +679,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">Drop</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																		<input type="text" name="outstation_drop" id="outstation_drop" class="input-text" placeholder="Enter destination address">
 																	</div>
 																</div>
 															</div>
@@ -679,15 +693,26 @@
 																		<i class="fa-solid fa-calendar-days"></i>
 																	</div>
 																	<div class="col-md-10 input-col">
-																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																		<label for="">Pickup Date & Time</label>
+																		<input type="text" name="outstation_datetime" id="outstation_datetime" class="input-text" placeholder="1 May, 6:30 PM">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container" id="outstation_roundtrip_datetime" style="display: none">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-calendar-days"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Returning Date & Time</label>
+																		<input type="text" name="outstation_return_datetime" id="outstation_return_datetime" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
 														</div>
 														
 														<div class="car-button-container  mt5">
-															<button>SEARCH</button>
+															<button onclick="goToUserScreen()">SEARCH</button>
 														</div>
 													</div>
 
@@ -716,7 +741,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																		<input type="text" name="local_ride_pickup" id="local_ride_pickup" class="input-text" placeholder="Enter pickup address">
 																	</div>
 																</div>
 															</div>
@@ -731,7 +756,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																		<input type="text" name="local_ride_datetime" id="local_ride_datetime" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
@@ -742,7 +767,7 @@
 															<div class="row mt3">
 																<div class="col-md-6 package-col">
 																	<div class="selection-radio-box">
-																		<input type="radio" name="packagetype" id="hr1"> 
+																		<input type="radio" name="local_ride_packagetype" id="hr1"> 
 																		<label for="hr1">
 																			<span>8 hours & 80 kms</span>
 																		</label>
@@ -750,7 +775,7 @@
 																</div>
 																<div class="col-md-6 package-col">
 																	<div class="selection-radio-box">
-																		<input type="radio" name="packagetype" id="hr2"> 
+																		<input type="radio" name="local_ride_packagetype" id="hr2"> 
 																		<label for="hr2">
 																			<span>8 hours & 80 kms</span>
 																		</label>
@@ -758,7 +783,7 @@
 																</div>
 																<div class="col-md-6 package-col">
 																	<div class="selection-radio-box">
-																		<input type="radio" name="packagetype" id="hr3"> 
+																		<input type="radio" name="local_ride_packagetype" id="hr3"> 
 																		<label for="hr3">
 																			<span>8 hours & 80 kms</span>
 																		</label>
@@ -766,7 +791,7 @@
 																</div>
 																<div class="col-md-6 package-col">
 																	<div class="selection-radio-box">
-																		<input type="radio" name="packagetype" id="hr4"> 
+																		<input type="radio" name="local_ride_packagetype" id="hr4"> 
 																		<label for="hr4">
 																			<span>8 hours & 80 kms</span>
 																		</label>
@@ -776,7 +801,7 @@
 														</div>
 														
 														<div class="car-button-container  mt5">
-															<button>SEARCH</button>
+															<button onclick="goToUserScreen()">SEARCH</button>
 														</div>
 													</div>
 
@@ -799,16 +824,16 @@
 														<div class="radio-selection-container mt5">
 															<div class="row">
 																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="ridetype" id="pickup"> 
+																	<div class="selection-radio-box" onclick="selectAirportTripType('pickup')">
+																		<input type="radio" name="airport_subtriptype" id="pickup" checked> 
 																		<label for="pickup">
 																			<span>Pickup</span>
 																		</label>
 																	</div>
 																</div>
 																<div class="col-md-6">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="ridetype" id="drop"> 
+																	<div class="selection-radio-box" onclick="selectAirportTripType('drop')">
+																		<input type="radio" name="airport_subtriptype" id="drop"> 
 																		<label for="drop">
 																			<span>Drop</span>
 																		</label>
@@ -826,7 +851,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																		<input type="text" name="airport_pickup" id="airport_pickup" class="input-text" placeholder="Enter pickup address">
 																	</div>
 																</div>
 															</div>
@@ -837,7 +862,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">Drop</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																		<input type="text" name="airport_drop" id="airport_drop" class="input-text" placeholder="Enter destination address">
 																	</div>
 																</div>
 															</div>
@@ -852,14 +877,14 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="1 May, 6:30 PM">
+																		<input type="text" name="airport_datetime" id="airport_datetime" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
 														</div>
 														
 														<div class="car-button-container  mt5">
-															<button>SEARCH</button>
+															<button onclick="goToUserScreen()">SEARCH</button>
 														</div>
 													</div>
 
@@ -888,7 +913,7 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter pickup address">
+																		<input type="text" name="multilocation_pickup" id="multilocation_pickup" class="input-text" placeholder="Enter pickup address">
 																	</div>
 																</div>
 															</div>
@@ -899,7 +924,7 @@
 																	</div>
 																	<div class="col-md-8 input-col">
 																		<label for="">Drop</label>
-																		<input type="text" name="" id="" class="input-text" placeholder="Enter destination address">
+																		<input type="text" name="multilocation_drop[]" id="" class="input-text" placeholder="Enter destination address">
 																	</div>
 																	<div class="col-md-2 button-col">
 																		<button onclick="duplicate()" title="add multiple location" id="addDestinationBtn">
@@ -917,7 +942,7 @@
 																		</div>
 																		<div class="col-md-8 input-col">
 																			<label for="">Drop</label>
-																			<input type="text" name="destination[]" id="" class="input-text" placeholder="Enter destination address">
+																			<input type="text" name="multilocation_drop[]" id="" class="input-text" placeholder="Enter destination address">
 																		</div>
 																		<div class="col-md-2 button-col">
 																			<button onclick="remove()" title="remove multiple location">
@@ -938,13 +963,72 @@
 																	</div>
 																	<div class="col-md-10 input-col">
 																		<label for="">To</label>
-																		<input type="text" name="" id="datetimepicker_input" class="input-text" placeholder="1 May, 6:30 PM">
+																		<input type="text" name="" id="multilocation_datetime" class="input-text" placeholder="1 May, 6:30 PM">
 																	</div>
 																</div>
 															</div>
 														</div>
 														
 														<div class="car-button-container  mt5">
+															<button onclick="goToUserScreen()">SEARCH</button>
+														</div>
+													</div>
+
+													<div class="col-md-12 mt5" id="userScreen" style="display: none">
+
+														<div class="pickup-input-container mt5">
+															<h4>Rider Details</h4>
+															<div class="input-container">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-user"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Name</label>
+																		<input type="text" name="rider_name" id="rider_name" class="input-text" placeholder="Enter your name">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-envelope"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Email</label>
+																		<input type="text" name="rider_email" id="rider_email" class="input-text" placeholder="Enter your email">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-phone"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="">Phone</label>
+																		<input type="text" name="rider_phone" id="rider_phone" class="input-text" placeholder="Enter your phone">
+																	</div>
+																</div>
+															</div>
+															<div class="input-container mt5">
+																<div class="row pickup-input-row">
+																	<div class="col-md-2 icon-col">
+																		<i class="fa-solid fa-car"></i>
+																	</div>
+																	<div class="col-md-10 input-col">
+																		<label for="vehicleSelected">Vehicle</label>
+																		<select name="vehicleSelected" id="vehicleSelected" class="input-text">
+																			<option>Audi</option>
+																			<option>BMW</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="car-button-container  mt5">
+															<button onclick="goBackFromUserScreen()">PREVIOUS</button>
 															<button>SEARCH</button>
 														</div>
 													</div>
@@ -1213,34 +1297,26 @@
 							<br>Vestibulum imperdiet nibh vel magna lacinia commodo ultricies,</p>
 					</div>
 				</div>
+				@php $vehicletypes = $vehicleTypes; @endphp
 				<div class="col-md-12">
 					<div class="x_offer_tabs_wrapper">
 						<ul class="nav nav-tabs">
-							<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#car"> CAR</a>
+							@foreach ($vehicletypes as $key=>$value)
+							<li class="nav-item"> <a class="nav-link {{$key==0?'active':''}}" data-toggle="tab" href="#vehicleTypes_{{$value->id}}{{$key}}"> {{$value->name}}</a>
 							</li>
-							<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tempo-traveller"> TEMPO TRAVELLER</a>
-							</li>
-							<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#mini-bus"> MINI BUS</a>
-							</li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bus"> BUS</a>
-							</li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#luxury"> LUXURY</a>
-							</li>
+							@endforeach
 						</ul>
 					</div>
 					<div class="tab-content">
-						<div id="car" class="tab-pane active">
+						@foreach ($vehicletypes as $key=>$value)
+						<div id="vehicleTypes_{{$value->id}}{{$key}}" class="tab-pane  {{$key==0?'active':'fade'}}">
 							<div class="row">
+								@if($value->vehicle->count()>0)
+								@foreach ($value->vehicle as $k=>$v)
 								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
 									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
 										<div class="x_car_offer_img float_left mt3">
-											<img src="{{ asset('assets/images/home/c1.png') }}" alt="img">
+											<img src="{{url('vehicle/'.$v->image)}}" class="img-contain" alt="img">
 										</div>
 										<div class="x_car_offer_price float_left">
 											<div class="x_car_offer_price_inner">
@@ -1251,8 +1327,8 @@
 											</div>
 										</div>
 										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Berliet</a></h2>
-											<p class="text-justify">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+											<h2><a href="#">{{$v->name}}</a></h2>
+											<p class="text-justify text-hidden-3">{{$v->description}}</p>
 										</div>
 										<div class="x_car_offer_heading float_left">
 											<ul>
@@ -1286,394 +1362,19 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c2.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">BMW</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c3.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Brilliance</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c4.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Audi</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c5.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Alpine</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c6.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Diatto</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c7.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Ferrari</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-									<div class="x_car_offer_main_boxes_wrapper float_left">
-										<!--<div class="x_car_offer_starts float_left">	<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>-->
-										<div class="x_car_offer_img float_left mt5">
-											<img src="{{ asset('assets/images/home/c8.png') }}" alt="img">
-										</div>
-										<div class="x_car_offer_price float_left">
-											<div class="x_car_offer_price_inner">
-												<h3>&#8377;25</h3>
-												<p><span>from</span> 
-													<br>/ day</p>
-											</div>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<h2><a href="#">Freightliner</a></h2>
-											<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-										</div>
-										<div class="x_car_offer_heading float_left">
-											<ul>
-												<li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;2</a>
-												</li>
-												<li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;9</a>
-												</li>
-												<li>
-													<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i></span>
-														<ul class="list">
-															<li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-															</li>
-															<li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div class="x_car_offer_bottom_btn float_left">
-											<ul>
-												<li><a href="#">Book now</a>
-												</li>
-												<li><a href="#">Details</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
+								@endforeach
+								@endif
 								<div class="col-md-12">
 									<div class="x_tabs_botton_wrapper float_left">
 										<ul>
-											<li><a href="#">See All Cars <i class="fa fa-arrow-right"></i></a>
+											<li><a href="#">See All {{$value->name}} <i class="fa fa-arrow-right"></i></a>
 											</li>
 										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
+						@endforeach
 						<div id="tempo-traveller" class="tab-pane fade">
 							<div class="row">
 								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -3712,12 +3413,13 @@ Destinations</h3>
 			clone.style = "display:block;";
 			++count;
 			document.getElementById('duplicateDestinationContainer').appendChild(clone);
-			document.getElementsByName('destination[]')[count-1].value = "";
+			document.getElementsByName('multilocation_drop[]')[count-1].value = "";
 			toggleAddDestinationButton()
 		}
 
 		
     }
+	
     function remove() {
         // console.log(this.event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
         if(count!=0){
@@ -3737,27 +3439,74 @@ Destinations</h3>
 </script>
 
 <script>
+	const errorToast = (message) =>{
+		iziToast.error({
+			title: 'Error',
+			message: message,
+			position: 'bottomCenter',
+			timeout:7000
+		});
+	}
+	const successToast = (message) =>{
+		iziToast.success({
+			title: 'Success',
+			message: message,
+			position: 'bottomCenter',
+			timeout:6000
+		});
+	}
+
 	var nextScreen = 1;
+	var selectedVehicleType = ""
+	var selectedVehicleTypeId = ""
+	var selectedTripType = ""
+	var selectedTripTypeId = ""
+	var selectedSubTripType = "onewaytrip"
+	var selectedSubTripTypeId = "onewaytrip"
+	var selectedAirportSubTripType = "pickup"
+	var selectedAirportSubTripTypeId = "pickup"
+	var selectedTripType = ""
+	var selectedPickUpAddress = ""
+	var selectedPickUpAddressId = ""
+	var selectedDestinationAddress = ""
+	var selectedDestinationAddressId = ""
+	var selectedDateTime = ""
+	var selectedPackageType = ""
+	var selectedPackageTypeId = ""
+
 	function changeToVehicleTypeScreen(to){
+		
 		nextScreen = to;
 		document.getElementById('screenTitle').innerText = 'SELECT YOUR VEHICLE TYPE'
 		document.getElementById('journeyType').style.display = 'none'
 		document.getElementById('vehicleTypeScreen').style.display = 'block'
 	}
 	function changeToDetailEntryScreen(){
+		if(selectedVehicleTypeId=="" || selectedVehicleType==""){
+			errorToast("Please select a vehicle type")
+			return false;
+		}
 		document.getElementById('vehicleTypeScreen').style.display = 'none'
 		switch(nextScreen){
-			case 1: document.getElementById('oustation').style.display = 'block'
+			case 1: document.getElementById('outstation').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'OUTSTATION'
+			selectedTripType = 'OUTSTATION'
+			selectedTripTypeId = 'OUTSTATION'
 			break;
 			case 2: document.getElementById('local_ride').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'LOCAL RIDE'
+			selectedTripType = 'LOCAL RIDE'
+			selectedTripTypeId = 'LOCAL RIDE'
 			break;
 			case 3: document.getElementById('multiple_location').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'MULTI-LOCATION'
+			selectedTripType = 'MULTI-LOCATION'
+			selectedTripTypeId = 'MULTI-LOCATION'
 			break;
 			case 4: document.getElementById('airport_ride').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'AIRPORT'
+			selectedTripType = 'AIRPORT'
+			selectedTripTypeId = 'AIRPORT'
 			break;
 			
 		}
@@ -3768,7 +3517,7 @@ Destinations</h3>
 		document.getElementById('screenTitle').innerText = 'SELECT YOUR VEHICLE TYPE'
 		nextScreen = from;
 		switch(nextScreen){
-			case 1: document.getElementById('oustation').style.display = 'none'
+			case 1: document.getElementById('outstation').style.display = 'none'
 			break;
 			case 2: document.getElementById('local_ride').style.display = 'none'
 			break;
@@ -3785,5 +3534,183 @@ Destinations</h3>
 		document.getElementById('journeyType').style.display = 'block'
 		document.getElementById('vehicleTypeScreen').style.display = 'none'
 	}
+
+	function goBackFromUserScreen(){
+		document.getElementById('userScreen').style.display = 'none'
+		switch(nextScreen){
+			case 1: document.getElementById('outstation').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'OUTSTATION'
+			break;
+			case 2: document.getElementById('local_ride').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'LOCAL RIDE'
+			break;
+			case 3: document.getElementById('multiple_location').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'MULTI-LOCATION'
+			break;
+			case 4: document.getElementById('airport_ride').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'AIRPORT'
+			break;
+			
+		}
+	}
+
+	function goToUserScreen(){
+		
+		switch(nextScreen){
+			case 1: 
+			if(document.getElementById('outstation_pickup').value == ""){
+				errorToast("Please enter pickup address")
+				break;
+				return false;
+			}
+			if(document.getElementById('outstation_drop').value == ""){
+				errorToast("Please enter destination address")
+				break;
+				return false;
+			}
+			if(document.getElementById('outstation_datetime').value == ""){
+				errorToast("Please enter pickup date & time")
+				break;
+				return false;
+			}
+			if(selectedSubTripType=='roundtrip'){
+				if(document.getElementById('outstation_return_datetime').value == ""){
+					errorToast("Please enter return date & time")
+					break;
+					return false;
+				}
+			}
+			document.getElementById('outstation').style.display = 'none'
+			document.getElementById('userScreen').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'ENTER YOUR DETAILS'
+			break;
+			case 2: 
+			if(document.getElementById('local_ride_pickup').value == ""){
+				errorToast("Please enter pickup address")
+				break;
+				return false;
+			}
+			if(document.getElementById('local_ride_datetime').value == ""){
+				errorToast("Please enter pickup date & time")
+				break;
+				return false;
+			}
+			document.getElementById('local_ride').style.display = 'none'
+			document.getElementById('userScreen').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'ENTER YOUR DETAILS'
+			break;
+			case 3: 
+			if(document.getElementById('multilocation_pickup').value == ""){
+				errorToast("Please enter pickup address")
+				break;
+				return false;
+			}
+			for (let index3 = 0; index3 < document.getElementsByName('multilocation_drop[]').length; index3++) {
+				if(index3==1){
+					continue;
+				}
+				if(document.getElementsByName('multilocation_drop[]')[index3].value == ""){
+					errorToast("Please enter destination address")
+					break;
+					return false;
+				}
+				
+			}
+			if(document.getElementById('multilocation_datetime').value == ""){
+				errorToast("Please enter pickup date & time")
+				break;
+				return false;
+			}
+			document.getElementById('multiple_location').style.display = 'none'
+			document.getElementById('userScreen').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'ENTER YOUR DETAILS'
+			break;
+			case 4: 
+			if(document.getElementById('airport_pickup').value == ""){
+				errorToast("Please enter pickup address")
+				break;
+				return false;
+			}
+			if(document.getElementById('airport_drop').value == ""){
+				errorToast("Please enter destination address")
+				break;
+				return false;
+			}
+			if(document.getElementById('airport_datetime').value == ""){
+				errorToast("Please enter pickup date & time")
+				break;
+				return false;
+			}
+			document.getElementById('airport_ride').style.display = 'none'
+			document.getElementById('userScreen').style.display = 'block'
+			document.getElementById('screenTitle').innerText = 'ENTER YOUR DETAILS'
+			break;
+			
+		}
+		
+	}
+
+	function selectVehicleType(id){
+		// console.log(id)
+		if(selectedVehicleTypeId==""){
+			var element = document.getElementById(id)
+			element.classList.add("car-selected-box");
+			selectedVehicleTypeId=id;
+			selectedVehicleType=id;
+		}else{
+			var element2 = document.getElementById(selectedVehicleTypeId)
+			element2.classList.remove("car-selected-box");
+			var element = document.getElementById(id)
+			element.classList.add("car-selected-box");
+			selectedVehicleTypeId=id;
+			selectedVehicleType=id;
+		}
+	}
+
+	function selectTripType(id){
+		if(selectedSubTripTypeId==""){
+			document.getElementById('onewaytrip').parentNode.classList.remove('selected-radio-box')
+			document.getElementById('roundtrip').parentNode.classList.remove('selected-radio-box')
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedSubTripTypeId=id;
+			selectedSubTripType=id;
+			if(id=='roundtrip'){
+				document.getElementById('outstation_roundtrip_datetime').style.display = 'block'
+			}else{
+				document.getElementById('outstation_roundtrip_datetime').style.display = 'none'
+			}
+		}else{
+			document.getElementById(selectedSubTripTypeId).parentNode.classList.remove('selected-radio-box')
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedSubTripTypeId=id;
+			selectedSubTripType=id;
+			if(id=='roundtrip'){
+				document.getElementById('outstation_roundtrip_datetime').style.display = 'block'
+			}else{
+				document.getElementById('outstation_roundtrip_datetime').style.display = 'none'
+			}
+		}
+		
+	}
+
+	function selectAirportTripType(id){
+		if(selectedAirportSubTripTypeId==""){
+			document.getElementById('pickup').parentNode.classList.remove('selected-radio-box')
+			document.getElementById('drop').parentNode.classList.remove('selected-radio-box')
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedAirportSubTripTypeId=id;
+			selectedAirportSubTripType=id;
+		}else{
+			document.getElementById(selectedAirportSubTripTypeId).parentNode.classList.remove('selected-radio-box')
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedAirportSubTripTypeId=id;
+			selectedAirportSubTripType=id;
+		}
+	}
+	selectAirportTripType('pickup')
 </script>
  @stop

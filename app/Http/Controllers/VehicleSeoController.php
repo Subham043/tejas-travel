@@ -14,6 +14,7 @@ use App\Models\ListLayout;
 use App\Models\ContentLayout;
 use App\Models\VehicleSeoListLayout;
 use App\Models\VehicleSeoContentLayout;
+use App\Models\Testimonial;
 
 class VehicleSeoController extends Controller
 {
@@ -195,7 +196,7 @@ class VehicleSeoController extends Controller
 
     public function preview($id) {
         $country = VehicleSeo::findOrFail($id);
-        return view('pages.admin.vehicleseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country);
+        return view('pages.admin.vehicleseo.car_detail_seo_preview')->with('title','Dakota Avant')->with('country',$country)->with('testimonials',Testimonial::all());
     }
 
     

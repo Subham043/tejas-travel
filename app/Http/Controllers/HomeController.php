@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\VehicleType;
+use App\Models\Vehicle;
+use App\Models\Testimonial;
 
 class HomeController extends Controller
 {
 
     public function index() {
-  
-        return view('pages.main.index');
+        $vehicleTypes = VehicleType::with(['Vehicle'])->where('status',1)->get();
+        return view('pages.main.index')->with('vehicleTypes',$vehicleTypes)->with('testimonials',Testimonial::all());
     }
 
     public function about() {

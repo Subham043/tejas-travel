@@ -53,7 +53,7 @@
         <div class="row">
             <div class=" col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                 <div class="hs_logo_wrapper d-none d-sm-none d-xs-none d-md-block">
-                    <a href="index.php">
+                    <a href="{{route('index')}}">
                         <img src="{{ asset('assets/images/tejas-logo.png')}}" class="img-responsive" alt="logo" title="Logo" />
                     </a>
                 </div>
@@ -102,7 +102,7 @@
                 </div>
                 <nav class="hs_main_menu d-none d-sm-none d-xs-none d-md-block">
                     <ul>
-                        <li><a class="menu-button single_menu" href="index.php">Home</a>
+                        <li><a class="menu-button single_menu" href="{{route('index')}}">Home</a>
                             <!-- <div class="dropdown-wrapper menu-button"> <a class="menu-button" href="#">Home</a>
                                 <div class="drop-menu"> <a class="menu-button" href="index.php">Home-I</a>
                                     <a class="menu-button" href="index_II.html">Home-II</a>
@@ -121,15 +121,15 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <a class="menu-button single_menu" href="about.php">About</a>
+                        <li> <a class="menu-button single_menu" href="{{route('about')}}">About</a>
                         </li>
-                        <li> <a class="menu-button single_menu" href="#">Out Team </a>
+                        <li> <a class="menu-button single_menu" href="{{route('holiday_package')}}">Holiday Packages </a>
                         </li>
-                        <li> <a class="menu-button single_menu" href="#">services </a>
-                        </li>
+                        {{-- <li> <a class="menu-button single_menu" href="#">services </a>
+                        </li> --}}
                         <li><a class="menu-button single_menu" href="#">Blog</a>
                         </li>
-                        <li> <a class="menu-button single_menu" href="contact.php">Contact </a>
+                        <li> <a class="menu-button single_menu" href="{{route('contact')}}">Contact </a>
                         </li>
                     </ul>
                 </nav>
