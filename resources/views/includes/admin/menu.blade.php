@@ -135,22 +135,46 @@
                                 <div class="collapse menu-dropdown {{strpos(url()->current(),'common-terms-condition') !== false || strpos(url()->current(),'common-include-exclude') !== false  || strpos(url()->current(),'common-description') !== false  || strpos(url()->current(),'common-note') !== false || strpos(url()->current(),'common-holiday-package-terms-condition') !== false || strpos(url()->current(),'common-holiday-package-policy') !== false  ? 'show' : ''}}" id="sidebarDashboards3">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{route('terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Terms & Condition </a>
+                                            <a href="{{route('terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride - Terms & Condition </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('include_exclude_edit')}}" class="nav-link {{strpos(url()->current(),'common-include-exclude') !== false ? 'active' : ''}}" data-key="t-analytics"> Includes\Excludes </a>
+                                            <a href="{{route('include_exclude_edit')}}" class="nav-link {{strpos(url()->current(),'common-include-exclude') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride - Includes\Excludes </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('description_edit')}}" class="nav-link {{strpos(url()->current(),'common-description') !== false ? 'active' : ''}}" data-key="t-analytics"> Description </a>
+                                            <a href="{{route('description_edit')}}" class="nav-link {{strpos(url()->current(),'common-description') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride - Description </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('note_edit')}}" class="nav-link {{strpos(url()->current(),'common-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Note </a>
+                                            <a href="{{route('note_edit')}}" class="nav-link {{strpos(url()->current(),'common-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Ride - Note </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('holidaypackage_terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-holiday-package-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Holiday Package - Terms & Condition </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('holidaypackage_policy_edit')}}" class="nav-link {{strpos(url()->current(),'common-holiday-package-policy') !== false ? 'active' : ''}}" data-key="t-analytics"> Holiday Package - Policy </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('outstation_terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-outstation-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Outstation - Terms & Condition </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('outstation_include_exclude_edit')}}" class="nav-link {{strpos(url()->current(),'common-outstation-include-exclude') !== false ? 'active' : ''}}" data-key="t-analytics"> Outstation - Includes\Excludes </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('outstation_description_edit')}}" class="nav-link {{strpos(url()->current(),'common-outstation-description') !== false ? 'active' : ''}}" data-key="t-analytics"> Outstation - Description </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('outstation_note_edit')}}" class="nav-link {{strpos(url()->current(),'common-outstation-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Outstation - Note </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('airport_terms_condition_edit')}}" class="nav-link {{strpos(url()->current(),'common-airport-terms-condition') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport - Terms & Condition </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('airport_include_exclude_edit')}}" class="nav-link {{strpos(url()->current(),'common-airport-include-exclude') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport - Includes\Excludes </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('airport_description_edit')}}" class="nav-link {{strpos(url()->current(),'common-airport-description') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport - Description </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('airport_note_edit')}}" class="nav-link {{strpos(url()->current(),'common-airport-note') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport - Note </a>
                                         </li>
                                         
                                     </ul>
