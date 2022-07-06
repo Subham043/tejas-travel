@@ -45,7 +45,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email" id="email" value="{{old('email')}}">
@@ -54,11 +54,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="phone" class="form-label">Phone</label>
                                         <input type="text" class="form-control" name="phone" id="phone" value="{{old('phone')}}">
                                         @error('phone') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="vehicle" class="form-label">Vehicle</label>
+                                        <select id="vehicle" name="vehicle" multiple></select>
+                                        @error('vehicle') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -83,13 +92,14 @@
                                 </div>
                                 <div class="col-xxl-4 col-md-6">
                                     <div>
-                                        <label for="vehicle" class="form-label">Vehicle</label>
-                                        <select id="vehicle" name="vehicle" multiple></select>
-                                        @error('vehicle') 
+                                        <label for="subcity" class="form-label">Sub-City</label>
+                                        <select id="subcity" name="subcity" multiple></select>
+                                        @error('subcity') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+                                
                                 <div class="col-xxl-12 col-md-12">
                                     <div>
                                         <label for="description" class="form-label">Description</label>
@@ -144,6 +154,7 @@
 @include('pages.admin.transporter._js_state_select')
 @include('pages.admin.transporter._js_vehicle_select')
 @include('pages.admin.transporter._js_city_select')
+@include('pages.admin.transporter._js_subcity_select')
 <script type="text/javascript">
 
 // initialize the validation library
@@ -216,6 +227,22 @@ validation
         errorMessage: 'Please select a city',
     },
   ])
+  .addField('#subcity', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select sub-cities',
+    },
+    {
+        validator: (value, fields) => {
+        if (value?.length==0) {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a sub-city',
+    },
+  ])
   .addField('#vehicle', [
     {
       rule: 'required',
@@ -279,6 +306,11 @@ validation
                 formData.append('city[]',document.getElementById('city')[index].value)
             }
         }
+        if(document.getElementById('subcity')?.length>0){
+            for (let index = 0; index < document.getElementById('subcity').length; index++) {
+                formData.append('subcity[]',document.getElementById('subcity')[index].value)
+            }
+        }
         if(document.getElementById('vehicle')?.length>0){
             for (let index = 0; index < document.getElementById('vehicle').length; index++) {
                 formData.append('vehicle[]',document.getElementById('vehicle')[index].value)
@@ -311,6 +343,9 @@ validation
         }
         if(error?.response?.data?.form_error?.city){
             errorToast(error?.response?.data?.form_error?.city[0])
+        }
+        if(error?.response?.data?.form_error?.subcity){
+            errorToast(error?.response?.data?.form_error?.subcity[0])
         }
       } finally{
             submitBtn.innerHTML =  `

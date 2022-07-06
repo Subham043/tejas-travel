@@ -33,7 +33,15 @@ class Transporter extends Model
 
     public function SubCities()
     {
-        return $this->belongsToMany(SubCity::class, 'transportersubcities');
+        return $this->belongsToMany(SubCity::class, 'transportersubcities', 'transporter_id', 'subcity_id');
+    }
+
+    public function GetSubCitiesId(){
+        return $this->SubCities()->pluck('subcities.id')->toArray();
+    }
+
+    public function GetSubCitiesName(){
+        return $this->SubCities()->pluck('subcities.name');
     }
 
     public function Vehicles()

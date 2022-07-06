@@ -9,8 +9,10 @@ use App\Exports\TransporterExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\State;
 use App\Models\City;
+use App\Models\SubCity;
 use App\Models\Vehicle;
 use App\Models\TransporterCity;
+use App\Models\TransporterSubCity;
 use App\Models\TransporterVehicle;
 use URL;
 
@@ -30,6 +32,8 @@ class TransporterController extends Controller
             'state' => ['required'],
             'city' => ['required','array','min:1'],
             'city.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
             'vehicle' => ['required','array','min:1'],
             'vehicle.*' => ['required','regex:/^[0-9]*$/'],
         );
@@ -61,6 +65,12 @@ class TransporterController extends Controller
             $city->city_id = $req->city[$i];
             $city->save();
         }
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new TransporterSubCity;
+            $city->transporter_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
+            $city->save();
+        }
         for($i=0; $i < count($req->vehicle); $i++) { 
             $city = new TransporterVehicle;
             $city->transporter_id = $country->id;
@@ -77,7 +87,7 @@ class TransporterController extends Controller
 
     public function edit($id) {
         $country = Transporter::findOrFail($id);
-        return view('pages.admin.transporter.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicles', Vehicle::all());
+        return view('pages.admin.transporter.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::whereIn('city_id',$country->GetSubCitiesId())->get())->with('vehicles', Vehicle::all());
     }
 
     public function update(Request $req, $id) {
@@ -89,6 +99,8 @@ class TransporterController extends Controller
             'state' => ['required'],
             'city' => ['required','array','min:1'],
             'city.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
             'vehicle' => ['required','array','min:1'],
             'vehicle.*' => ['required','regex:/^[0-9]*$/'],
         );
@@ -118,6 +130,13 @@ class TransporterController extends Controller
             $city = new TransporterCity;
             $city->transporter_id = $country->id;
             $city->city_id = $req->city[$i];
+            $city->save();
+        }
+        $deleteTransporterSubCity = TransporterSubCity::where('transporter_id',$country->id)->delete();
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new TransporterSubCity;
+            $city->transporter_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
             $city->save();
         }
         $deleteTransporterVehicle = TransporterVehicle::where('transporter_id',$country->id)->delete();

@@ -118,6 +118,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::get('/', [SubCityController::class, 'view', 'as' => 'admin.subcity.view'])->name('subcity_view');
         Route::get('/view/{id}', [SubCityController::class, 'display', 'as' => 'admin.subcity.display'])->name('subcity_display');
         Route::get('/sub-city-all-ajax/{id}', [SubCityController::class, 'subcity_all_ajax', 'as' => 'admin.subcity.subcity_all_ajax'])->name('subcity_all_ajax');
+        Route::get('/sub-city-major-all-ajax', [SubCityController::class, 'subcity_all_major_ajax', 'as' => 'admin.subcity.subcity_all_major_ajax'])->name('subcity_all_major_ajax');
         Route::get('/create', [SubCityController::class, 'create', 'as' => 'admin.subcity.create'])->name('subcity_create');
         Route::post('/create', [SubCityController::class, 'store', 'as' => 'admin.subcity.store'])->name('subcity_store');
         Route::get('/excel', [SubCityController::class, 'excel', 'as' => 'admin.subcity.excel'])->name('subcity_excel');

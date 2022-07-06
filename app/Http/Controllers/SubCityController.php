@@ -134,6 +134,14 @@ class SubCityController extends Controller
     public function subcity_all_ajax($id) {
         return response()->json(["subcities"=>SubCity::where('city_id',$id)->get()], 200);
     }
+    public function subcity_all_major_ajax(Request $request) {
+        if ($request->has('city')) {
+            $city = explode (";", $request->input('city'));
+            return response()->json(["subcities"=>SubCity::whereIn('city_id',$city )->get()], 200);
+        }else{
+            return response()->json(["subcities"=>array()], 200);
+        }
+    }
 
     public function excel(){
         return Excel::download(new SubCityExport, 'subcity.xlsx');
