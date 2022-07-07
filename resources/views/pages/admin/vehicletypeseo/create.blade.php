@@ -6,7 +6,7 @@
 <link href="{{ asset('admin/libs/quill/quill.snow.css' ) }}" rel="stylesheet" type="text/css" />
 
 <style>
-    #editorterm, #editorinclude, #editordescription, #editornotes{
+    #editorterm, #editorinclude, #editordescription, #editornotes, #editordescription1, #editordescription2, #editordescription3, #editordescription4, #editordescription5{
         min-height: 200px;
     }
 </style>
@@ -121,7 +121,7 @@
         <!--end row-->
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">List Layout</h4>
@@ -178,62 +178,6 @@
             </div>
             <!--end col-->
 
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Content Layout</h4>
-                        <div class="flex-shrink-0">
-                            <div class="form-check form-switch form-switch-right form-switch-md">
-                                <button type="button" class="btn rounded-pill btn-secondary waves-effect" onclick="duplicate2()" >Add Content</button>
-                            </div>
-                        </div>
-                    </div><!-- end card header -->
-                    <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv2">
-                        <div class="row gy-4" id="duplicate2_1">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Content</h4>
-                                        <div class="flex-shrink-0">
-                                            <div class="form-check form-switch form-switch-right form-switch-md">
-                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove2()" >Remove Content</button>
-                                            </div>
-                                        </div>
-                                    </div><!-- end card header -->
-                                    <div class="card-body">
-                                        <div class="live-preview">
-                                            <div class="row gy-4">
-                                                <div class="col-xxl-12 col-md-12">
-                                                    <div>
-                                                        <label for="content" class="form-label">Content</label>
-                                                        <select name="content[]" class="form-control" >
-                                                            @foreach ($contentlayouts as $contentlayouts)
-                                                            <option value="{{$contentlayouts->id}}">{{$contentlayouts->heading}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('content') 
-                                                            <div class="invalid-message">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                        </div>
-                        <!--end row-->
-
-                        
-                        
-                    </div>
-                </div>
-            </div>
-            <!--end col-->
 
         </div>
 
@@ -331,12 +275,31 @@
 @section('javascript')
 <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
+<script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 @include('pages.admin.vehicletypeseo._js_state_select')
 @include('pages.admin.vehicletypeseo._js_city_select')
 @include('pages.admin.vehicletypeseo._js_vehicletype_select')
 @include('pages.admin.vehicletypeseo._js_vehicle_select')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
+
+<script type="text/javascript">
+    var quillDescription1 = new Quill('#editordescription1', {
+        theme: 'snow'
+    });
+    var quillDescription2 = new Quill('#editordescription2', {
+        theme: 'snow'
+    });
+    var quillDescription3 = new Quill('#editordescription3', {
+        theme: 'snow'
+    });
+    var quillDescription4 = new Quill('#editordescription4', {
+        theme: 'snow'
+    });
+    var quillDescription5 = new Quill('#editordescription5', {
+        theme: 'snow'
+    });
+</script>
 
 <script type="text/javascript">
     var i = 1;
@@ -360,7 +323,7 @@
     }
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     var i2 = 1;
     var count2 = 1;
     
@@ -380,7 +343,7 @@
             --count2;
         }
     }
-</script>
+</script> --}}
 
 <script type="text/javascript">
 var quillDescription = new Quill('#editordescription', {
@@ -517,17 +480,17 @@ validation
         errorMessage: 'Please enter the valid List !',
     },
   ])
-  .addField('select[name="content[]"]', [
-    {
-      rule: 'required',
-      errorMessage: 'Content is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
-        errorMessage: 'Please enter the valid Content !',
-    },
-  ])
+//   .addField('select[name="content[]"]', [
+//     {
+//       rule: 'required',
+//       errorMessage: 'Content is required',
+//     },
+//     {
+//         rule: 'customRegexp',
+//         value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
+//         errorMessage: 'Please enter the valid Content !',
+//     },
+//   ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -571,9 +534,31 @@ validation
             formData.append('list[]',document.getElementsByName('list[]')[index].value)
         }
 
-        for (let index2 = 0; index2 < count2; index2++) {
-            formData.append('content[]',document.getElementsByName('content[]')[index2].value)
-        }
+        // for (let index2 = 0; index2 < count2; index2++) {
+        //     formData.append('content[]',document.getElementsByName('content[]')[index2].value)
+        // }
+
+        // for (let index2 = 0; index2 < document.getElementsByName('heading_content[]').length; index2++) {
+        //     if(document.getElementsByName('heading_content[]')[index2].value!=""){
+        //         formData.append('heading_content[]',document.getElementsByName('heading_content[]')[index2].value)
+        //         if(index2==0){
+        //             formData.append('description_content[]',quillDescription1.root.innerHTML)
+        //             formData.append('description_unformatted_content[]',quillDescription1.getText())
+        //         }else if(index2==1){
+        //             formData.append('description_content[]',quillDescription2.root.innerHTML)
+        //             formData.append('description_unformatted_content[]',quillDescription2.getText())
+        //         }else if(index2==2){
+        //             formData.append('description_content[]',quillDescription2.root.innerHTML)
+        //             formData.append('description_unformatted_content[]',quillDescription2.getText())
+        //         }else if(index2==3){
+        //             formData.append('description_content[]',quillDescription2.root.innerHTML)
+        //             formData.append('description_unformatted_content[]',quillDescription2.getText())
+        //         }else if(index2==4){
+        //             formData.append('description_content[]',quillDescription2.root.innerHTML)
+        //             formData.append('description_unformatted_content[]',quillDescription2.getText())
+        //         }
+        //     }
+        // }
         
         const response = await axios.post('{{route('vehicletypeseo_store')}}', formData)
         successToast(response.data.message)

@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('vehicletypesseocontentlayouts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('vehicletypesseo_id');
-            $table->bigInteger('contentlayout_id');
+            $table->text('heading')->nullable();
+            $table->text('description')->nullable();
+            $table->text('description_unformatted')->nullable();
             $table->timestamps();
         });
     }

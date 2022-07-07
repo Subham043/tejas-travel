@@ -123,12 +123,10 @@
         @php
         $listlayouts1 = $listlayouts
         @endphp
-        @php
-        $contentlayouts1 = $contentlayouts
-        @endphp
+       
         <!--end row-->
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">List Layout</h4>
@@ -225,103 +223,7 @@
             </div>
             <!--end col-->
 
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Content Layout</h4>
-                        <div class="flex-shrink-0">
-                            <div class="form-check form-switch form-switch-right form-switch-md">
-                                <button type="button" class="btn rounded-pill btn-secondary waves-effect" onclick="duplicate2()" >Add Content</button>
-                            </div>
-                        </div>
-                    </div><!-- end card header -->
-                    <div class="card-body"style="background-color: #d9d9d9;box-shadow:0px 0px 8px 2px #9f9f9f inset;" id="duplicateContentDiv2">
-                        @if($country->contentlayouts->count()>0)
-                        @foreach ($country->contentlayouts as $contentlayoutss)
-                        <div class="row gy-4" id="duplicate2_{{$contentlayoutss->id}}">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Content</h4>
-                                        <div class="flex-shrink-0">
-                                            <div class="form-check form-switch form-switch-right form-switch-md">
-                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove2()" >Remove Content</button>
-                                            </div>
-                                        </div>
-                                    </div><!-- end card header -->
-                                    <div class="card-body">
-                                        <div class="live-preview">
-                                            <div class="row gy-4">
-                                                <div class="col-xxl-12 col-md-12">
-                                                    <div>
-                                                        <label for="content" class="form-label">Content</label>
-                                                        <select name="content[]" class="form-control" >
-                                                            @foreach ($contentlayouts1 as $contentlayouts)
-                                                            <option value="{{$contentlayouts->id}}" {{ (in_array($contentlayouts->id, $country->GetContentLayoutsId())) ? 'selected': ''}}>{{$contentlayouts->heading}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('content') 
-                                                            <div class="invalid-message">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                        </div>
-                        <!--end row-->
-                        @endforeach
-                        @else
-                        <div class="row gy-4" id="duplicate2_1">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header align-items-center d-flex">
-                                        <h4 class="card-title mb-0 flex-grow-1">Content</h4>
-                                        <div class="flex-shrink-0">
-                                            <div class="form-check form-switch form-switch-right form-switch-md">
-                                                <button type="button" class="btn rounded-pill btn-danger waves-effect" onclick="remove2()" >Remove List</button>
-                                            </div>
-                                        </div>
-                                    </div><!-- end card header -->
-                                    <div class="card-body">
-                                        <div class="live-preview">
-                                            <div class="row gy-4">
-                                                <div class="col-xxl-6 col-md-12">
-                                                    <div>
-                                                        <label for="content" class="form-label">Content</label>
-                                                        <select name="content[]" class="form-control" >
-                                                            @foreach ($contentlayouts as $contentlayouts)
-                                                            <option value="{{$contentlayouts->id}}">{{$contentlayouts->heading}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('content') 
-                                                            <div class="invalid-message">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                        </div>
-                        <!--end row-->
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <!--end col-->
-
+            
         </div>
 
         <div class="row">
@@ -448,33 +350,6 @@
         }else{
             this.event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
             --count;
-        }
-    }
-</script>
-
-<script type="text/javascript">
-    @if($country->contentlayouts->count()>0)
-    var i2 = {{$country->contentlayouts[0]->id}};
-    var count2 = {{$country->contentlayouts->count()}};
-    @else
-    var i2 = 1;
-    var count2 = 1;
-    @endif
-    
-    function duplicate2() {
-        var div = document.getElementById('duplicate2_'+i2),
-        clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-        clone.id = "duplicate2_"+(++i2);
-        ++count2;
-        document.getElementById('duplicateContentDiv2').appendChild(clone);
-    }
-    function remove2() {
-        // console.log(this.event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
-        if(count2==1){
-            errorToast('Atleast one content is required!')
-        }else{
-            this.event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
-            --count2;
         }
     }
 </script>
@@ -613,17 +488,7 @@ validation
         errorMessage: 'Please enter the valid List !',
     },
   ])
-  .addField('select[name="content[]"]', [
-    {
-      rule: 'required',
-      errorMessage: 'Content is required',
-    },
-    {
-        rule: 'customRegexp',
-        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
-        errorMessage: 'Please enter the valid Content !',
-    },
-  ])
+ 
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -667,9 +532,9 @@ validation
             formData.append('list[]',document.getElementsByName('list[]')[index].value)
         }
 
-        for (let index2 = 0; index2 < count2; index2++) {
-            formData.append('content[]',document.getElementsByName('content[]')[index2].value)
-        }
+        // for (let index2 = 0; index2 < count2; index2++) {
+        //     formData.append('content[]',document.getElementsByName('content[]')[index2].value)
+        // }
         
         const response = await axios.post('{{route('vehicletypeseo_update', $country->id)}}', formData)
         successToast(response.data.message)

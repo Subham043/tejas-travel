@@ -62,16 +62,21 @@ class VehicleTypesSeo extends Model
         return $this->ListLayouts()->pluck('listlayout.name');
     }
     
-    public function ContentLayouts()
+    // public function ContentLayouts()
+    // {
+    //     return $this->belongsToMany(ContentLayout::class, 'vehicletypesseocontentlayouts', 'vehicletypesseo_id', 'contentlayout_id');
+    // }
+
+    // public function GetContentLayoutsId(){
+    //     return $this->ContentLayouts()->pluck('contentlayout.id')->toArray();
+    // }
+
+    // public function GetContentLayoutsName(){
+    //     return $this->ContentLayouts()->pluck('contentlayout.name');
+    // }
+
+    public function VehicleTypeSeoContentLayout()
     {
-        return $this->belongsToMany(ContentLayout::class, 'vehicletypesseocontentlayouts', 'vehicletypesseo_id', 'contentlayout_id');
-    }
-
-    public function GetContentLayoutsId(){
-        return $this->ContentLayouts()->pluck('contentlayout.id')->toArray();
-    }
-
-    public function GetContentLayoutsName(){
-        return $this->ContentLayouts()->pluck('contentlayout.name');
+        return $this->hasMany('App\Models\VehicleTypeSeoContentLayout', 'vehicletypesseo_id');
     }
 }

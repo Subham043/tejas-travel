@@ -2396,10 +2396,10 @@
                     
                 </div>
             </div>
-            @if($country->contentlayouts->count()>0)
+            @if($country->vehicletypeseocontentlayout->count()>0)
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt5">
                 <div class="row">
-                    @foreach ($country->contentlayouts as $contentlayouts)
+                    @foreach ($country->vehicletypeseocontentlayout as $contentlayouts)
                     <div class="col-md-12">
                         <div class="x_car_detail_main_wrapper float_left">
                             <div class="x_car_detail_slider_bottom_cont_left">

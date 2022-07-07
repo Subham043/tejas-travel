@@ -38,8 +38,8 @@ class VehicleTypeSeoController extends Controller
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicletypesseos'],
             'list' => ['required','array','min:1'],
             'list.*' => ['required','regex:/^[0-9]*$/'],
-            'content' => ['required','array','min:1'],
-            'content.*' => ['required','regex:/^[0-9]*$/'],
+            // 'content' => ['required','array','min:1'],
+            // 'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicletype_id.required' => 'Please enter the vehicle type !',
@@ -86,12 +86,14 @@ class VehicleTypeSeoController extends Controller
             $city->save();
         }
         
-        for($i=0; $i < count($req->content); $i++) { 
-            $city = new VehicleTypeSeoContentLayout;
-            $city->vehicletypesseo_id = $country->id;
-            $city->contentlayout_id = $req->content[$i];
-            $city->save();
-        }
+        // for($i=0; $i < count($req->heading_content); $i++) { 
+        //     $city = new VehicleTypeSeoContentLayout;
+        //     $city->vehicletypesseo_id = $country->id;
+        //     $city->heading = $req->heading_content[$i];
+        //     $city->description = $req->description_content[$i];
+        //     $city->description_unformatted = $req->description_unformatted_content[$i];
+        //     $city->save();
+        // }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?route('vehicletypeseo_view'):$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
@@ -102,7 +104,7 @@ class VehicleTypeSeoController extends Controller
 
     public function edit($id) {
         $country = VehicleTypesSeo::findOrFail($id);
-        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
+        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get())->with('listlayouts',ListLayout::all());
     }
 
     public function update(Request $req, $id) {
@@ -117,8 +119,8 @@ class VehicleTypeSeoController extends Controller
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'list' => ['required','array','min:1'],
             'list.*' => ['required','regex:/^[0-9]*$/'],
-            'content' => ['required','array','min:1'],
-            'content.*' => ['required','regex:/^[0-9]*$/'],
+            // 'content' => ['required','array','min:1'],
+            // 'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicletype_id.required' => 'Please enter the vehicle type !',
@@ -172,14 +174,14 @@ class VehicleTypeSeoController extends Controller
             $city->save();
         }
 
-        $deleteVehicleTypeSeoContentLayout = VehicleTypeSeoContentLayout::where('vehicletypesseo_id',$country->id)->delete();
+        // $deleteVehicleTypeSeoContentLayout = VehicleTypeSeoContentLayout::where('vehicletypesseo_id',$country->id)->delete();
         
-        for($i=0; $i < count($req->content); $i++) { 
-            $city = new VehicleTypeSeoContentLayout;
-            $city->vehicletypesseo_id = $country->id;
-            $city->contentlayout_id = $req->content[$i];
-            $city->save();
-        }
+        // for($i=0; $i < count($req->content); $i++) { 
+        //     $city = new VehicleTypeSeoContentLayout;
+        //     $city->vehicletypesseo_id = $country->id;
+        //     $city->contentlayout_id = $req->content[$i];
+        //     $city->save();
+        // }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?route('vehicletypeseo_view'):$req->refreshUrl, "message" => "Data Updated successfully.", "data" => $country], 201);
@@ -333,6 +335,95 @@ class VehicleTypeSeoController extends Controller
         $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
         $country = VehicleTypeSeoImage::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
         return view('pages.admin.vehicletypeseo_image.display')->with('country',$country)->with('vehicleseotype_id', $vehicleseotype_id);
+    }
+
+    //content layout section
+
+    // content-layout section
+
+    public function create_content_layout($vehicleseotype_id) {
+        $country = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        return view('pages.admin.vehicletypeseo_content_layout.create')->with('country',$country);
+    }
+
+    public function store_content_layout(Request $req, $vehicleseotype_id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter a description !',
+            'heading.regex' => 'Please enter the valid heading !',
+        ]);
+
+        $country = new VehicleTypeSeoContentLayout;
+        $country->heading = $req->heading;
+        $country->description = $req->description;
+        $country->description_unformatted = $req->description_unformatted;
+        $country->vehicletypesseo_id = $vehicleseotype_id;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('vehicletypeseo_content_layout_view', $vehicleseotype_id))->with('success_status', 'Data Stored successfully.');
+        }else{
+            return redirect()->intended(route('vehicletypeseo_content_layout_create', $vehicleseotype_id))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function edit_content_layout($vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        return view('pages.admin.vehicletypeseo_content_layout.edit')->with('country',$country);
+    }
+
+    public function update_content_layout(Request $req, $vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter a description !',
+            'heading.regex' => 'Please enter the valid heading !',
+        ]);
+
+        $country->heading = $req->heading;
+        $country->description = $req->description;
+        $country->description_unformatted = $req->description_unformatted;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('vehicletypeseo_content_layout_edit', [$vehicleseotype_id, $country->id]))->with('success_status', 'Data Updated successfully.');
+        }else{
+            return redirect()->intended(route('vehicletypeseo_content_layout_edit', [$vehicleseotype_id, $country->id]))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function delete_content_layout($vehicleseotype_id, $id){
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+
+        $country->delete();
+        return redirect()->intended(route('vehicletypeseo_content_layout_view', $vehicleseotype_id))->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function view_content_layout(Request $request, $vehicleseotype_id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $country = VehicleTypeSeoContentLayout::where(function ($query) use ($search) {
+                $query->where('heading', 'like', '%' . $search . '%');
+            })->paginate(10);
+        }else{
+            $country = VehicleTypeSeoContentLayout::orderBy('id', 'DESC')->paginate(10);
+        }
+        return view('pages.admin.vehicletypeseo_content_layout.list')->with('country', $country)->with('vehicleseotype_id', $vehicleseotype_id);
+    }
+
+    public function display_content_layout($vehicleseotype_id, $id) {
+        $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
+        $country = VehicleTypeSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseotype_id)->firstOrFail();
+        return view('pages.admin.vehicletypeseo_content_layout.display')->with('country',$country)->with('vehicleseotype_id', $vehicleseotype_id);
     }
 
 }
