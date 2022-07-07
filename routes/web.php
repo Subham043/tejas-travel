@@ -469,6 +469,15 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::post('/edit/{id}', [VehicleSeoController::class, 'update', 'as' => 'admin.vehicleseo.update'])->name('vehicleseo_update');
         Route::get('/delete/{id}', [VehicleSeoController::class, 'delete', 'as' => 'admin.vehicleseo.delete'])->name('vehicleseo_delete');
         
+        Route::prefix('/content-layout/{vehicleseo_id}')->group(function () {
+            Route::get('/', [VehicleSeoController::class, 'view_content_layout', 'as' => 'admin.vehicleseo_content_layout.view'])->name('vehicleseo_content_layout_view');
+            Route::get('/view/{id}', [VehicleSeoController::class, 'display_content_layout', 'as' => 'admin.vehicleseo_content_layout.display'])->name('vehicleseo_content_layout_display');
+            Route::get('/create', [VehicleSeoController::class, 'create_content_layout', 'as' => 'admin.vehicleseo_content_layout.create'])->name('vehicleseo_content_layout_create');
+            Route::post('/create', [VehicleSeoController::class, 'store_content_layout', 'as' => 'admin.vehicleseo_content_layout.store'])->name('vehicleseo_content_layout_store');
+            Route::get('/edit/{id}', [VehicleSeoController::class, 'edit_content_layout', 'as' => 'admin.vehicleseo_content_layout.edit'])->name('vehicleseo_content_layout_edit');
+            Route::post('/edit/{id}', [VehicleSeoController::class, 'update_content_layout', 'as' => 'admin.vehicleseo_content_layout.update'])->name('vehicleseo_content_layout_update');
+            Route::get('/delete/{id}', [VehicleSeoController::class, 'delete_content_layout', 'as' => 'admin.vehicleseo_content_layout.delete'])->name('vehicleseo_content_layout_delete');
+        });
     });
 
     Route::prefix('/holiday-package-seo')->group(function () {

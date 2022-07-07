@@ -91,6 +91,9 @@
                                                     <div class="edit">
                                                         <a href="{{route('vehicleseo_edit', $item->id)}}" class="btn btn-sm btn-success edit-item-btn">Edit</a>
                                                     </div>
+                                                    <div class="edit">
+                                                        <a href="{{route('vehicleseo_content_layout_view', $item->id)}}" class="btn btn-sm btn-primary edit-item-btn">Content Layout</a>
+                                                    </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" onclick="deleteHandler('{{route('vehicleseo_delete', $item->id)}}')">Remove</button>
                                                     </div>

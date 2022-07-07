@@ -117,10 +117,10 @@
                             </div>
                             @endif
 
-                            @if($country->contentlayouts->count()>0)
+                            @if($country->vehicleseocontentlayout->count()>0)
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <h6 class="fw-semibold text-uppercase">Content Layout</h6>
-                                @foreach ($country->contentlayouts as $contentlayouts)
+                                @foreach ($country->vehicleseocontentlayout as $contentlayouts)
                                 <div class="row pt-3 pb-3">
                                     <div class="col-lg-6 col-sm-6">
                                         <div>

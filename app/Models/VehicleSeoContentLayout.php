@@ -9,4 +9,9 @@ class VehicleSeoContentLayout extends Model
 {
     use HasFactory;
     protected $table="vehicleseocontentlayouts";
+
+    public function VehicleSeo()
+    {
+        return $this->belongsTo('App\Models\VehicleSeo');
+    }
 }
