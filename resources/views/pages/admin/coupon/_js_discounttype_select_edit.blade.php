@@ -1,20 +1,20 @@
 <script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 <script type="text/javascript">
 
-const choicesVehicleType = new Choices('#vehicletype', {
+const choicesDiscountType = new Choices('#discounttype', {
     silent: false,
     items: [],
     choices: [
             {
-                value: 'Select a vehicle type',
-                label: 'Select a vehicle type',
+                value: 'Select the discount type',
+                label: 'Select the discount type',
                 disabled: true,
             },
-        @foreach($vehicletypes as $vehicletypes)
+        @foreach($discounttypes as $key => $val)
             {
-                value: '{{$vehicletypes->id}}',
-                label: '{{$vehicletypes->name}}',
-                selected: {{(in_array($vehicletypes->id, $country->GetVehicleTypesId())) ? 'true' : 'false'}},
+                value: '{{$key}}',
+                label: '{{$val}}',
+                selected: {{($country->discount_type==$key) ? 'true' : 'false'}},
             },
         @endforeach
     ],
@@ -40,7 +40,7 @@ const choicesVehicleType = new Choices('#vehicletype', {
     shouldSortItems: false,
     // sorter: () => {...},
     placeholder: true,
-    placeholderValue: 'Select a state',
+    placeholderValue: 'Select the amenity for',
     searchPlaceholderValue: null,
     prependValue: null,
     appendValue: null,
@@ -95,5 +95,6 @@ const choicesVehicleType = new Choices('#vehicletype', {
     callbackOnInit: null,
     callbackOnCreateTemplates: null
   });
+
 
   </script>

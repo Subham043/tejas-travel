@@ -1,20 +1,20 @@
 <script src="{{ asset('admin/js/pages/choices.min.js') }}"></script>
 <script type="text/javascript">
 
-const choicesBookingType = new Choices('#bookingtype', {
+const choicesRideType = new Choices('#ridetype', {
     silent: false,
     items: [],
     choices: [
             {
-                value: 'Select the booking type',
-                label: 'Select the booking type',
+                value: 'Select the ride type',
+                label: 'Select the ride type',
                 disabled: true,
             },
-        @foreach($bookingtypes as $key => $val)
+        @foreach($ridetypes as $key => $val)
             {
                 value: '{{$key}}',
                 label: '{{$val}}',
-                selected: {{($country->booking_type==$key) ? 'true' : 'false'}},
+                selected: {{($country->packagetype_id==$key) ? 'true' : 'false'}},
             },
         @endforeach
     ],
