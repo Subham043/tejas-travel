@@ -133,10 +133,6 @@
                                         
                                     </div>
                                 </div><!--end col-->
-
-                                <div class="col-xxl-12 col-md-12">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Update</button>
-                                </div>
                                 
                             </div>
                             <!--end row-->

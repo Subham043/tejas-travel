@@ -67,7 +67,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="state" class="form-label">State</label>
                                         <select id="state" name="state"></select>
@@ -76,11 +76,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="city" class="form-label">City</label>
                                         <select id="city" name="city"></select>
                                         @error('city') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="subcity" class="form-label">SubCity</label>
+                                        <select id="subcity" name="subcity" multiple></select>
+                                        @error('subcity') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -322,6 +331,7 @@
 <script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
 @include('pages.admin.vehicletypeseo._js_state_edit_select')
 @include('pages.admin.vehicletypeseo._js_city_edit_select')
+@include('pages.admin.vehicletypeseo._js_subcity_edit_select')
 @include('pages.admin.vehicletypeseo._js_vehicletype_select_edit')
 @include('pages.admin.vehicletypeseo._js_vehicle_select_edit')
 
@@ -488,7 +498,22 @@ validation
         errorMessage: 'Please enter the valid List !',
     },
   ])
- 
+  .addField('#subcity', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select sub-cities',
+    },
+    {
+        validator: (value, fields) => {
+        if (value?.length==0) {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select a sub-city',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -532,6 +557,12 @@ validation
             formData.append('list[]',document.getElementsByName('list[]')[index].value)
         }
 
+        if(document.getElementById('subcity')?.length>0){
+            for (let index = 0; index < document.getElementById('subcity').length; index++) {
+                formData.append('subcity[]',document.getElementById('subcity')[index].value)
+            }
+        }
+
         // for (let index2 = 0; index2 < count2; index2++) {
         //     formData.append('content[]',document.getElementsByName('content[]')[index2].value)
         // }
@@ -564,6 +595,9 @@ validation
         }
         if(error?.response?.data?.form_error?.content){
             errorToast(error?.response?.data?.form_error?.content[0])
+        }
+        if(error?.response?.data?.form_error?.subcity){
+            errorToast(error?.response?.data?.form_error?.subcity[0])
         }
       } finally{
             submitBtn.innerHTML =  `

@@ -74,6 +74,16 @@
                             
                             <div class="pt-3 pb-3 border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
+                                    @if($country->subcities->count()>0)
+                                    <div class="col-lg-3 col-sm-6 mb-2 mt-2">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">SubCity :</p>
+                                            @foreach ($country->subcities as $subcities)
+                                                <div class="badge bg-warning fs-12">{{$subcities->name}}</div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @endif
                                     <div class="col-lg-3 col-sm-6 mb-2 mt-2">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">URL :</p>

@@ -79,4 +79,17 @@ class VehicleTypesSeo extends Model
     {
         return $this->hasMany('App\Models\VehicleTypeSeoContentLayout', 'vehicletypesseo_id');
     }
+
+    public function SubCities()
+    {
+        return $this->belongsToMany(SubCity::class, 'vehicletypeseosubcities', 'vehicletypeseo_id', 'subcity_id');
+    }
+
+    public function GetSubCitiesId(){
+        return $this->SubCities()->pluck('subcities.id')->toArray();
+    }
+
+    public function GetSubCitiesName(){
+        return $this->SubCities()->pluck('subcities.name');
+    }
 }

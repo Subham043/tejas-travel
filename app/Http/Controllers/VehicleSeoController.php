@@ -6,6 +6,7 @@ use Auth;
 use App\Models\VehicleSeo;
 use App\Models\State;
 use App\Models\City;
+use App\Models\SubCity;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Validator;
 use URL;
@@ -15,6 +16,7 @@ use App\Models\ContentLayout;
 use App\Models\VehicleSeoListLayout;
 use App\Models\VehicleSeoContentLayout;
 use App\Models\Testimonial;
+use App\Models\VehicleSeoSubCity;
 
 class VehicleSeoController extends Controller
 {
@@ -34,6 +36,8 @@ class VehicleSeoController extends Controller
             'list.*' => ['required','regex:/^[0-9]*$/'],
             // 'content' => ['required','array','min:1'],
             // 'content.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
@@ -72,6 +76,13 @@ class VehicleSeoController extends Controller
             $city->listlayout_id = $req->list[$i];
             $city->save();
         }
+
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new VehicleSeoSubCity;
+            $city->vehicleseo_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
+            $city->save();
+        }
         
         // for($i=0; $i < count($req->content); $i++) { 
         //     $city = new VehicleSeoContentLayout;
@@ -89,7 +100,7 @@ class VehicleSeoController extends Controller
 
     public function edit($id) {
         $country = VehicleSeo::findOrFail($id);
-        return view('pages.admin.vehicleseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all());
+        return view('pages.admin.vehicleseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all());
     }
 
     public function update(Request $req, $id) {
@@ -104,6 +115,8 @@ class VehicleSeoController extends Controller
             'list.*' => ['required','regex:/^[0-9]*$/'],
             // 'content' => ['required','array','min:1'],
             // 'content.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
@@ -145,6 +158,15 @@ class VehicleSeoController extends Controller
             $city = new VehicleSeoListLayout;
             $city->vehicleseo_id = $country->id;
             $city->listlayout_id = $req->list[$i];
+            $city->save();
+        }
+
+        $deleteVehicleSeoSubCity = VehicleSeoSubCity::where('vehicleseo_id',$country->id)->delete();
+
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new VehicleSeoSubCity;
+            $city->vehicleseo_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
             $city->save();
         }
 
