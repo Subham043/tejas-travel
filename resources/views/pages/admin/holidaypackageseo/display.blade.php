@@ -39,24 +39,34 @@
                         <div class="text-muted">
                             <div class="pt-3 pb-3 border-top border-top-dashed border-bottom border-bottom-dashed mt-4">
                                 <div class="row">
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">Holiday Package :</p>
                                             <h5 class="fs-15 mb-0">{{$country->holidaypackage->name}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">State :</p>
                                             <h5 class="fs-15 mb-0">{{$country->state->name}}</h5>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-lg-3 col-sm-6">
                                         <div>
                                             <p class="mb-2 text-uppercase fw-medium fs-13">City :</p>
                                             <h5 class="fs-15 mb-0">{{$country->city->name}}</h5>
                                         </div>
                                     </div>
+                                    @if($country->subcities->count()>0)
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div>
+                                            <p class="mb-2 text-uppercase fw-medium fs-13">SubCity :</p>
+                                            @foreach ($country->subcities as $subcities)
+                                                <div class="badge bg-warning fs-12">{{$subcities->name}}</div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 </div>
                                 

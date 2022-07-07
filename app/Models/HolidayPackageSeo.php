@@ -65,4 +65,17 @@ class HolidayPackageSeo extends Model
     {
         return $this->hasMany('App\Models\HolidayPackageSeoContentLayout', 'holidaypackageseo_id');
     }
+
+    public function SubCities()
+    {
+        return $this->belongsToMany(SubCity::class, 'holidaypackageseosubcities', 'holidaypackageseo_id', 'subcity_id');
+    }
+
+    public function GetSubCitiesId(){
+        return $this->SubCities()->pluck('subcities.id')->toArray();
+    }
+
+    public function GetSubCitiesName(){
+        return $this->SubCities()->pluck('subcities.name');
+    }
 }

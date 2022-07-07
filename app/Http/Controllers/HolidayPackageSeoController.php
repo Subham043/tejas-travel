@@ -15,6 +15,8 @@ use App\Models\ListLayout;
 use App\Models\ContentLayout;
 use App\Models\HolidayPackageSeoListLayout;
 use App\Models\HolidayPackageSeoContentLayout;
+use App\Models\SubCity;
+use App\Models\HolidayPackageSeoSubCity;
 
 class HolidayPackageSeoController extends Controller
 {
@@ -29,11 +31,13 @@ class HolidayPackageSeoController extends Controller
             'holidaypackage_id' => ['required','regex:/^[0-9]*$/'],
             'state_id' => ['required','regex:/^[0-9]*$/'],
             'city_id' => ['required','regex:/^[0-9]*$/'],
-            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicletypesseos'],
+            'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:holidaypackageseos'],
             'list' => ['required','array','min:1'],
             'list.*' => ['required','regex:/^[0-9]*$/'],
             // 'content' => ['required','array','min:1'],
             // 'content.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'holidaypackage_id.required' => 'Please enter the holiday package !',
@@ -72,6 +76,13 @@ class HolidayPackageSeoController extends Controller
             $city->listlayout_id = $req->list[$i];
             $city->save();
         }
+
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new HolidayPackageSeoSubCity;
+            $city->holidaypackageseo_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
+            $city->save();
+        }
         
         // for($i=0; $i < count($req->content); $i++) { 
         //     $city = new HolidayPackageSeoContentLayout;
@@ -89,7 +100,7 @@ class HolidayPackageSeoController extends Controller
 
     public function edit($id) {
         $country = HolidayPackageSeo::findOrFail($id);
-        return view('pages.admin.holidaypackageseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all());
+        return view('pages.admin.holidaypackageseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all());
     }
 
     public function update(Request $req, $id) {
@@ -104,6 +115,8 @@ class HolidayPackageSeoController extends Controller
             'list.*' => ['required','regex:/^[0-9]*$/'],
             // 'content' => ['required','array','min:1'],
             // 'content.*' => ['required','regex:/^[0-9]*$/'],
+            'subcity' => ['required','array','min:1'],
+            'subcity.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'holidaypackage_id.required' => 'Please enter the holiday package !',
@@ -117,7 +130,7 @@ class HolidayPackageSeoController extends Controller
         );
 
         if($country->url!==$req->url){
-            $rules['url'] = ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicletypesseos'];
+            $rules['url'] = ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:holidaypackageseos'];
         }
 
         $validator = Validator::make($req->all(), $rules, $messages);
@@ -145,6 +158,15 @@ class HolidayPackageSeoController extends Controller
             $city = new HolidayPackageSeoListLayout;
             $city->holidaypackageseo_id = $country->id;
             $city->listlayout_id = $req->list[$i];
+            $city->save();
+        }
+
+        $deleteHolidayPackageSeoSubCity = HolidayPackageSeoSubCity::where('holidaypackageseo_id',$country->id)->delete();
+
+        for($i=0; $i < count($req->subcity); $i++) { 
+            $city = new HolidayPackageSeoSubCity;
+            $city->holidaypackageseo_id = $country->id;
+            $city->subcity_id = $req->subcity[$i];
             $city->save();
         }
 
