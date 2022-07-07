@@ -21,7 +21,7 @@ class HolidayPackageSeoController extends Controller
 
     public function create() {
   
-        return view('pages.admin.holidaypackageseo.create')->with('states', State::all())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
+        return view('pages.admin.holidaypackageseo.create')->with('states', State::all())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all());
     }
 
     public function store(Request $req) {
@@ -32,8 +32,8 @@ class HolidayPackageSeoController extends Controller
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicletypesseos'],
             'list' => ['required','array','min:1'],
             'list.*' => ['required','regex:/^[0-9]*$/'],
-            'content' => ['required','array','min:1'],
-            'content.*' => ['required','regex:/^[0-9]*$/'],
+            // 'content' => ['required','array','min:1'],
+            // 'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'holidaypackage_id.required' => 'Please enter the holiday package !',
@@ -73,12 +73,12 @@ class HolidayPackageSeoController extends Controller
             $city->save();
         }
         
-        for($i=0; $i < count($req->content); $i++) { 
-            $city = new HolidayPackageSeoContentLayout;
-            $city->holidaypackageseo_id = $country->id;
-            $city->contentlayout_id = $req->content[$i];
-            $city->save();
-        }
+        // for($i=0; $i < count($req->content); $i++) { 
+        //     $city = new HolidayPackageSeoContentLayout;
+        //     $city->holidaypackageseo_id = $country->id;
+        //     $city->contentlayout_id = $req->content[$i];
+        //     $city->save();
+        // }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?route('holidaypackageseo_view'):$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
@@ -89,7 +89,7 @@ class HolidayPackageSeoController extends Controller
 
     public function edit($id) {
         $country = HolidayPackageSeo::findOrFail($id);
-        return view('pages.admin.holidaypackageseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
+        return view('pages.admin.holidaypackageseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('holidaypackages', HolidayPackage::all())->with('listlayouts',ListLayout::all());
     }
 
     public function update(Request $req, $id) {
@@ -102,8 +102,8 @@ class HolidayPackageSeoController extends Controller
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'list' => ['required','array','min:1'],
             'list.*' => ['required','regex:/^[0-9]*$/'],
-            'content' => ['required','array','min:1'],
-            'content.*' => ['required','regex:/^[0-9]*$/'],
+            // 'content' => ['required','array','min:1'],
+            // 'content.*' => ['required','regex:/^[0-9]*$/'],
         );
         $messages = array(
             'holidaypackage_id.required' => 'Please enter the holiday package !',
@@ -148,14 +148,14 @@ class HolidayPackageSeoController extends Controller
             $city->save();
         }
 
-        $deleteHolidayPackageSeoContentLayout = HolidayPackageSeoContentLayout::where('holidaypackageseo_id',$country->id)->delete();
+        // $deleteHolidayPackageSeoContentLayout = HolidayPackageSeoContentLayout::where('holidaypackageseo_id',$country->id)->delete();
         
-        for($i=0; $i < count($req->content); $i++) { 
-            $city = new HolidayPackageSeoContentLayout;
-            $city->holidaypackageseo_id = $country->id;
-            $city->contentlayout_id = $req->content[$i];
-            $city->save();
-        }
+        // for($i=0; $i < count($req->content); $i++) { 
+        //     $city = new HolidayPackageSeoContentLayout;
+        //     $city->holidaypackageseo_id = $country->id;
+        //     $city->contentlayout_id = $req->content[$i];
+        //     $city->save();
+        // }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?route('holidaypackageseo_view'):$req->refreshUrl, "message" => "Data Updated successfully.", "data" => $country], 201);
@@ -301,6 +301,93 @@ class HolidayPackageSeoController extends Controller
         $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
         $country = HolidayPackageSeoImage::where('id', $id)->where('holidaypackageseo_id', $holidaypackageseo_id)->firstOrFail();
         return view('pages.admin.holidaypackageseo_image.display')->with('country',$country)->with('holidaypackageseo_id', $holidaypackageseo_id);
+    }
+
+    // content-layout section
+
+    public function create_content_layout($holidaypackageseo_id) {
+        $country = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        return view('pages.admin.holidaypackageseo_content_layout.create')->with('country',$country);
+    }
+
+    public function store_content_layout(Request $req, $holidaypackageseo_id) {
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter a description !',
+            'heading.regex' => 'Please enter the valid heading !',
+        ]);
+
+        $country = new HolidayPackageSeoContentLayout;
+        $country->heading = $req->heading;
+        $country->description = $req->description;
+        $country->description_unformatted = $req->description_unformatted;
+        $country->holidaypackageseo_id = $holidaypackageseo_id;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('holidaypackageseo_content_layout_view', $holidaypackageseo_id))->with('success_status', 'Data Stored successfully.');
+        }else{
+            return redirect()->intended(route('holidaypackageseo_content_layout_create', $holidaypackageseo_id))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function edit_content_layout($holidaypackageseo_id, $id) {
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        $country = HolidayPackageSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $holidaypackageseo_id)->firstOrFail();
+        return view('pages.admin.holidaypackageseo_content_layout.edit')->with('country',$country);
+    }
+
+    public function update_content_layout(Request $req, $holidaypackageseo_id, $id) {
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        $country = HolidayPackageSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $holidaypackageseo_id)->firstOrFail();
+        $validator = $req->validate([
+            'description_unformatted' => ['required'],
+            'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+        ],
+        [
+            'description_unformatted.required' => 'Please enter a description !',
+            'heading.regex' => 'Please enter the valid heading !',
+        ]);
+
+        $country->heading = $req->heading;
+        $country->description = $req->description;
+        $country->description_unformatted = $req->description_unformatted;
+        $result = $country->save();
+        if($result){
+            return redirect()->intended(route('holidaypackageseo_content_layout_edit', [$holidaypackageseo_id, $country->id]))->with('success_status', 'Data Updated successfully.');
+        }else{
+            return redirect()->intended(route('holidaypackageseo_content_layout_edit', [$holidaypackageseo_id, $country->id]))->with('error_status', 'Something went wrong. Please try again');
+        }
+    }
+
+    public function delete_content_layout($holidaypackageseo_id, $id){
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        $country = HolidayPackageSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $holidaypackageseo_id)->firstOrFail();
+
+        $country->delete();
+        return redirect()->intended(route('holidaypackageseo_content_layout_view', $holidaypackageseo_id))->with('success_status', 'Data Deleted successfully.');
+    }
+
+    public function view_content_layout(Request $request, $holidaypackageseo_id) {
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $country = HolidayPackageSeoContentLayout::where(function ($query) use ($search) {
+                $query->where('heading', 'like', '%' . $search . '%');
+            })->paginate(10);
+        }else{
+            $country = HolidayPackageSeoContentLayout::orderBy('id', 'DESC')->paginate(10);
+        }
+        return view('pages.admin.holidaypackageseo_content_layout.list')->with('country', $country)->with('holidaypackageseo_id', $holidaypackageseo_id);
+    }
+
+    public function display_content_layout($holidaypackageseo_id, $id) {
+        $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
+        $country = HolidayPackageSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $holidaypackageseo_id)->firstOrFail();
+        return view('pages.admin.holidaypackageseo_content_layout.display')->with('country',$country)->with('holidaypackageseo_id', $holidaypackageseo_id);
     }
 
 }

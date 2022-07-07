@@ -497,6 +497,15 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
             Route::post('/edit/{id}', [HolidayPackageSeoController::class, 'update_image', 'as' => 'admin.holidaypackageseo_image.update'])->name('holidaypackageseo_image_update');
             Route::get('/delete/{id}', [HolidayPackageSeoController::class, 'delete_image', 'as' => 'admin.holidaypackageseo_image.delete'])->name('holidaypackageseo_image_delete');
         });
+        Route::prefix('/content-layout/{holidaypackageseo_id}')->group(function () {
+            Route::get('/', [HolidayPackageSeoController::class, 'view_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.view'])->name('holidaypackageseo_content_layout_view');
+            Route::get('/view/{id}', [HolidayPackageSeoController::class, 'display_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.display'])->name('holidaypackageseo_content_layout_display');
+            Route::get('/create', [HolidayPackageSeoController::class, 'create_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.create'])->name('holidaypackageseo_content_layout_create');
+            Route::post('/create', [HolidayPackageSeoController::class, 'store_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.store'])->name('holidaypackageseo_content_layout_store');
+            Route::get('/edit/{id}', [HolidayPackageSeoController::class, 'edit_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.edit'])->name('holidaypackageseo_content_layout_edit');
+            Route::post('/edit/{id}', [HolidayPackageSeoController::class, 'update_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.update'])->name('holidaypackageseo_content_layout_update');
+            Route::get('/delete/{id}', [HolidayPackageSeoController::class, 'delete_content_layout', 'as' => 'admin.holidaypackageseo_content_layout.delete'])->name('holidaypackageseo_content_layout_delete');
+        });
         
     });
     

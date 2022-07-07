@@ -9,4 +9,9 @@ class HolidayPackageSeoContentLayout extends Model
 {
     use HasFactory;
     protected $table="holidaypackageseocontentlayouts";
+
+    public function HolidayPackageSeo()
+    {
+        return $this->belongsTo('App\Models\HolidayPackageSeo');
+    }
 }

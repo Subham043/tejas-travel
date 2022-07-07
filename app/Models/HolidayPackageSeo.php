@@ -48,16 +48,21 @@ class HolidayPackageSeo extends Model
         return $this->ListLayouts()->pluck('listlayout.name');
     }
     
-    public function ContentLayouts()
+    // public function ContentLayouts()
+    // {
+    //     return $this->belongsToMany(ContentLayout::class, 'holidaypackageseocontentlayouts', 'holidaypackageseo_id', 'contentlayout_id');
+    // }
+
+    // public function GetContentLayoutsId(){
+    //     return $this->ContentLayouts()->pluck('contentlayout.id')->toArray();
+    // }
+
+    // public function GetContentLayoutsName(){
+    //     return $this->ContentLayouts()->pluck('contentlayout.name');
+    // }
+
+    public function HolidayPackageSeoContentLayout()
     {
-        return $this->belongsToMany(ContentLayout::class, 'holidaypackageseocontentlayouts', 'holidaypackageseo_id', 'contentlayout_id');
-    }
-
-    public function GetContentLayoutsId(){
-        return $this->ContentLayouts()->pluck('contentlayout.id')->toArray();
-    }
-
-    public function GetContentLayoutsName(){
-        return $this->ContentLayouts()->pluck('contentlayout.name');
+        return $this->hasMany('App\Models\HolidayPackageSeoContentLayout', 'holidaypackageseo_id');
     }
 }

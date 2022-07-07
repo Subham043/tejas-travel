@@ -114,9 +114,6 @@
         @php
         $listlayouts1 = $listlayouts
         @endphp
-        @php
-        $contentlayouts1 = $contentlayouts
-        @endphp
         <!--end row-->
         <div class="row">
             <div class="col-lg-6">
