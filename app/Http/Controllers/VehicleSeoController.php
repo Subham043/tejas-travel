@@ -17,18 +17,20 @@ use App\Models\VehicleSeoListLayout;
 use App\Models\VehicleSeoContentLayout;
 use App\Models\Testimonial;
 use App\Models\VehicleSeoSubCity;
+use App\Support\For\RideType;
 
 class VehicleSeoController extends Controller
 {
 
     public function create() {
   
-        return view('pages.admin.vehicleseo.create')->with('states', State::all())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all());
+        return view('pages.admin.vehicleseo.create')->with('states', State::all())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all())->with('ridetypes', RideType::lists());
     }
 
     public function store(Request $req) {
         $rules = array(
             'vehicle_id' => ['required','regex:/^[0-9]*$/'],
+            'packagetype_id' => ['required','regex:/^[0-9]*$/'],
             'state_id' => ['required','regex:/^[0-9]*$/'],
             'city_id' => ['required','regex:/^[0-9]*$/'],
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i','unique:vehicleseos'],
@@ -42,6 +44,8 @@ class VehicleSeoController extends Controller
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
             'vehicle_id.regex' => 'Please enter the valid vehicle !',
+            'packagetype_id.required' => 'Please enter the package type !',
+            'packagetype_id.regex' => 'Please enter the valid package type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',
@@ -57,6 +61,7 @@ class VehicleSeoController extends Controller
 
         $country = new VehicleSeo;
         $country->vehicle_id = $req->vehicle_id;
+        $country->packagetype_id = $req->packagetype_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
         $country->browser_title = $req->browser_title;
@@ -100,7 +105,7 @@ class VehicleSeoController extends Controller
 
     public function edit($id) {
         $country = VehicleSeo::findOrFail($id);
-        return view('pages.admin.vehicleseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all());
+        return view('pages.admin.vehicleseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('vehicle', Vehicle::all())->with('listlayouts',ListLayout::all())->with('ridetypes', RideType::lists());
     }
 
     public function update(Request $req, $id) {
@@ -108,6 +113,7 @@ class VehicleSeoController extends Controller
 
         $rules = array(
             'vehicle_id' => ['required','regex:/^[0-9]*$/'],
+            'packagetype_id' => ['required','regex:/^[0-9]*$/'],
             'state_id' => ['required','regex:/^[0-9]*$/'],
             'city_id' => ['required','regex:/^[0-9]*$/'],
             'url' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -121,6 +127,8 @@ class VehicleSeoController extends Controller
         $messages = array(
             'vehicle_id.required' => 'Please enter the vehicle !',
             'vehicle_id.regex' => 'Please enter the valid vehicle !',
+            'packagetype_id.required' => 'Please enter the package type !',
+            'packagetype_id.regex' => 'Please enter the valid package type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',
@@ -139,6 +147,7 @@ class VehicleSeoController extends Controller
         }
 
         $country->vehicle_id = $req->vehicle_id;
+        $country->packagetype_id = $req->packagetype_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
         $country->browser_title = $req->browser_title;

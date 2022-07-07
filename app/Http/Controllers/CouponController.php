@@ -103,12 +103,12 @@ class CouponController extends Controller
     }
 
     public function edit($id) {
-        $country = LocalRide::findOrFail($id);
-        return view('pages.admin.localride.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('packagetypes', PackageType::all())->with('vehicletypes', VehicleType::all())->with('bookingtypes', BookingType::lists())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get());
+        $country = Coupon::findOrFail($id);
+        return view('pages.admin.coupon.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('packagetypes', PackageType::all())->with('vehicletypes', VehicleType::all())->with('bookingtypes', BookingType::lists())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get());
     }
 
     public function update(Request $req, $id) {
-        $country = LocalRide::findOrFail($id);
+        $country = Coupon::findOrFail($id);
 
         $rules = array(
             'booking_type' => ['required','regex:/^[0-9]*$/'],

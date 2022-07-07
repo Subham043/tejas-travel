@@ -49,7 +49,7 @@
                             
                             
                             <div class="row gy-4">
-                                <div class="col-xxl-3 col-md-4">
+                                <div class="col-xxl-6 col-md-4">
                                     <div>
                                         <label for="vehicle" class="form-label">Vehicle</label>
                                         <select id="vehicle" name="vehicle"></select>
@@ -58,7 +58,16 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-3 col-md-4">
+                                <div class="col-xxl-6 col-md-6">
+                                    <div>
+                                        <label for="ridetype" class="form-label">Ride Type</label>
+                                        <select id="ridetype" name="ridetype"></select>
+                                        @error('ridetype') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="state" class="form-label">State</label>
                                         <select id="state" name="state"></select>
@@ -67,7 +76,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-3 col-md-4">
+                                <div class="col-xxl-4 col-md-4">
                                     <div>
                                         <label for="city" class="form-label">City</label>
                                         <select id="city" name="city"></select>
@@ -76,7 +85,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-3 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="subcity" class="form-label">SubCity</label>
                                         <select id="subcity" name="subcity" multiple></select>
@@ -279,6 +288,7 @@
 @include('pages.admin.vehicleseo._js_city_select')
 @include('pages.admin.vehicleseo._js_vehicle_select')
 @include('pages.admin.vehicleseo._js_subcity_select')
+@include('pages.admin.vehicleseo._js_ridetype_select')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -440,6 +450,22 @@ validation
         errorMessage: 'Please select a sub-city',
     },
   ])
+  .addField('#ridetype', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select the package type',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select the package type') {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select the package type',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -461,6 +487,7 @@ validation
       try {
         var formData = new FormData();
         formData.append('vehicle_id',document.getElementById('vehicle').value)
+        formData.append('packagetype_id',document.getElementById('ridetype').value)
         formData.append('description_unformatted',quillDescription.getText())
         formData.append('description',quillDescription.root.innerHTML)
         formData.append('state_id',document.getElementById('state').value)
@@ -493,6 +520,9 @@ validation
         //   console.log(error.response);
         if(error?.response?.data?.form_error?.vehicle_id){
             errorToast(error?.response?.data?.form_error?.vehicle_id[0])
+        }
+        if(error?.response?.data?.form_error?.packagetype_id){
+            errorToast(error?.response?.data?.form_error?.packagetype_id[0])
         }
         if(error?.response?.data?.form_error?.state_id){
             errorToast(error?.response?.data?.form_error?.state_id[0])

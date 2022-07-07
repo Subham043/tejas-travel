@@ -49,7 +49,7 @@
                             
                             
                             <div class="row gy-4">
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="vehicletype" class="form-label">Vehicle Type</label>
                                         <select id="vehicletype" name="vehicletype"></select>
@@ -58,11 +58,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xxl-6 col-md-6">
+                                <div class="col-xxl-4 col-md-6">
                                     <div>
                                         <label for="vehicle" class="form-label">Vehicle</label>
                                         <select id="vehicle" name="vehicle" multiple></select>
                                         @error('vehicle') 
+                                            <div class="invalid-message">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xxl-4 col-md-6">
+                                    <div>
+                                        <label for="ridetype" class="form-label">Ride Type</label>
+                                        <select id="ridetype" name="ridetype"></select>
+                                        @error('ridetype') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -334,6 +343,7 @@
 @include('pages.admin.vehicletypeseo._js_subcity_edit_select')
 @include('pages.admin.vehicletypeseo._js_vehicletype_select_edit')
 @include('pages.admin.vehicletypeseo._js_vehicle_select_edit')
+@include('pages.admin.vehicletypeseo._js_ridetype_select_edit')
 
 <script src="{{ asset('admin/libs/quill/quill.min.js' ) }}"></script>
 
@@ -514,6 +524,22 @@ validation
         errorMessage: 'Please select a sub-city',
     },
   ])
+  .addField('#ridetype', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select the package type',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select the package type') {
+            return false;
+        }
+
+        return true;
+        },
+        errorMessage: 'Please select the package type',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -535,6 +561,7 @@ validation
       try {
         var formData = new FormData();
         formData.append('vehicletype_id',document.getElementById('vehicletype').value)
+        formData.append('packagetype_id',document.getElementById('ridetype').value)
         formData.append('description_unformatted',quillDescription.getText())
         formData.append('description',quillDescription.root.innerHTML)
         formData.append('state_id',document.getElementById('state').value)
@@ -577,6 +604,9 @@ validation
           console.log(error.response);
         if(error?.response?.data?.form_error?.vehicletype_id){
             errorToast(error?.response?.data?.form_error?.vehicletype_id[0])
+        }
+        if(error?.response?.data?.form_error?.packagetype_id){
+            errorToast(error?.response?.data?.form_error?.packagetype_id[0])
         }
         if(error?.response?.data?.form_error?.state_id){
             errorToast(error?.response?.data?.form_error?.state_id[0])

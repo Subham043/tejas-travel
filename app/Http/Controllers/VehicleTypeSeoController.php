@@ -21,18 +21,20 @@ use App\Models\VehicleTypeSeoListLayout;
 use App\Models\VehicleTypeSeoContentLayout;
 use App\Models\Testimonial;
 use App\Models\VehicleTypeSeoSubCity;
+use App\Support\For\RideType;
 
 class VehicleTypeSeoController extends Controller
 {
 
     public function create() {
   
-        return view('pages.admin.vehicletypeseo.create')->with('states', State::all())->with('vehicletypes', VehicleType::all())->with('listlayouts',ListLayout::all())->with('contentlayouts',ContentLayout::all());
+        return view('pages.admin.vehicletypeseo.create')->with('states', State::all())->with('vehicletypes', VehicleType::all())->with('listlayouts',ListLayout::all())->with('ridetypes', RideType::lists());
     }
 
     public function store(Request $req) {
         $rules = array(
             'vehicletype_id' => ['required','regex:/^[0-9]*$/'],
+            'packagetype_id' => ['required','regex:/^[0-9]*$/'],
             'state_id' => ['required','regex:/^[0-9]*$/'],
             'city_id' => ['required','regex:/^[0-9]*$/'],
             'vehicle' => ['required','array','min:1'],
@@ -48,6 +50,8 @@ class VehicleTypeSeoController extends Controller
         $messages = array(
             'vehicletype_id.required' => 'Please enter the vehicle type !',
             'vehicletype_id.regex' => 'Please enter the valid vehicle type !',
+            'packagetype_id.required' => 'Please enter the package type !',
+            'packagetype_id.regex' => 'Please enter the valid package type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',
@@ -63,6 +67,7 @@ class VehicleTypeSeoController extends Controller
 
         $country = new VehicleTypesSeo;
         $country->vehicletype_id = $req->vehicletype_id;
+        $country->packagetype_id = $req->packagetype_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
         $country->browser_title = $req->browser_title;
@@ -115,7 +120,7 @@ class VehicleTypeSeoController extends Controller
 
     public function edit($id) {
         $country = VehicleTypesSeo::findOrFail($id);
-        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get())->with('listlayouts',ListLayout::all());
+        return view('pages.admin.vehicletypeseo.edit')->with('country',$country)->with('states', State::all())->with('cities', City::where('state_id',$country->state_id)->get())->with('subcities', SubCity::where('city_id',$country->city_id)->get())->with('vehicletypes', VehicleType::all())->with('vehicles', Vehicle::where('vehicletype_id',$country->vehicletype_id)->get())->with('listlayouts',ListLayout::all())->with('ridetypes', RideType::lists());
     }
 
     public function update(Request $req, $id) {
@@ -123,6 +128,7 @@ class VehicleTypeSeoController extends Controller
 
         $rules = array(
             'vehicletype_id' => ['required','regex:/^[0-9]*$/'],
+            'packagetype_id' => ['required','regex:/^[0-9]*$/'],
             'state_id' => ['required','regex:/^[0-9]*$/'],
             'city_id' => ['required','regex:/^[0-9]*$/'],
             'vehicle' => ['required','array','min:1'],
@@ -138,6 +144,8 @@ class VehicleTypeSeoController extends Controller
         $messages = array(
             'vehicletype_id.required' => 'Please enter the vehicle type !',
             'vehicletype_id.regex' => 'Please enter the valid vehicle type !',
+            'packagetype_id.required' => 'Please enter the package type !',
+            'packagetype_id.regex' => 'Please enter the valid package type !',
             'state_id.required' => 'Please select a state !',
             'state_id.regex' => 'Please enter the valid state !',
             'city_id.required' => 'Please select a city !',
@@ -156,6 +164,7 @@ class VehicleTypeSeoController extends Controller
         }
 
         $country->vehicletype_id = $req->vehicletype_id;
+        $country->packagetype_id = $req->packagetype_id;
         $country->state_id = $req->state_id;
         $country->city_id = $req->city_id;
         $country->browser_title = $req->browser_title;

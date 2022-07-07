@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('vehicle_id');
             $table->bigInteger('state_id');
             $table->bigInteger('city_id');
+            $table->bigInteger('packagetype_id');
             $table->string('browser_title')->nullable();
             $table->string('url')->nullable();
             $table->text('meta_keywords')->nullable();
