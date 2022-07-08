@@ -9,7 +9,9 @@ const choicesSubCity = new Choices('#subcity', {
           {
               value: '{{$subcities->id}}',
               label: '{{$subcities->name}}',
+              @if($country->subcities->count()>0)
               selected: {{(in_array($subcities->id, $country->GetSubCitiesId())) ? 'true' : 'false'}},
+              @endif
           },
         @endforeach
       ],
