@@ -771,38 +771,17 @@
 														<div class="radio-selection-container package-container mt5">
 															<h4>Package</h4>
 															<div class="row mt3">
+																@foreach ($packagetypes as $key=>$value)
 																<div class="col-md-6 package-col">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="local_ride_packagetype" id="hr1"> 
-																		<label for="hr1">
-																			<span>8 hours & 80 kms</span>
+																	<div class="selection-radio-box" onclick="selectPackageType('hr{{$key}}')">
+																		<input type="radio" name="local_ride_packagetype" id="hr{{$key}}"> 
+																		<label for="hr{{$key}}">
+																			<span>{{$value->name}}</span>
 																		</label>
 																	</div>
 																</div>
-																<div class="col-md-6 package-col">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="local_ride_packagetype" id="hr2"> 
-																		<label for="hr2">
-																			<span>8 hours & 80 kms</span>
-																		</label>
-																	</div>
-																</div>
-																<div class="col-md-6 package-col">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="local_ride_packagetype" id="hr3"> 
-																		<label for="hr3">
-																			<span>8 hours & 80 kms</span>
-																		</label>
-																	</div>
-																</div>
-																<div class="col-md-6 package-col">
-																	<div class="selection-radio-box">
-																		<input type="radio" name="local_ride_packagetype" id="hr4"> 
-																		<label for="hr4">
-																			<span>8 hours & 80 kms</span>
-																		</label>
-																	</div>
-																</div>
+																@endforeach
+																
 															</div>
 														</div>
 														
@@ -3529,7 +3508,6 @@ const datePicker3 = MCDatepicker.create({
 	var selectedSubTripTypeId = "onewaytrip"
 	var selectedAirportSubTripType = "pickup"
 	var selectedAirportSubTripTypeId = "pickup"
-	var selectedTripType = ""
 	var selectedPickUpAddress = ""
 	var selectedPickUpAddressId = ""
 	var selectedDestinationAddress = ""
@@ -3690,6 +3668,19 @@ const datePicker3 = MCDatepicker.create({
 				break;
 				return false;
 			}
+			var checkCounter = 0;
+			for (let indexPackageType2 = 0; indexPackageType2 < document.getElementsByName('local_ride_packagetype').length; indexPackageType2++) {
+				if (document.getElementsByName('local_ride_packagetype')[indexPackageType2].type === 'radio' && document.getElementsByName('local_ride_packagetype')[indexPackageType2].checked) {
+					checkCounter++;
+				}else{
+					continue;
+				}
+			}
+			if(checkCounter==0){
+				errorToast("Please select a package type")
+				break;
+				return false;
+			}
 			document.getElementById('local_ride').style.display = 'none'
 			document.getElementById('userScreen').style.display = 'block'
 			document.getElementById('screenTitle').innerText = 'ENTER YOUR DETAILS'
@@ -3804,6 +3795,25 @@ const datePicker3 = MCDatepicker.create({
 				document.getElementById('outstation_roundtrip_date').style.display = 'none'
 				document.getElementById('outstation_roundtrip_time').style.display = 'none'
 			}
+		}
+		
+	}
+
+	function selectPackageType(id){
+		if(selectedPackageTypeId==""){
+			for (let indexPackageType = 0; indexPackageType < document.getElementsByName('local_ride_packagetype').length; indexPackageType++) {
+				document.getElementsByName('local_ride_packagetype')[indexPackageType].parentNode.classList.remove('selected-radio-box')
+			}
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedPackageTypeId=id;
+			selectedPackageType=id;
+		}else{
+			document.getElementById(selectedPackageTypeId).parentNode.classList.remove('selected-radio-box')
+			document.getElementById(id).checked = true;
+			document.getElementById(id).parentNode.classList.add('selected-radio-box')
+			selectedPackageTypeId=id;
+			selectedPackageType=id;
 		}
 		
 	}

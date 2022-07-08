@@ -258,7 +258,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="additional_price_festival" class="form-label">Additional Prices On Festivals(%)</label>
-                                        <input type="text" class="form-control" name="additional_price_festival" id="additional_price_festival" value="{{$country->additional_price_festival}}">
+                                        <input type="text" class="form-control" name="additional_price_festival" id="additional_price_festival" value="{{$country->additional_price_festival ? $country->additional_price_festival : '0.00'}}">
                                         @error('additional_price_festival') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -267,7 +267,7 @@
                                 <div class="col-xxl-6 col-md-12">
                                     <div>
                                         <label for="additional_price_weekend" class="form-label">Additional Prices On Weekends(%)</label>
-                                        <input type="text" class="form-control" name="additional_price_weekend" id="additional_price_weekend" value="{{$country->additional_price_weekend}}">
+                                        <input type="text" class="form-control" name="additional_price_weekend" id="additional_price_weekend" value="{{$country->additional_price_weekend ? $country->additional_price_weekend : '0.00'}}">
                                         @error('additional_price_weekend') 
                                             <div class="invalid-message">{{ $message }}</div>
                                         @enderror
@@ -317,7 +317,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="start_date" class="form-label">Start Date</label>
-                                                        <input type="date" class="form-control" name="start_date[]" value="{{$specialfareairportride->start_date}}">
+                                                        <input type="date" class="form-control" name="start_date[]" value="{{$specialfareairportride->start_date ? $specialfareairportride->start_date : date('Y-m-d')}}">
                                                         @error('start_date') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -326,7 +326,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="name" class="form-label">End Date</label>
-                                                        <input type="date" class="form-control" name="end_date[]" value="{{$specialfareairportride->end_date}}">
+                                                        <input type="date" class="form-control" name="end_date[]" value="{{$specialfareairportride->end_date ? $specialfareairportride->end_date : date('Y-m-d')}}">
                                                         @error('end_date') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -335,7 +335,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="price" class="form-label">Base Price</label>
-                                                        <input type="text" class="form-control" name="price[]" value="{{$specialfareairportride->price}}">
+                                                        <input type="text" class="form-control" name="price[]" value="{{$specialfareairportride->price ? $specialfareairportride->price : '0.00'}}">
                                                         @error('price') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -371,7 +371,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="start_date" class="form-label">Start Date</label>
-                                                        <input type="date" class="form-control" name="start_date[]" value="{{old('start_date')}}">
+                                                        <input type="date" class="form-control" name="start_date[]" value="{{old('start_date') ? old('start_date') : date('Y-m-d')}}">
                                                         @error('start_date') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -380,7 +380,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="name" class="form-label">End Date</label>
-                                                        <input type="date" class="form-control" name="end_date[]" value="{{old('end_date')}}">
+                                                        <input type="date" class="form-control" name="end_date[]" value="{{old('end_date') ? old('end_date') : date('Y-m-d')}}">
                                                         @error('end_date') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -389,7 +389,7 @@
                                                 <div class="col-xxl-4 col-md-6">
                                                     <div>
                                                         <label for="price" class="form-label">Base Price</label>
-                                                        <input type="text" class="form-control" name="price[]" value="{{old('price')}}">
+                                                        <input type="text" class="form-control" name="price[]" value="{{old('price') ? old('price') :'0.00'}}">
                                                         @error('price') 
                                                             <div class="invalid-message">{{ $message }}</div>
                                                         @enderror
@@ -868,7 +868,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Base Price should contain decimal value',
     },
   ])
@@ -879,7 +879,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Additional Price Per KM should contain decimal value',
     },
   ])
@@ -890,7 +890,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Discount should contain decimal value',
     },
   ])
@@ -901,7 +901,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'GST should contain decimal value',
     },
   ])
@@ -912,7 +912,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Additional Prices On Festivals should contain decimal value',
     },
   ])
@@ -923,7 +923,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Additional Prices On Weekends should contain decimal value',
     },
   ])
@@ -934,7 +934,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Advance During Booking should contain decimal value',
     },
   ])
@@ -945,7 +945,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Travel Date Start should contain decimal value',
     },
   ])
@@ -956,7 +956,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Travel Date Complete should contain decimal value',
     },
   ])
@@ -1027,7 +1027,7 @@ validation
     },
     {
         rule: 'customRegexp',
-        value: /^[1-9]*\.\d{1,2}$/,
+        value: /^[0-9]*\.\d{1,2}$/,
         errorMessage: 'Base Price should contain decimal value',
     },
   ])
