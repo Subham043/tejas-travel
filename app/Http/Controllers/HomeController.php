@@ -41,5 +41,30 @@ class HomeController extends Controller
         return view('pages.main.office_ride')->with('title','Office Ride Enterprise');
     }
 
+    public function CorporateTips() {
+        return view('pages.main.CorporateTips')->with('title','CORPORATE TRIPS');
+    }
+    public function SchoolTrips() {
+        return view('pages.main.schooltrips')->with('title','SCHOOL TRIPS');
+    }
+    public function TermandConditions() {
+        return view('pages.main.TermandConditions')->with('title','Term and Conditions');
+    }
+    public function privecypolicy() {
+        return view('pages.main.privecypolicy')->with('title','Privecy Policy');
+    }
+    public function cancellecenandreturn() {
+        return view('pages.main.cancellecenandreturn')->with('title','Cancellecen and Return');
+    }
+    public function Refund() {
+        return view('pages.main.refund')->with('title','Refund');
+    }
+    public function employeetransportation(){
+        return view('pages.main.employeetransportation')->with('title','Refund');
+    }
+    public function becamepartner(){
+        return view('pages.main.becamepartner')->with('title','Become Partner');
+    }
+
 
 }

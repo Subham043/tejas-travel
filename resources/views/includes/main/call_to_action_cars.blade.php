@@ -9,14 +9,14 @@
             </div>
             <div class="col-md-6">
                 <div class="x_book_logo_heading_wrapper float_left">
-                    <h3>Book on AutoRez Now!</h3>
-                    <p>The Most User Centric Rental Theme on the Market.</p>
+                    <h3>Making Every Tour A Memorable One!!</h3>
+                    <p>Book with Tejas Tours and Travels- We are A User-Centric Vehicle Rental Company.</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="x_book_logo_btn float_left">
                     <ul>
-                        <li><a href="#">See All Cars <i class="fa fa-arrow-right"></i></a>
+                        <li><a href="#">View Catalogue <i class="fa fa-arrow-right"></i></a>
                         </li>
                     </ul>
                 </div>

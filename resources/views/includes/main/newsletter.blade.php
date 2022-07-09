@@ -3,14 +3,14 @@
     <div class="container">
         <div class="x_news_contact_wrapper">
             <img src="{{ asset('assets/images/nl1.png')}}" alt="news_img">
-            <h4>Call Us <br> <span>+1 800 123 4567</span></h4>
+            <a href="tel:+919980277773"><h4>Call Us <br> <span>+91 9980277773</span></h4></a>
         </div>
         <div class="x_news_contact_second_wrapper">
-            <h4>Newsletter</h4>
+            <h4>Book Your Vehicle</h4>
         </div>
-        <div class="x_news_contact_search_wrapper">
-            <input type="text" placeholder="Email Address">
-            <button>read more <i class="fa fa-arrow-right"></i>
+        <div class="x_news_contact_search_wrapper w-auto">
+            <!-- <input type="text" placeholder="Email Address"> -->
+            <button >Book Now <i class="fa fa-arrow-right"></i>
             </button>
         </div>
     </div>

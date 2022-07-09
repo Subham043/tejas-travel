@@ -56,13 +56,17 @@
                         </li>
                         <li><a href="{{route('holiday_package')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Holiday Packages</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Terms and Conditions</a>
+                        <li><a href="{{route('TermandConditions')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Terms and Conditions</a>
                         </li>
-                        <li><a href="{{route('partner')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Become a Partner</a>
+                        <li><a href="{{route('becamepartner')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Become a Partner</a>
                         </li>
                         <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Best Price Guarantee</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Privacy & Cookies Policy</a>
+                        <!-- <li><a href="{{route('Refund')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Refund Policy</a>
+                        </li> -->
+                        <li><a href="#"><i class="fa fa-long-arrow-right"></i> &nbsp; Cancellation Policy</a>
+                        </li>
+                        <li><a href="{{route('privecypolicy')}}"><i class="fa fa-long-arrow-right"></i> &nbsp; Privacy & Cookies Policy</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +96,7 @@
                         </div>
                         <div class="x_footer_bottom_icon_cont">
                             <h4>Toll Free caling in world</h4>
-                            <p>+91 0814 251 152</p>
+                            <p>+91 9980277773</p>
                         </div>
                     </div>
                     <div class="x_footer_bottom_icon_section x_footer_bottom_icon_section2 float_left">

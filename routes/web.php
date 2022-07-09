@@ -62,6 +62,14 @@ Route::get('/car-checkout', [CarBookingController::class, 'checkout', 'as' => 'c
 Route::get('/car-booking-complete', [CarBookingController::class, 'complete', 'as' => 'car_booking.complete'])->name('car_complete');
 Route::get('/holiday-packages', [HolidayPackageMainController::class, 'index', 'as' => 'holiday_package.index'])->name('holiday_package');
 Route::get('/holiday-packages/{url}', [HolidayPackageMainController::class, 'detail', 'as' => 'holiday_package.detail'])->name('holiday_package_detail');
+Route::get('/corporate-tips', [HomeController::class, 'CorporateTips', 'as' => 'home.CorporateTips'])->name('CorporateTips');
+Route::get('/school-trips', [HomeController::class, 'SchoolTrips', 'as' => 'home.SchoolTrips'])->name('SchoolTrips');
+Route::get('/privacy-policy', [HomeController::class, 'privecypolicy', 'as' => 'home.privecypolicy.blade'])->name('privecypolicy');
+Route::get('/refund', [HomeController::class, 'Refund', 'as' => 'home.Refund'])->name('Refund');
+Route::get('/terms-and-condition', [HomeController::class, 'TermandConditions', 'as' => 'home.TermandConditions'])->name('TermandConditions');
+Route::get('/cancellecenandreturn', [HomeController::class, 'cancellecenandreturn', 'as' => 'home.cancellecenandreturn'])->name('cancellection Policy');
+Route::get('/employee-transportation', [HomeController::class, 'employeetransportation', 'as' => 'home.employeetransportation'])->name('employeetransportation');
+Route::get('/became-partner', [HomeController::class, 'becamepartner', 'as' => 'home.becamepartner'])->name('becamepartner');
 
 Route::get('/vehicle-all-ajax-frontend/{id}', [VehicleController::class, 'vehicle_all_ajax', 'as' => 'admin.city.vehicle_all_ajax'])->name('vehicle_all_ajax_frontend');
 Route::post('/insert-quotation', [QuotationController::class, 'store', 'as' => 'quotation.store'])->name('quotation_store');

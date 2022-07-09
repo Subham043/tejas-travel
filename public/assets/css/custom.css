@@ -870,4 +870,32 @@
     /* Employee Transportation Page CSS End */
 
 
-    
+    .Header-container {
+      max-width: 1300px;
+    }
+    .padding_t_100 {
+      padding-top: 100px;
+    }
+    .p__20{
+      padding: 20px;
+    }
+    .p__10{
+      padding: 10px;
+    }
+    .ani-img{
+      left: unset;
+        right: 50%;
+    }
+    .w-75{
+      width: 75%;
+    }
+    .bg-light {
+      background-color: #F1F1F1 !important;
+    }
+    .pos-bottom {
+      position: absolute;
+        bottom: 0;
+    }
+    .w-auto {
+      width: auto !important;
+    }

@@ -32,8 +32,8 @@
                     <div class="x_offer_car_heading_wrapper x_offer_car_heading_wrapper_contact float_left">
                         <h4>get in touch</h4>
                         <h3>Leave A Message</h3>
-                        <p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero
-                            <br>Vestibulum imperdiet nibh vel magna lacinia commodo ultricies,</p>
+                        {{-- <p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero
+                            <br>Vestibulum imperdiet nibh vel magna lacinia commodo ultricies,</p> --}}
                     </div>
                 </div>
                 <div class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">

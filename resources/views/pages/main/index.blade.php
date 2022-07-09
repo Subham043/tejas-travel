@@ -379,11 +379,11 @@
 								<div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 col-12 border-box">
 									<div class="home-content pt5 d-flex pb2 border-box home-content-tex-div">
 										<div>
-											<h5 class=" mb2 text-yellow">Get 10% OFF on First Booking</h5>
-											<h2 data-animation="animated fadeInLeft" class="max-w-500">FAST AND EASY WAY TO RENT A VEHICLE</h2>
+											<h5 class=" mb2 text-yellow">Here for the first time? Welcome! Get a flat 10% discount on your First Booking</h5>
+											<h2 data-animation="animated fadeInLeft" class="max-w-500">YOUR ONE-STOP DESTINATION FOR ALL YOUR TRAVEL NEEDS</h2>
 										</div>
 										<div>
-											<p data-animation="animated bounceInUp" class="text-justify m0" >We have an online booking facility for Car Rental, Bus Rental, Minibus (Mini Coach) Rental, Tempo Travelers(TT) Rental, SUVs and MUVs for hire. Excellent tour packages from Bangalore/Mysore to all over India. It is a long established fact that a reader will be distracted by the readable content.</p>
+											<p data-animation="animated bounceInUp" class="text-justify m0" >Our vehicle hire portal offers a fleet of options suitable for short distances as well as long-distance roundabout trips. Whether you plan to travel with a few companions or more, we have vehicles that fit all requirements. We have high-performance and well-maintained Cabs for hire, 29-33 seater Buses for rentals, 13 seater Tempo Travellers for hire and Luxury Car Rentals like 13 seater Tempo Travellers, 32 seater Bus rental, 18-22 seater Minibus rentals at your service.</p>
 											{{-- <h4 class="banner-button" data-animation="animated bounceInUp">Choose Your Journey <i class="fa-solid fa-hand-point-right fa-2xl text-theme ml8"></i></h4> --}}
 										</div>
 										<!-- <div class="hs_effect_btn">
@@ -417,7 +417,7 @@
 																			</div>
 																			<div class="col-md-6 jurney-content">
 																				<h4>Outstation</h4>
-																				<p>It is a long established fact that a reader will be distracted by the readable content.</p>
+																				<p>Book Reliable Cars, Buses, Tempo Travellers or Luxury Tempo Travellers</p>
 																			</div>
 																		</div>
 																	</a>
@@ -431,8 +431,8 @@
 																					<img src="{{ asset('assets/images/home/img2.png') }}" alt="" width="100%">
 																				</div>
 																				<div class="col-md-6 jurney-content">
-																					<h4>Local Ride</h4>
-																					<p>It is a long established fact that a reader will be distracted by the readable content.</p>
+																					<h4>Within The City</h4>
+																					<p>Travel carefree by car/ cab rental in Bangalore of our vehicles like Dzire, Innova, Etios and more.</p>
 																				</div>
 																			</div>
 																		</a>
@@ -448,8 +448,8 @@
 																				<img src="{{ asset('assets/images/home/img3.png') }}" alt="" width="100%">
 																			</div>
 																			<div class="col-md-6 jurney-content">
-																				<h4>Multi-Location</h4>
-																				<p>It is a long established fact that a reader will be distracted by the readable content.</p>
+																				<h4>Interstate/ Intercity</h4>
+																				<p>Explore our variant cab hire, bus rentals, TT hire services, Tempo traveller on rent, luxury buses, luxury car hire.</p>
 																			</div>
 																		</div>
 																	</a>
@@ -464,7 +464,7 @@
 																				</div>
 																				<div class="col-md-6 jurney-content">
 																					<h4>Airport</h4>
-																					<p>It is a long established fact that a reader will be distracted by the readable content.</p>
+																					<p>Never be late with our on-time car/ cab hire and rental service for your Airport taxi in Bangalore for drop and pick up.</p>
 																				</div>
 																			</div>
 																		</a>
@@ -1298,10 +1298,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="x_offer_car_heading_wrapper float_left">
-						<h4>What We Offer</h4>
+						<h4>MAKE YOUR CHOICE</h4>
 						<h3>Choose your Car</h3>
-						<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero
-							<br>Vestibulum imperdiet nibh vel magna lacinia commodo ultricies,</p>
+						<p>We have high-performance and well-maintained buses, tempo travellers, and luxury vehicles like cabs for rentals in Bangalore <br /> waiting to take you to newer destinations.</p>
 					</div>
 				</div>
 				
@@ -3175,7 +3174,9 @@
 			<div class="btc_team_left_wrapper">
 				<h3>Featured <br>
 Destinations</h3>
-				<p>Explore a different way to travel. This isot as hop's version of Lorem Ipsum. oin gra nibh vel velit auctor aliquet. nean sollicin, lorem quis.</p>
+<p>
+	Travel to any destination carefree while we ensure a safe and comfortable journey for you each time. Explore our extensive fleet of vehicles and select your preference for an unmatched service experience.
+		</p>
 			</div>
 			<div class="btc_team_right_wrapper">
 				<div class="btc_team_slider_wrapper">
@@ -3237,13 +3238,25 @@ Destinations</h3>
 		<div class="x_why_img_overlay"></div>
 		<div class="container">
 			<div class="x_why_left_main_wrapper">
-				<img src="{{ asset('assets/images/home/w1.png') }}" alt="car_img">
+				<img src="{{ asset('assets/images/PNG.png') }}" alt="car_img" class="w-100">
 			</div>
 			<div class="x_why_right_main_wrapper">
-				<h3>Why Choose Us ?</h3>
-				<p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, rem a quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Dssed odio sit amet nibh vulputate cursus a sit amt mauris. Morbi accumsan ipsum velit.
+				<h3>WHY TEJAS TRAVELS?</h3>
+				<p>Tejas Tours and Travels focuses on providing professional travel solutions in Bangalore. After years of
+					understanding the travel business and dealing with various client issues, we have one of the largest car
+					and bus networks and services with a personal touch. As you travel, we intend to give you the best we
+					have to offer.
 					<br>
-					<br>This is Photoshop's version of Lorem Ipsum. Proin gravida n vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum tor. This is Photoshop's version of Lorem Ipsum.</p>
+					<br>We provide transparency about pricing, availability, booking facilities for regional and outstation
+					travels, holiday packages and more. We offer a host of travel services designed to make business and
+					leisure travel easier and seamless.
+					Our prestigious fleet includes vehicles for all needs.
+					<br />
+					<br />
+					Find well-maintained Cabs like Dzire Rentals, Etios Hire, Innova for hire or rentals, 29-33 seater Buses
+					Rentals, 13 seater Tempo Travellers Hire and Luxury vehicles like 13 seater Tempo Travellers Hire, 32
+					seater Buses Rental, 18-22 seater Minibus Hire at your service.
+				</p>
 				<ul>
 					<li><a href="#">read more <i class="fa fa-arrow-right"></i></a>
 					</li>
@@ -3332,7 +3345,7 @@ Destinations</h3>
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-4">
-						<img src="{{ asset('assets/images/home/img5.png') }}" alt="" width="100%">
+						<img src="{{ asset('assets/images/mobile.png') }}" alt="" class="pos-bottom" width="100%">
 					</div>
 					<div class="col-md-4">
 						<div class="x_ln_car_heading_wrapper float_left p5">

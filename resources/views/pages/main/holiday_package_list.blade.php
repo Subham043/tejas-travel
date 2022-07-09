@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="grid">
                         <figure class="effect-bubba">
-                            <img src="{{ asset('assets/images/holiday-packages/img1.png')}}" alt="img02" />
+                            <img src="{{ asset('assets/images/holidaypackages/allepy/allepy.jpg')}}" alt="img02" />
                             <figcaption class="text-left">
                                 <h3 class="pt15 fw-800 text-white">UP TO</h3>
                                 <h2 class="pt0 mt-10 text-yellow"><span style="font-size:12rem;">50</span><span style="font-size:9rem;">%</span>off</h2>
@@ -38,11 +38,11 @@
                 <div class="col-md-2">
                     <div class="img-container">
                         <div class="content">
-                            <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
+                            <a href="#" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img2.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/allepy/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Ladakh</h6>
+                                    <h6>Allepy</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
@@ -52,9 +52,47 @@
                         <div class="content">
                             <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img3.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/Chikka magaluru/chikmagalur-local-sightseeing-tour-jhari-waterfalls-chikmagalur-tourism.jpeg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Dubai</h6>
+                                    <h6>Chikka magaluru</h6>
+                                    <!-- <p>This is a short description</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="img-container">
+                        <div class="content">
+                            <a href="#" target="_blank">
+                                <div class="content-overlay"></div>
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/COORG/Display.jpg')}}" width="100%">
+                                <div class="content-details fadeIn-left">
+                                    <h6>COORG</h6>
+                                    <!-- <p>This is a short description</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="img-container">
+                        <div class="content">
+                            <a href="#" target="_blank">
+                                <div class="content-overlay"></div>
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/Dandeli/Display.jpg')}}" width="100%">
+                                <div class="content-details fadeIn-left">
+                                    <h6>Dandeli</h6>
+                                    <!-- <p>This is a short description</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="img-container">
+                        <div class="content">
+                            <a href="{{ asset('assets/images/holidaypackages/img6.png')}}" target="_blank">
+                                <div class="content-overlay"></div>
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/goa/Display.jpg')}}" width="100%">
+                                <div class="content-details fadeIn-left">
+                                    <h6>goa</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
@@ -64,9 +102,9 @@
                         <div class="content">
                             <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img4.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/Hampi/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Goa</h6>
+                                    <h6>Hampi</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
@@ -78,9 +116,9 @@
                         <div class="content">
                             <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img5.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/KERALA/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Sikkim</h6>
+                                    <h6>KERALA</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
@@ -88,55 +126,92 @@
                     </div>
                     <div class="img-container">
                         <div class="content">
-                            <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
+                            <a href="{{ asset('assets/images/holidaypackages/kodakanail/Display.jpg')}}" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img6.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/kodakanail/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Himachal Pradesh</h6>
+                                    <h6>kodakanail</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
                         </div>
                     </div>
+
+                    <!-- Extra -->
+                   
                     <div class="img-container">
                         <div class="content">
                             <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img7.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/munnar/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Maldives</h6>
+                                    <h6>munnar</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
                         </div>
                     </div>
-                </div>
+                    </div>
                 <div class="col-md-2">
                     <div class="img-container">
                         <div class="content">
-                            <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
+                            <a href="{{ asset('assets/images/holidaypackages/MYSORE/Display.jpg')}}" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img8.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/MYSORE/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Himalayan Treks</h6>
+                                    <h6>MYSORE</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
                         </div>
                     </div>
+                    </div>
+                <div class="col-md-2">
+
+                    <div class="img-container">
+                        <div class="content">
+                            <a href="{{ asset('assets/images/holidaypackages/Ooty/Display.jpg')}}" target="_blank">
+                                <div class="content-overlay"></div>
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/Ooty/Display.jpg')}}" width="100%">
+                                <div class="content-details fadeIn-left">
+                                    <h6>Ooty</h6>
+                                    <!-- <p>This is a short description</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-2">
+
                     <div class="img-container">
                         <div class="content">
                             <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
                                 <div class="content-overlay"></div>
-                                <img class="content-image" src="{{ asset('assets/images/holiday-packages/img9.png')}}" width="100%">
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/UDAPI/Display.jpg')}}" width="100%">
                                 <div class="content-details fadeIn-left">
-                                    <h6>Rajasthan</h6>
+                                    <h6>UDUPI</h6>
                                     <!-- <p>This is a short description</p> -->
                                 </div>
                             </a>
                         </div>
                     </div>
-                    
+                    </div>
+                <div class="col-md-2">
+                   
+                    <div class="img-container">
+                        <div class="content">
+                            <a href="https://unsplash.com/photos/HkTMcmlMOUQ" target="_blank">
+                                <div class="content-overlay"></div>
+                                <img class="content-image" src="{{ asset('assets/images/holidaypackages/waynad/Display.jpg')}}" width="100%">
+                                <div class="content-details fadeIn-left">
+                                    <h6>waynad</h6>
+                                    <!-- <p>This is a short description</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -152,22 +227,43 @@
         <div class="row card-5 pb5">
             <div class="col-md-12">
                 <div id="tog-content">
-                    <div class="text show-more-height">
-                        Some random text
+                    <div class="text ">
+                    <h3>HOLIDAY TOURS PACKAGES FROM BANGALORE:</h3>
                         <br/><br/>
-                        At Cobalt we help people and businesses throughout the world realize their full potential.We make this simple mission come to life every day through our passion to create technologies and develop products that touch just about every kind of customer.
-                        At Cobalt we help people and businesses throughout the world realize their full potential.We make this simple mission come to life every day through our passion to create technologies and develop products that touch just about every kind of customer.
-                        At Cobalt we help people and businesses throughout the world realize their full potential.We make this simple mission come to life every day through our passion to create technologies and develop products that touch just about every kind of customer.
-                        At Cobalt we help people and businesses throughout the world realize their full potential.We make this simple mission come to life every day through our passion to create technologies and develop products that touch just about every kind of customer.
+                        Tejas Tours and Travels holiday package tours from Bangalore are planned in a manner to add fun to every trip and make it a joyous and fruitful one to be remembered for ages to come.
+You can find a plethora of family tour packages from Bangalore to your favourite tourist destinations. The most exciting memories of our lives come from the trips we have been on, be it with our families when young, our friends or even corporate trips.
+<br/>
+<br/>
+One could also find an attractive one-day tour package from Bangalore. Choose to spend quality time unwinding your mind on solo trips if you wish to. 
+<br/>
+<br/>
+If a honeymoon tour package is on the wishlist, find the best deals and plans with Tejas tours and travels. We assure you that you will not be disappointed. 
+<br/>
+<br/>
+While life has much to offer, we also, at times, wish to return grateful to the creator and find unification with the Almighty. Our pilgrimage tour packages are planned, envisioning the comfort of the journeys to these holy places. The seamless rides will help you focus on the only purpose of the pilgrimage while we take care of the rest. 
+<br/>
+<br/>
+Our Bangalore tour packages are planned and organised for almost all the major popular and crowd-pleasing tours from Bangalore.
+<br/>
+<br/>
+We only look to be your first choice as the best travel agency in Bangalore through our endeavours to provide the best tourist tours and travel services.
+<br/>
+<br/>
+Whether it is a desired trip on your bucket list, a cherished dream tour, or just an instant thought to celebrate, we at Tejas Travels have the best Bangalore tour package, Travel Packages, Holiday packages, Tour Packages and Trip Packages. 
+<br/>
+<br/>
+Keep watching our website for new additions and exciting discounts.
+
                     </div>
-                    <div class="show-more">Read More</div>
+                    <!-- <div class="show-more">Read More</div> -->
                 </div><!-- [End] #profile-description -->
             </div>
         </div>
     </div>
 </div>
 
-<div class="x_services_title_main_wrapper float_left mt5">
+
+{{-- <div class="x_services_title_main_wrapper float_left mt5">
     <div class="container">
         <div class="row pb5">
             <div class="col-md-10 offset-md-1 card-5 p2">
@@ -225,11 +321,11 @@
         </div>
     </div>
 </div>
-
+ --}}
 
 <!-- x car book sidebar section Wrapper Start -->
 <!-- x car book sidebar section Wrapper Start -->
-<div class="x_car_book_sider_main_Wrapper float_left">
+<div class="x_car_book_sider_main_Wrapper float_left mt5">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">

@@ -2,7 +2,7 @@
 <div class="x_top_header_wrapper float_left">
     <div class="container">
         <div class="x_top_header_left_side_wrapper float_left">
-            <p>Call Us : 0814 251 152 / 0814 251 152 &nbsp; Email: info@tajestravels.com</p>
+            <p>Call Us :<a href="tel:+919980277773" class="text-white"> 9980277773,</a> <a href="tel:+919663309993" class="text-white">9663309993</a> &nbsp; Email: info@tajestravels.com</p>
         </div>
         <div class="x_top_header_right_side_wrapper float_left">
             <!-- <div class="x_top_header_social_icon_wrapper">
@@ -49,16 +49,16 @@
 <!-- x top header_wrapper End -->
 <!-- hs Navigation Start -->
 <div class="hs_navigation_header_wrapper">
-    <div class="container">
+    <div class="Header-container container">
         <div class="row">
-            <div class=" col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class=" col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12">
                 <div class="hs_logo_wrapper d-none d-sm-none d-xs-none d-md-block">
                     <a href="{{route('index')}}">
                         <img src="{{ asset('assets/images/tejas-logo.png')}}" class="img-responsive" alt="logo" title="Logo" />
                     </a>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12">
                 <div class="hs_navi_cart_wrapper  d-none d-sm-none d-xs-none d-md-block d-lg-block d-xl-block">
                     <div class="dropdown-wrapper menu-button menu_button_end"> <a class="menu-button" href="#"><i class="flaticon-shopping-cart"></i><span>3</span></a>
                         <div class="drop-menu">
@@ -125,6 +125,18 @@
                         </li>
                         <li> <a class="menu-button single_menu" href="{{route('holiday_package')}}">Holiday Packages </a>
                         </li>
+                        <!-- CORPORATE TRIPS -->
+                        <li>
+                            <div class="dropdown-wrapper menu-button"> <a class="menu-button" href="{{route('CorporateTips')}}">CORPORATE TRIPS</a>
+                            </div>
+                        </li>
+                        <!-- CORPORATE TRIPS -->
+                        <!-- SCHOOL TRIPS -->
+                        <li>
+                            <div class="dropdown-wrapper menu-button"> <a class="menu-button" href="{{route('becamepartner')}}">Become Partner</a>
+                            </div>
+                        </li>
+                        <!-- END SCHOOL TRIPS -->
                         {{-- <li> <a class="menu-button single_menu" href="#">services </a>
                         </li> --}}
                         <li><a class="menu-button single_menu" href="#">Blog</a>
@@ -139,7 +151,7 @@
                             <div class="col-xs-6 col-sm-6 col-6">
                                 <div class="hs_logo">
                                     <a href="index.php">
-                                        <img src="{{ asset('assets/images/tejas-logo.png" alt="Logo" title="Logo">
+                                        <img src="{{ asset('assets/images/tejas-logo.png')}}" alt="Logo" title="Logo">
                                     </a>
                                 </div>
                             </div>
