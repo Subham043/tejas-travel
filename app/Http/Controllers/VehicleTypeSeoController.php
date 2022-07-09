@@ -442,11 +442,11 @@ class VehicleTypeSeoController extends Controller
         $data = VehicleTypesSeo::findOrFail($vehicleseotype_id);
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = VehicleTypeSeoContentLayout::where(function ($query) use ($search) {
+            $country = VehicleTypeSeoContentLayout::where('vehicletypesseo_id', $vehicleseotype_id)->where(function ($query) use ($search) {
                 $query->where('heading', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
-            $country = VehicleTypeSeoContentLayout::orderBy('id', 'DESC')->paginate(10);
+            $country = VehicleTypeSeoContentLayout::where('vehicletypesseo_id', $vehicleseotype_id)->orderBy('id', 'DESC')->paginate(10);
         }
         return view('pages.admin.vehicletypeseo_content_layout.list')->with('country', $country)->with('vehicleseotype_id', $vehicleseotype_id);
     }

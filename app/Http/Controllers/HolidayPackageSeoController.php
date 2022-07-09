@@ -397,11 +397,11 @@ class HolidayPackageSeoController extends Controller
         $data = HolidayPackageSeo::findOrFail($holidaypackageseo_id);
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = HolidayPackageSeoContentLayout::where(function ($query) use ($search) {
+            $country = HolidayPackageSeoContentLayout::where('vehicletypesseo_id', $holidaypackageseo_id)->where(function ($query) use ($search) {
                 $query->where('heading', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
-            $country = HolidayPackageSeoContentLayout::orderBy('id', 'DESC')->paginate(10);
+            $country = HolidayPackageSeoContentLayout::where('vehicletypesseo_id', $holidaypackageseo_id)->orderBy('id', 'DESC')->paginate(10);
         }
         return view('pages.admin.holidaypackageseo_content_layout.list')->with('country', $country)->with('holidaypackageseo_id', $holidaypackageseo_id);
     }

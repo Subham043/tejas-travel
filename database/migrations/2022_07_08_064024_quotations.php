@@ -25,7 +25,8 @@ return new class extends Migration
             $table->bigInteger('vehicletype_id')->nullable();
             $table->string('vehicletype')->nullable();
             $table->bigInteger('vehicle_id')->nullable();
-            $table->string('vehicle')->nullable();
+            $table->bigInteger('packagetype_id')->nullable();
+            $table->string('packagetype')->nullable();
             $table->string('from_date')->nullable();
             $table->string('to_date')->nullable();
             $table->string('from_time')->nullable();

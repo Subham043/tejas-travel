@@ -263,13 +263,13 @@ class VehicleSeoController extends Controller
 
     public function edit_content_layout($vehicleseo_id, $id) {
         $data = VehicleSeo::findOrFail($vehicleseo_id);
-        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseo_id)->firstOrFail();
+        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicleseo_id', $vehicleseo_id)->firstOrFail();
         return view('pages.admin.vehicleseo_content_layout.edit')->with('country',$country);
     }
 
     public function update_content_layout(Request $req, $vehicleseo_id, $id) {
         $data = VehicleSeo::findOrFail($vehicleseo_id);
-        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseo_id)->firstOrFail();
+        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicleseo_id', $vehicleseo_id)->firstOrFail();
         $validator = $req->validate([
             'description_unformatted' => ['required'],
             'heading' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -292,7 +292,7 @@ class VehicleSeoController extends Controller
 
     public function delete_content_layout($vehicleseo_id, $id){
         $data = VehicleSeo::findOrFail($vehicleseo_id);
-        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseo_id)->firstOrFail();
+        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicleseo_id', $vehicleseo_id)->firstOrFail();
 
         $country->delete();
         return redirect()->intended(route('vehicleseo_content_layout_view', $vehicleseo_id))->with('success_status', 'Data Deleted successfully.');
@@ -302,18 +302,18 @@ class VehicleSeoController extends Controller
         $data = VehicleSeo::findOrFail($vehicleseo_id);
         if ($request->has('search')) {
             $search = $request->input('search');
-            $country = VehicleSeoContentLayout::where(function ($query) use ($search) {
+            $country = VehicleSeoContentLayout::where('vehicleseo_id',$vehicleseo_id)->where(function ($query) use ($search) {
                 $query->where('heading', 'like', '%' . $search . '%');
             })->paginate(10);
         }else{
-            $country = VehicleSeoContentLayout::orderBy('id', 'DESC')->paginate(10);
+            $country = VehicleSeoContentLayout::where('vehicleseo_id',$vehicleseo_id)->orderBy('id', 'DESC')->paginate(10);
         }
         return view('pages.admin.vehicleseo_content_layout.list')->with('country', $country)->with('vehicleseo_id', $vehicleseo_id);
     }
 
     public function display_content_layout($vehicleseo_id, $id) {
         $data = VehicleSeo::findOrFail($vehicleseo_id);
-        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicletypesseo_id', $vehicleseo_id)->firstOrFail();
+        $country = VehicleSeoContentLayout::where('id', $id)->where('vehicleseo_id', $vehicleseo_id)->firstOrFail();
         return view('pages.admin.vehicleseo_content_layout.display')->with('country',$country)->with('vehicleseo_id', $vehicleseo_id);
     }
 

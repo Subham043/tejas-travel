@@ -36,6 +36,7 @@ use App\Http\Controllers\ContentLayoutController;
 use App\Http\Controllers\VehicleSeoController;
 use App\Http\Controllers\HolidayPackageSeoController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\QuotationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,12 +56,15 @@ Route::get('/about-us', [HomeController::class, 'about', 'as' => 'home.about'])-
 Route::get('/become-a-partner', [HomeController::class, 'partner', 'as' => 'home.partner'])->name('partner');
 Route::get('/consumer-complaints', [HomeController::class, 'complaint', 'as' => 'home.complaint'])->name('complaint');
 Route::get('/car-booking', [CarBookingController::class, 'index', 'as' => 'car_booking.index'])->name('car_booking');
-Route::get('/car-detail', [CarBookingController::class, 'detail', 'as' => 'car_booking.detail'])->name('car_detail');
+Route::get('/car-booking/{quotationId}', [CarBookingController::class, 'car_booking_quotation', 'as' => 'car_booking_quotation.index'])->name('car_booking_quotation');
+Route::get('/car-detail/{url}', [CarBookingController::class, 'detail', 'as' => 'car_booking.detail'])->name('car_detail');
 Route::get('/car-checkout', [CarBookingController::class, 'checkout', 'as' => 'car_booking.checkout'])->name('car_checkout');
 Route::get('/car-booking-complete', [CarBookingController::class, 'complete', 'as' => 'car_booking.complete'])->name('car_complete');
 Route::get('/holiday-packages', [HolidayPackageMainController::class, 'index', 'as' => 'holiday_package.index'])->name('holiday_package');
 Route::get('/holiday-packages/{url}', [HolidayPackageMainController::class, 'detail', 'as' => 'holiday_package.detail'])->name('holiday_package_detail');
 
+Route::get('/vehicle-all-ajax-frontend/{id}', [VehicleController::class, 'vehicle_all_ajax', 'as' => 'admin.city.vehicle_all_ajax'])->name('vehicle_all_ajax_frontend');
+Route::post('/insert-quotation', [QuotationController::class, 'store', 'as' => 'quotation.store'])->name('quotation_store');
 Route::post('/insert-enquiry', [EnquiryController::class, 'insert_enquiry', 'as' => 'insert_enquiry.insert_enquiry'])->name('insert_enquiry');
 Route::post('/insert-complaint', [ComplaintController::class, 'insert_complaint', 'as' => 'insert_complaint.insert_complaint'])->name('insert_complaint');
 

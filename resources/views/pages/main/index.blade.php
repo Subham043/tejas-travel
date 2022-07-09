@@ -773,7 +773,7 @@
 															<div class="row mt3">
 																@foreach ($packagetypes as $key=>$value)
 																<div class="col-md-6 package-col">
-																	<div class="selection-radio-box" onclick="selectPackageType('hr{{$key}}')">
+																	<div class="selection-radio-box" onclick="selectPackageType('hr{{$key}}','{{$value->name}}')">
 																		<input type="radio" name="local_ride_packagetype" id="hr{{$key}}"> 
 																		<label for="hr{{$key}}">
 																			<span>{{$value->name}}</span>
@@ -1036,7 +1036,7 @@
 														
 														<div class="car-button-container  mt5">
 															<button onclick="goBackFromUserScreen()">PREVIOUS</button>
-															<button>SEARCH</button>
+															<button onclick="submitQuotation()" id="submitBtn">SEARCH</button>
 														</div>
 													</div>
 												</div>
@@ -3405,6 +3405,7 @@ Destinations</h3>
  {{-- <script src="{{ asset('assets/js/foundation-datepicker.js') }}"></script> --}}
  <script src="{{ asset('assets/js/clocklet.min.js') }}"></script>
  <script src="{{ asset('assets/js/mc-calendar.min.js') }}"></script>
+ <script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
  <script>
 
 const datePicker = MCDatepicker.create({
@@ -3477,6 +3478,20 @@ const datePicker3 = MCDatepicker.create({
 			document.getElementById('addDestinationBtn').style.display = 'none'
 		}else{
 			document.getElementById('addDestinationBtn').style.display = 'block'
+		}
+	}
+</script>
+
+<script>
+	async function setVehicleRequest(id){
+		const response = await axios.get('{{URL::to('/')}}/vehicle-all-ajax-frontend/'+id)
+		if(response.data.vehicles.length>0){
+			
+			var opt="";
+			response.data.vehicles.forEach((item)=>{
+				opt+=`<option value='${item.id}'>${item.name}</option>`
+			})
+			document.getElementById('vehicleSelected').innerHTML = opt;
 		}
 	}
 </script>
@@ -3632,6 +3647,7 @@ const datePicker3 = MCDatepicker.create({
 				return false;
 			}
 			if(document.getElementById('outstation_time').value == ""){
+				console.log(document.getElementById('outstation_time').value);
 				errorToast("Please enter pickup time")
 				break;
 				return false;
@@ -3765,6 +3781,7 @@ const datePicker3 = MCDatepicker.create({
 		mainNameVehicleType = main_name
 		mainDescVehicleType = main_description
 		mainImageVehicleType = main_image
+		setVehicleRequest(main_id)
 	}
 
 	function selectTripType(id){
@@ -3799,7 +3816,7 @@ const datePicker3 = MCDatepicker.create({
 		
 	}
 
-	function selectPackageType(id){
+	function selectPackageType(id,name){
 		if(selectedPackageTypeId==""){
 			for (let indexPackageType = 0; indexPackageType < document.getElementsByName('local_ride_packagetype').length; indexPackageType++) {
 				document.getElementsByName('local_ride_packagetype')[indexPackageType].parentNode.classList.remove('selected-radio-box')
@@ -3807,13 +3824,13 @@ const datePicker3 = MCDatepicker.create({
 			document.getElementById(id).checked = true;
 			document.getElementById(id).parentNode.classList.add('selected-radio-box')
 			selectedPackageTypeId=id;
-			selectedPackageType=id;
+			selectedPackageType=name;
 		}else{
 			document.getElementById(selectedPackageTypeId).parentNode.classList.remove('selected-radio-box')
 			document.getElementById(id).checked = true;
 			document.getElementById(id).parentNode.classList.add('selected-radio-box')
 			selectedPackageTypeId=id;
-			selectedPackageType=id;
+			selectedPackageType=name;
 		}
 		
 	}
@@ -3835,5 +3852,153 @@ const datePicker3 = MCDatepicker.create({
 		}
 	}
 	selectAirportTripType('pickup')
+</script>
+
+<script>
+	async function submitQuotation() {
+		if(document.getElementById('rider_name').value == ""){
+			errorToast("Please enter your name")
+			return false;
+		}
+		if(document.getElementById('rider_email').value == ""){
+			errorToast("Please enter your email")
+			return false;
+		}
+		if(document.getElementById('rider_phone').value == ""){
+			errorToast("Please enter your phone")
+			return false;
+		}
+		if(document.getElementById('vehicleSelected').value == ""){
+			errorToast("Please select a vehicle")
+			return false;
+		}
+
+		var submitBtn = document.getElementById('submitBtn')
+        submitBtn.innerHTML = `
+            <span class="d-flex align-items-center">
+                <span class="spinner-border flex-shrink-0" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                <span class="flex-grow-1 ms-2">
+                    Loading...
+                </span>
+            </span>
+            `
+        submitBtn.disabled = true;
+		try {
+			var formData = new FormData();
+			formData.append('name',document.getElementById('rider_name').value)
+			formData.append('email',document.getElementById('rider_email').value)
+			formData.append('phone',document.getElementById('rider_phone').value)
+			formData.append('vehicletype',mainNameVehicleType)
+			formData.append('vehicletype_id',mainIdVehicleType)
+			formData.append('vehicle_id',document.getElementById('vehicleSelected').value)
+
+			if(selectedTripType=='LOCAL RIDE'){
+				formData.append('triptype','Local Ride')
+				formData.append('triptype_id',2)
+				formData.append('from_date',document.getElementById('local_ride_date').value)
+				formData.append('from_time',document.getElementById('local_ride_time').value)
+				formData.append('from_city',document.getElementById('local_ride_pickup').value)
+
+			}else if(selectedTripType=='OUTSTATION'){
+				formData.append('triptype','OutStation')
+				formData.append('triptype_id',3)
+				formData.append('from_date',document.getElementById('outstation_date').value)
+				formData.append('from_time',document.getElementById('outstation_time').value)
+				formData.append('from_city',document.getElementById('outstation_pickup').value)
+				formData.append('to_city',document.getElementById('outstation_drop').value)
+			}else if(selectedTripType=='AIRPORT'){
+				formData.append('triptype','Airport')
+				formData.append('triptype_id',4)
+				formData.append('from_date',document.getElementById('airport_date').value)
+				formData.append('from_time',document.getElementById('airport_time').value)
+				formData.append('from_city',document.getElementById('airport_pickup').value)
+			}else if(selectedTripType=='MULTI-LOCATION'){
+				formData.append('triptype','Multiple Location')
+				formData.append('triptype_id',1)
+				formData.append('from_date',document.getElementById('multilocation_date').value)
+				formData.append('from_time',document.getElementById('multilocation_time').value)
+				formData.append('from_city',document.getElementById('multilocation_pickup').value)
+				var toCityText = ""
+				for (let index3 = 0; index3 < document.getElementsByName('multilocation_drop[]').length; index3++) {
+					if(index3==1){
+						continue;
+					}else if(index3==document.getElementsByName('multilocation_drop[]').length-1){
+						toCityText += document.getElementsByName('multilocation_drop[]')[index3].value;
+					}else{
+						toCityText = toCityText+document.getElementsByName('multilocation_drop[]')[index3].value+',';
+					}
+					
+				}
+				formData.append('to_city',toCityText)
+			}
+
+			if(selectedTripType=='OUTSTATION'){
+				if(selectedSubTripType=='onewaytrip'){
+					formData.append('subtriptype','onewaytrip')
+					formData.append('subtriptype_id',1)
+				}else{
+					formData.append('subtriptype','roundtrip')
+					formData.append('subtriptype_id',2)
+					formData.append('to_date',document.getElementById('outstation_return_date').value)
+					formData.append('to_time',document.getElementById('outstation_return_time').value)
+				}
+			}else if(selectedTripType=='AIRPORT'){
+				if(selectedAirportSubTripType=='pickup'){
+					formData.append('subtriptype','pickup')
+					formData.append('subtriptype_id',1)
+				}else{
+					formData.append('subtriptype','drop')
+					formData.append('subtriptype_id',2)
+				}
+			}else if(selectedTripType=='LOCAL RIDE'){
+				formData.append('packagetype',selectedPackageType)
+				formData.append('packagetype_id',selectedPackageTypeId)
+			}
+			
+			const response = await axios.post('{{route('quotation_store')}}', formData)
+			// successToast(response.data.message)
+			console.log(response);
+			setTimeout(function(){
+				window.location.replace(response.data.url);
+			}, 1000);
+      } catch (error) {
+        //   console.log(error.response);
+        if(error?.response?.data?.form_error?.vehicletype_id){
+            errorToast(error?.response?.data?.form_error?.vehicletype_id[0])
+        }
+        if(error?.response?.data?.form_error?.packagetype_id){
+            errorToast(error?.response?.data?.form_error?.packagetype_id[0])
+        }
+        if(error?.response?.data?.form_error?.state_id){
+            errorToast(error?.response?.data?.form_error?.state_id[0])
+        }
+        if(error?.response?.data?.form_error?.city_id){
+            errorToast(error?.response?.data?.form_error?.city_id[0])
+        }
+        if(error?.response?.data?.form_error?.url){
+            errorToast(error?.response?.data?.form_error?.url[0])
+        }
+        if(error?.response?.data?.form_error?.vehicle){
+            errorToast(error?.response?.data?.form_error?.vehicle[0])
+        }
+        if(error?.response?.data?.form_error?.list){
+            errorToast(error?.response?.data?.form_error?.list[0])
+        }
+        if(error?.response?.data?.form_error?.content){
+            errorToast(error?.response?.data?.form_error?.content[0])
+        }
+        if(error?.response?.data?.form_error?.subcity){
+            errorToast(error?.response?.data?.form_error?.subcity[0])
+        }
+      } finally{
+            submitBtn.innerHTML =  `
+                Search
+                `
+            submitBtn.disabled = false;
+        }
+	}
+	
 </script>
  @stop
