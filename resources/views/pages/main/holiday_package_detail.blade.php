@@ -504,7 +504,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Enquire Now</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalBtn">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -538,19 +538,25 @@
                 <div class="form-group">
                     <label for="children">Accomodation</label>
                     <select name="accomodation_id" class="form-control" id="accomodation_id">
-                        <option>1</option>
+                        @foreach ($accomodation as $key=>$value)
+                        <option value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="children">Vehicle Type</label>
-                    <select name="vehicletype_id" class="form-control" id="vehicletype_id">
-                        <option>1</option>
+                    <select name="vehicletype_id" class="form-control" id="vehicletype_id" onchange="setVehicleRequest()">
+                        @foreach ($vehicletypes as $key=>$value)
+                        <option value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="children">Vehicle</label>
                     <select name="vehicle_id" class="form-control" id="vehicle_id">
-                        <option>1</option>
+                        @foreach ($vehicle as $key=>$value)
+                        <option value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <button type="submit" id="submitBtn" class="btn btn-primary">Enquire Now</button>
@@ -696,7 +702,7 @@
         
           try {
             var formData = new FormData();
-            formData.append('holidaypackage_id','{{$country->name}}')
+            formData.append('holidaypackage_id','{{$country->id}}')
             formData.append('name',document.getElementById('name').value)
             formData.append('email',document.getElementById('email').value)
             formData.append('phone',document.getElementById('phone').value)
@@ -710,7 +716,7 @@
             const response = await axios.post('{{route('Holiday_Package_Enquiry')}}', formData)
             successToast(response.data.message)
             setTimeout(function(){
-                window.location.replace(response.data.url);
+                document.getElementById('closeModalBtn').click()
             }, 1000);
           } catch (error) {
             //   console.log(error.response);
@@ -748,5 +754,19 @@
       });
   
     </script>
+
+<script>
+	async function setVehicleRequest(){
+		const response = await axios.get('{{URL::to('/')}}/vehicle-all-ajax-frontend/'+event.target.value)
+		if(response.data.vehicles.length>0){
+			
+			var opt="";
+			response.data.vehicles.forEach((item)=>{
+				opt+=`<option value='${item.id}'>${item.name}</option>`
+			})
+			document.getElementById('vehicle_id').innerHTML = opt;
+		}
+	}
+</script>
 
 @stop

@@ -8,6 +8,9 @@ use App\Models\Common;
 use App\Models\HolidayPackageEnquiry;
 use URL;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Vehicle;
+use App\Models\VehicleType;
+use App\Models\Accommodation;
 
 class HolidayPackageMainController extends Controller
 {
@@ -21,10 +24,13 @@ class HolidayPackageMainController extends Controller
         $country = HolidayPackage::where('url', $url)->firstOrFail();
         $include_exclude = Common::findOrFail(5);
         $policy = Common::findOrFail(6);
-        return view('pages.main.holiday_package_detail')->with('title',$country->name)->with('country',$country)->with('policy',$policy)->with('include_exclude',$include_exclude);
+        $vehicleTypes = VehicleType::where('status',1)->get();
+        $accomodation = Accommodation::get();
+        $vehicle = Vehicle::where('vehicletype_id',$vehicleTypes[0]->id)->where('status',1)->get();
+        return view('pages.main.holiday_package_detail')->with('title',$country->name)->with('country',$country)->with('policy',$policy)->with('include_exclude',$include_exclude)->with('vehicletypes',$vehicleTypes)->with('vehicle',$vehicle)->with('accomodation',$accomodation);
     }
 
-    public function HolidayPackageEnquiry(Request $request)
+    public function HolidayPackageEnquiry(Request $req)
     {
         $rules = array(
             'name' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
@@ -76,8 +82,6 @@ class HolidayPackageMainController extends Controller
         $country->vehicletype_id = $req->vehicletype_id;
         $country->vehicle_id = $req->vehicle_id;
         $country->adult = $req->adult;
-        $country->vehicletype = $req->vehicletype;
-        $country->vehicle_id = $req->vehicle_id;
         $country->children = $req->children;
         $country->date = $req->date;
         
