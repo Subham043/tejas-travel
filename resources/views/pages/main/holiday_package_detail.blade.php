@@ -234,8 +234,11 @@
                                 </div>
                                 <div class="x_avanticar_btn float_left">
                                     <ul>
-                                        <li><a href="#">Book Now <i class="fa fa-arrow-right"></i></a>
-                                        </li>
+                                        {{-- <li><a href="javascript:void(0)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now <i class="fa fa-arrow-right"></i></a>
+                                        </li> --}}
+                                        <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            Book Now <i class="fa fa-arrow-right"></i>
+                                          </button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -496,6 +499,254 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enquire Now</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="countryForm" method="post">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" class="form-control" id="phone" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                  <label for="date">Date of Travel</label>
+                  <input type="date" class="form-control" id="date" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="adult">Adult</label>
+                    <input type="text" class="form-control" id="adult" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="children">Children</label>
+                    <input type="text" class="form-control" id="children" value="0" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="children">Accomodation</label>
+                    <select name="accomodation_id" class="form-control" id="accomodation_id">
+                        <option>1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="children">Vehicle Type</label>
+                    <select name="vehicletype_id" class="form-control" id="vehicletype_id">
+                        <option>1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="children">Vehicle</label>
+                    <select name="vehicle_id" class="form-control" id="vehicle_id">
+                        <option>1</option>
+                    </select>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Enquire Now</button>
+              </form>
+        </div>
+        {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> --}}
+      </div>
+    </div>
+  </div>
+
 @include('includes.main.newsletter')
+
+@stop
+
+
+@section('javascript')
+<script type="text/javascript">
+
+    const errorToast = (message) =>{
+        iziToast.error({
+            title: 'Error',
+            message: message,
+            position: 'bottomCenter',
+            timeout:7000
+        });
+    }
+    const successToast = (message) =>{
+        iziToast.success({
+            title: 'Success',
+            message: message,
+            position: 'bottomCenter',
+            timeout:6000
+        });
+    }
+    
+    </script>
+<script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
+<script src="{{ asset('admin/js/pages/just-validate-plugin-date.production.min.js') }}"></script>
+<script type="text/javascript">
+  // initialize the validation library
+  const validation = new JustValidate('#countryForm', {
+          errorFieldCssClass: 'is-invalid',
+    });
+    // apply rules to form fields
+    validation
+      .addField('#adult', [
+        {
+          rule: 'required',
+          errorMessage: 'Day is required',
+        },
+        {
+            rule: 'customRegexp',
+            value: /^[0-9]*$/,
+            errorMessage: 'Day is invalid',
+        },
+      ])
+      .addField('#children', [
+        {
+          rule: 'required',
+          errorMessage: 'Night is required',
+        },
+        {
+            rule: 'customRegexp',
+            value: /^[0-9]*$/,
+            errorMessage: 'Night is invalid',
+        },
+      ])
+      .addField('#name', [
+    {
+      rule: 'required',
+      errorMessage: 'Name is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
+        errorMessage: 'Name is invalid',
+    },
+  ])
+  .addField('#email', [
+    {
+      rule: 'required',
+      errorMessage: 'Email is required',
+    },
+    {
+      rule: 'email',
+      errorMessage: 'Email is invalid!',
+    },
+  ])
+  .addField('#phone', [
+    {
+      rule: 'required',
+      errorMessage: 'Phone is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*$/,
+        errorMessage: 'Phone is invalid',
+    },
+  ])
+  .addField('#date', [
+    {
+      rule: 'required',
+      errorMessage: 'Date of travel is required',
+    },
+    ])
+  .addField('#vehicletype_id', [
+    {
+      rule: 'required',
+      errorMessage: 'Vehicle type is required',
+    },
+  ])
+  .addField('#vehicle_id', [
+    {
+      rule: 'required',
+      errorMessage: 'Vehicle is required',
+    },
+  ])
+  .addField('#accomodation_id', [
+    {
+      rule: 'required',
+      errorMessage: 'Accomodation is required',
+    },
+  ])
+      .onSuccess(async (event) => {
+        // event.target.submit();
+        
+        
+        var submitBtn = document.getElementById('submitBtn')
+            submitBtn.innerHTML = `
+                <span class="d-flex align-items-center">
+                    <span class="spinner-border flex-shrink-0" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                    <span class="flex-grow-1 ms-2">
+                        Loading...
+                    </span>
+                </span>
+                `
+            submitBtn.disabled = true;
+        
+          try {
+            var formData = new FormData();
+            formData.append('holidaypackage_id','{{$country->name}}')
+            formData.append('name',document.getElementById('name').value)
+            formData.append('email',document.getElementById('email').value)
+            formData.append('phone',document.getElementById('phone').value)
+            formData.append('adult',document.getElementById('adult').value)
+            formData.append('children',document.getElementById('children').value)
+            formData.append('vehicletype_id',document.getElementById('vehicletype_id').value)
+            formData.append('vehicle_id',document.getElementById('vehicle_id').value)
+            formData.append('accomodation_id',document.getElementById('accomodation_id').value)
+            formData.append('date',document.getElementById('date').value)
+            
+            const response = await axios.post('{{route('Holiday_Package_Enquiry')}}', formData)
+            successToast(response.data.message)
+            setTimeout(function(){
+                window.location.replace(response.data.url);
+            }, 1000);
+          } catch (error) {
+            //   console.log(error.response);
+            if(error?.response?.data?.form_error?.name){
+                errorToast(error?.response?.data?.form_error?.name[0])
+            }
+            if(error?.response?.data?.form_error?.phone){
+                errorToast(error?.response?.data?.form_error?.phone[0])
+            }
+            if(error?.response?.data?.form_error?.email){
+                errorToast(error?.response?.data?.form_error?.email[0])
+            }
+            if(error?.response?.data?.form_error?.vehicletype_id){
+                errorToast(error?.response?.data?.form_error?.vehicletype_id[0])
+            }
+            if(error?.response?.data?.form_error?.vehicle_id){
+                errorToast(error?.response?.data?.form_error?.vehicle_id[0])
+            }
+            if(error?.response?.data?.form_error?.accomodation_id){
+                errorToast(error?.response?.data?.form_error?.accomodation_id[0])
+            }
+            if(error?.response?.data?.form_error?.adult){
+                errorToast(error?.response?.data?.form_error?.adult[0])
+            }
+            if(error?.response?.data?.form_error?.children){
+                errorToast(error?.response?.data?.form_error?.children[0])
+            }
+          } finally{
+                submitBtn.innerHTML =  `
+                    Enquire Now
+                    `
+                submitBtn.disabled = false;
+            }
+    
+      });
+  
+    </script>
 
 @stop

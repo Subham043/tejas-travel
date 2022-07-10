@@ -61,6 +61,7 @@ Route::get('/car-detail/{url}', [CarBookingController::class, 'detail', 'as' => 
 Route::get('/car-checkout', [CarBookingController::class, 'checkout', 'as' => 'car_booking.checkout'])->name('car_checkout');
 Route::get('/car-booking-complete', [CarBookingController::class, 'complete', 'as' => 'car_booking.complete'])->name('car_complete');
 Route::get('/holiday-packages', [HolidayPackageMainController::class, 'index', 'as' => 'holiday_package.index'])->name('holiday_package');
+Route::post('/holiday-packages-enquiry', [HolidayPackageMainController::class, 'HolidayPackageEnquiry', 'as' => 'HolidayPackageEnquiry.index'])->name('Holiday_Package_Enquiry');
 Route::get('/holiday-packages/{url}', [HolidayPackageMainController::class, 'detail', 'as' => 'holiday_package.detail'])->name('holiday_package_detail');
 Route::get('/corporate-tips', [HomeController::class, 'CorporateTips', 'as' => 'home.CorporateTips'])->name('CorporateTips');
 Route::get('/school-trips', [HomeController::class, 'SchoolTrips', 'as' => 'home.SchoolTrips'])->name('SchoolTrips');

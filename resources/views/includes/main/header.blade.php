@@ -109,18 +109,16 @@
                                 </div>
                             </div> -->
                         </li>
-                        <li>
+                        {{-- <li>
                             <div class="dropdown-wrapper menu-button"> <a class="menu-button" href="#">Car</a>
                                 <div class="drop-menu"> 
-                                    <!-- <a class="menu-button" href="#">Car-Accessories</a> -->
                                     <a class="menu-button" href="car-booking.php">Car-Booking</a>
                                     <a class="menu-button" href="car-details.php"> Car-Details</a>
                                     <a class="menu-button" href="car-checkout.php">Car-Checkout</a>
                                     <a class="menu-button" href="car-booking-done.php">Car-Booking-Done</a>
-                                    <!-- <a class="menu-button" href="#"> Car-Detail-Right</a> -->
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                         <li> <a class="menu-button single_menu" href="{{route('about')}}">About</a>
                         </li>
                         <li> <a class="menu-button single_menu" href="{{route('holiday_package')}}">Holiday Packages </a>

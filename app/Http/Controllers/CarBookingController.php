@@ -32,17 +32,17 @@ class CarBookingController extends Controller
         // return $quotation;
         if($quotation->triptype_id==3){
             $mainVehicle = OutStation::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id',$quotation->vehicle_id)->orderBy('id', 'DESC')->get();
-            $data = OutStation::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(1);
+            $data = OutStation::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(10);
             // return $mainVehicle;
         }elseif($quotation->triptype_id==2){
             $mainVehicle = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id',$quotation->vehicle_id)->orderBy('id', 'DESC')->get();
-            $data = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(1);
+            $data = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(10);
         }elseif($quotation->triptype_id==4){
             $mainVehicle = AirportRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id',$quotation->vehicle_id)->orderBy('id', 'DESC')->get();
-            $data = AirportRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(1);
+            $data = AirportRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(10);
         }elseif($quotation->triptype_id==1){
             $mainVehicle = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id',$quotation->vehicle_id)->orderBy('id', 'DESC')->get();
-            $data = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(1);
+            $data = LocalRide::with(['Vehicle'])->where('booking_type',1)->where('vehicle_id', '!=', $quotation->vehicle_id)->where('vehicletype_id',$quotation->vehicletype_id)->orderBy('id', 'DESC')->paginate(10);
         }
         return view('pages.main.car_booking_quotation')->with('title','Best Offers Car')->with('data',$data)->with('mainVehicle',$mainVehicle)->with('quotation',$quotation)->with('quotationId',Crypt::encryptString($decryptedId));
     }
