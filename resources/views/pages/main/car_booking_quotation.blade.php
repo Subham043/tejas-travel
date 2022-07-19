@@ -1,6 +1,10 @@
 @extends('layouts.main.index')
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/clocklet.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/mc-calendar.min.css') }}" />
 
+@stop
 
 @section('content')
 
@@ -24,35 +28,43 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 mt5">
-                                            <input type="radio" id="local" name="type" value="Local">
+                                            <input type="radio" id="local" name="type" value="Local" {{$quotation->triptype_id==2 ? 'checked' : ''}}>
                                             <label for="local" class="mr5">Local</label><br>
-                                            <input type="radio" id="outstation" name="type" value="Outstation">
+                                            <input type="radio" id="outstation" name="type" value="Outstation" {{$quotation->triptype_id==3 ? 'checked' : ''}}>
                                             <label for="outstation" class="mr5">Outstation</label><br>
-                                            <input type="radio" id="airport" name="type" value="Airport">
+                                            <input type="radio" id="airport" name="type" value="Airport" {{$quotation->triptype_id==4 ? 'checked' : ''}}>
                                             <label for="airport">Airport</label>
                                             
                                         </div>
                                         <div class="col-md-12">
                                             <div class="x_slider_form_input_wrapper float_left">
                                                 <h3>Pick-up Location</h3>
-                                                <input type="text" placeholder="City, Airport, Station, etc.">
+                                                <input type="text" placeholder="City, Airport, Station, etc." value="{{$quotation->from_city}}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="x_slider_form_input_wrapper float_left">
                                                 <h3>Drop-off Location</h3>
-                                                <input type="text" placeholder="City, Airport, Station, etc.">
+                                                <input type="text" placeholder="City, Airport, Station, etc." value="{{$quotation->to_city}}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-sec-header">
                                                 <h3>Pick-up Date</h3>
                                                 <label class="cal-icon">Pick-up Date
-                                                    <input type="text" placeholder="Tue 16 Jan 2018" class="form-control datepicker">
+                                                    <input type="text" placeholder="Tue 16 Jan 2018" class="form-control" id="date__picker" value="{{$quotation->from_date}}">
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
+                                            <div class="form-sec-header">
+                                                <h3>Pick-up Time</h3>
+                                                <label class="cal-icon">Pick-up Time
+                                                    <input type="text" name="outstation_time" id="outstation_time" class="input-text" placeholder="1 May, 6:30 PM" value="{{$quotation->from_time}}" data-clocklet="format: h:mm a">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-12">
                                             <div class="x_slider_select">
                                                 <select class="myselect">
                                                     <option>09</option>
@@ -69,16 +81,16 @@
                                                     <option>02</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-12">
                                             <div class="form-sec-header">
                                                 <h3>Drop-Off Date</h3>
                                                 <label class="cal-icon">Pick-up Date
                                                     <input type="text" placeholder="Tue 16 Jan 2018" class="form-control datepicker">
                                                 </label>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-12">
                                             <div class="x_slider_select">
                                                 <select class="myselect">
                                                     <option>09</option>
@@ -95,14 +107,7 @@
                                                     <option>02</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="x_slider_checkbox float_left">
-                                                <input type="checkbox" id="c2" name="cb">
-                                                <label for="c2">Driver age is between 30-65 &nbsp;<i class="fa fa-question-circle"></i>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <div class="x_slider_checout_right x_slider_checout_right_carbooking">
                                                 <ul>
@@ -639,5 +644,28 @@
 <!-- x car book sidebar section Wrapper End -->
 
 @include('includes.main.newsletter')
+
+@stop
+
+
+@section('javascript')
+{{-- <script src="{{ asset('assets/js/foundation-datepicker.js') }}"></script> --}}
+<script src="{{ asset('assets/js/clocklet.min.js') }}"></script>
+<script src="{{ asset('assets/js/mc-calendar.min.js') }}"></script>
+<script src="{{ asset('admin/js/pages/axios.min.js') }}"></script>
+
+
+<script>
+
+const datePicker = MCDatepicker.create({
+  el: '#date__picker',
+  bodyType: 'inline',
+  closeOnBlur: true,
+  theme: {
+        theme_color: '#3097fe'
+    }
+});
+
+</script>
 
 @stop

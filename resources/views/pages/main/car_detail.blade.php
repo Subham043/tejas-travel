@@ -46,7 +46,7 @@
 <div class="x_car_book_sider_main_Wrapper float_left">
     <div class="container">
         <div class="row">
-            <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+            {{-- <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="x_car_book_left_siderbar_wrapper float_left">
                     <div class="row">
                         <form action="">
@@ -154,8 +154,8 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+            </div> --}}
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="x_car_detail_main_wrapper float_left">
@@ -220,16 +220,16 @@
                                 <div class="x_car_detail_slider_bottom_cont_right">
                                     @if(!empty(app('request')->input('booking')))
                                     @if($quotation->triptype_id==3)
-                                    <h3>${{$vehicle->one_way_price_per_km}}</h3>
+                                    <h3>Rs. {{(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))+((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100))}}</h3>
                                     @elseif($quotation->triptype_id==2 || $quotation->triptype_id==1)
-                                    <h3>${{$vehicle->base_price}}</h3>
+                                    <h3>Rs. {{($vehicle->base_price)+($vehicle->base_price*($vehicle->gst/100))}}</h3>
                                     @elseif($quotation->triptype_id==4)
                                     <h3>${{$vehicle->base_price}}</h3>
                                     @else
                                     <h3>$25</h3>
                                     @endif
-                                    <p><span>from</span>
-                                        <br>/ day</p>
+                                    {{-- <p><span>from</span>
+                                        <br>/ day</p> --}}
                                     @endif
                                 </div>
                                 <div class="x_car_detail_slider_bottom_cont_center float_left">
@@ -359,41 +359,23 @@
                                             @elseif($quotation->triptype_id==2 || $quotation->triptype_id==1)
                                             <table style="width: 100%">
                                                 <tr>
-                                                    <th style="width:40%">Base Price: </th>
-                                                    <td>Rs. {{$vehicle->base_price}}</td>
+                                                    <th style="width:40%">Package Included: </th>
+                                                    <td>{{$vehicle->packagetype->name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width:40%">Extra Hours: </th>
+                                                    <td>Rs. {{$vehicle->additional_price_per_hr}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width:40%">Extra Kms: </th>
+                                                    <td>Rs. {{$vehicle->additional_price_per_km}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th style="width:40%">Driver Allowance per Day: </th>
                                                     <td>Rs. {{$vehicle->driver_charges_per_day}}</td>
                                                 </tr>
-                                                {{-- <tr>
-                                                    <th style="width:40%">Total Driver Allowance: </th>
-                                                    <td>Rs. {{$vehicle->min_km_per_day1*1}} ({{$vehicle->min_km_per_day1}}KM * 1)</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width:40%">GST(@ {{$vehicle->gst}}%): </th>
-                                                    <td>Rs. {{(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100)}}</td>
-                                                </tr> --}}
                                             </table>
-                                            <hr>
-                                            {{-- <table style="width: 100%">
-                                                <tr>
-                                                    <th style="width:40%">Estimated Total Fare:</th>
-                                                    <td>Rs. {{(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))+((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100))}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width:40%">Discount:</th>
-                                                    <td>Rs. {{(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->discount/100)}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width:40%">Tejas Travel's Price:</th>
-                                                    <td>Rs. {{(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))+((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100))-((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->discount/100))}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style="width:40%">Advance Payable (@ {{$vehicle->advance_during_booking}}%):</th>
-                                                    <td>Rs. {{((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))+((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100))-((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->discount/100)))-(($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))+(((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->gst/100))-((($vehicle->min_km_per_day1*$vehicle->one_way_price_per_km)+($vehicle->min_km_per_day1*1))*($vehicle->discount/100))*($vehicle->advance_during_booking/100))}}</td>
-                                                </tr>
-                                            </table> --}}
+                                            
                                             @elseif($quotation->triptype_id==4)
                                             <h3>${{$vehicle->base_price}}</h3>
                                             @else

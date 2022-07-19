@@ -4007,7 +4007,7 @@ const datePicker3 = MCDatepicker.create({
         }
       } finally{
             submitBtn.innerHTML =  `
-                Search
+                SEARCH
                 `
             submitBtn.disabled = false;
         }

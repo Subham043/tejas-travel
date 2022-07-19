@@ -78,7 +78,7 @@
                                             <a href="{{route('transporter_view')}}" class="nav-link {{strpos(url()->current(),'transporter') !== false ? 'active' : ''}}" data-key="t-analytics"> Transporter </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('packagetype_view')}}" class="nav-link {{strpos(url()->current(),'package-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Package Type </a>
+                                            <a href="{{route('packagetype_view')}}" class="nav-link {{strpos(url()->current(),'package-type') !== false ? 'active' : ''}}" data-key="t-analytics"> Local Package Type </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('airport_view')}}" class="nav-link {{strpos(url()->current(),'airport') !== false ? 'active' : ''}}" data-key="t-analytics"> Airport </a>
