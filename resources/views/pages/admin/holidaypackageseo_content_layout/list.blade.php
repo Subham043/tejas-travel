@@ -37,6 +37,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
+                                        <a href={{route('holidaypackageseo_view')}} type="button" class="btn btn-dark add-btn" id="create-btn"><i class="ri-arrow-go-back-line align-bottom me-1"></i> Back</a>
                                         <a href={{route('holidaypackageseo_content_layout_create', $holidaypackageseo_id)}} type="button" class="btn btn-success add-btn" id="create-btn"><i class="ri-add-line align-bottom me-1"></i> Create</a>
                                     </div>
                                 </div>
