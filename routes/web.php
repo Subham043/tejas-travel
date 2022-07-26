@@ -37,6 +37,7 @@ use App\Http\Controllers\VehicleSeoController;
 use App\Http\Controllers\HolidayPackageSeoController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,9 @@ Route::get('/became-partner', [HomeController::class, 'becamepartner', 'as' => '
 
 Route::get('/vehicle-all-ajax-frontend/{id}', [VehicleController::class, 'vehicle_all_ajax', 'as' => 'admin.city.vehicle_all_ajax'])->name('vehicle_all_ajax_frontend');
 Route::post('/insert-quotation', [QuotationController::class, 'store', 'as' => 'quotation.store'])->name('quotation_store');
+Route::post('/insert-booking', [BookingController::class, 'store_ajax', 'as' => 'booking.store_ajax'])->name('booking_store_ajax');
+Route::get('/get-approx-distance/{fromcityId}/{toAddress}', [BookingController::class, 'getApproxDistance', 'as' => 'booking.getApproxDistance'])->name('booking_getApproxDistance');
+Route::get('/get-amount-detail', [BookingController::class, 'getAmountDetails', 'as' => 'booking.getAmountDetails'])->name('booking_getAmountDetails');
 Route::post('/insert-enquiry', [EnquiryController::class, 'insert_enquiry', 'as' => 'insert_enquiry.insert_enquiry'])->name('insert_enquiry');
 Route::post('/insert-complaint', [ComplaintController::class, 'insert_complaint', 'as' => 'insert_complaint.insert_complaint'])->name('insert_complaint');
 
@@ -531,6 +535,24 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::post('/edit/{id}', [TestimonialController::class, 'update', 'as' => 'admin.testimonial.update'])->name('testimonial_update');
         Route::get('/delete/{id}', [TestimonialController::class, 'delete', 'as' => 'admin.testimonial.delete'])->name('testimonial_delete');
         Route::get('/excel', [TestimonialController::class, 'excel', 'as' => 'admin.testimonial.excel'])->name('testimonial_excel');
+    });
+    
+    Route::prefix('/booking')->group(function () {
+        Route::get('/', [BookingController::class, 'view', 'as' => 'admin.booking.view'])->name('booking_view');
+        Route::get('/view/{id}', [BookingController::class, 'display', 'as' => 'admin.booking.display'])->name('booking_display');
+        Route::get('/create', [BookingController::class, 'create', 'as' => 'admin.booking.create'])->name('booking_create');
+        Route::post('/create', [BookingController::class, 'store', 'as' => 'admin.booking.store'])->name('booking_store');
+        Route::get('/edit/{id}', [BookingController::class, 'edit', 'as' => 'admin.booking.edit'])->name('booking_edit');
+        Route::post('/edit/{id}', [BookingController::class, 'update', 'as' => 'admin.booking.update'])->name('booking_update');
+        Route::get('/delete/{id}', [BookingController::class, 'delete', 'as' => 'admin.booking.delete'])->name('booking_delete');
+        Route::get('/excel', [BookingController::class, 'excel', 'as' => 'admin.booking.excel'])->name('booking_excel');
+    });
+
+    Route::prefix('/quotation')->group(function () {
+        Route::get('/', [QuotationController::class, 'view', 'as' => 'admin.quotation.view'])->name('quotation_view');
+        Route::get('/view/{id}', [QuotationController::class, 'display', 'as' => 'admin.quotation.display'])->name('quotation_display');
+        Route::get('/excel', [QuotationController::class, 'excel', 'as' => 'admin.quotation.excel'])->name('quotation_excel');
+        Route::get('/delete/{id}', [QuotationController::class, 'delete', 'as' => 'admin.quotation.delete'])->name('quotation_delete');
     });
 
     Route::get('/logout', [DashboardController::class, 'logout', 'as' => 'admin.logout'])->name('logout');

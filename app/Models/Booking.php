@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quotation extends Model
+class Booking extends Model
 {
     use HasFactory;
-    protected $table = 'quotations';
+    protected $table = 'bookings';
 
     public function Vehicle()
     {
@@ -18,5 +18,10 @@ class Quotation extends Model
     public function VehicleType()
     {
         return $this->belongsTo('App\Models\VehicleType', 'vehicletype_id');
+    }
+
+    public function BookingPayment()
+    {
+        return $this->hasMany('App\Models\BookingPayment', 'booking_id');
     }
 }

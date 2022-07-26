@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quotations', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email');
@@ -34,8 +34,27 @@ return new class extends Migration
             $table->bigInteger('from_city_id')->nullable();
             $table->string('from_city')->nullable();
             $table->text('to_city')->nullable();
+            $table->string('from_latitude')->nullable();
+            $table->string('to_latitude')->nullable();
+            $table->string('from_longitude')->nullable();
+            $table->string('to_longitude')->nullable();
+            $table->string('pickup_address')->nullable();
+            $table->string('pickup_time')->nullable();
+            $table->string('pickup_latitude')->nullable();
+            $table->string('pickup_longitude')->nullable();
             $table->text('trip_distance')->nullable();
-            $table->integer('status')->default(0);
+
+            $table->text('discount_notes')->nullable();
+            $table->text('discount_notes_formatted')->nullable();
+            $table->text('extra_charge_notes')->nullable();
+            $table->text('extra_charge_notes_formatted')->nullable();
+            $table->text('terms_condition')->nullable();
+            $table->text('terms_condition_formatted')->nullable();
+            $table->decimal('extra_charge', 7, 2)->nullable();
+            $table->decimal('final_amount', 7, 2)->nullable();
+            $table->decimal('pending_amount', 7, 2)->nullable();
+            $table->decimal('discount', 7, 2)->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
@@ -47,6 +66,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotations');
+        Schema::dropIfExists('bookings');
     }
 };
