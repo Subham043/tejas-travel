@@ -619,7 +619,7 @@
         </div>
         <!--end row-->
         
-        <div class="row">
+        <div class="row my-5">
             <div class="col-xxl-12 col-md-12">
                 <button type="submit" class="btn btn-primary waves-effect waves-light" id="submitBtn">Create</button>
             </div>
@@ -744,387 +744,212 @@ validation
         errorMessage: 'Please select the booking type',
     },
   ])
-//   .addField('#packagetype', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select a package type',
-//     },
-//     {
-//         validator: (value, fields) => {
-//         if (value === 'Select a package type') {
-//             return false;
-//         }
+  .addField('#subtriptype', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a trip type',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a trip type') {
+            return false;
+        }
 
-//         return true;
-//         },
-//         errorMessage: 'Please select a package type',
-//     },
-//   ])
-//   .addField('#vehicletype', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select a vehicle type',
-//     },
-//     {
-//         validator: (value, fields) => {
-//         if (value === 'Select a vehicle type') {
-//             return false;
-//         }
+        return true;
+        },
+        errorMessage: 'Please select a trip type',
+    },
+  ])
+  .addField('#vehicletype', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a vehicle type',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a vehicle type') {
+            return false;
+        }
 
-//         return true;
-//         },
-//         errorMessage: 'Please select a vehicle type',
-//     },
-//   ])
-//   .addField('#vehicle', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select a vehicle',
-//     },
-//     {
-//         validator: (value, fields) => {
-//             console.log(value);
-//         if (value === 'Select a vehicle') {
-//             return false;
-//         }
+        return true;
+        },
+        errorMessage: 'Please select a vehicle type',
+    },
+  ])
+  .addField('#vehicle', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a vehicle',
+    },
+    {
+        validator: (value, fields) => {
+            // console.log(value);
+        if (value === 'Select a vehicle') {
+            return false;
+        }
 
-//         return true;
-//         },
-//         errorMessage: 'Please select a vehicle',
-//     },
-//   ])
-//   .addField('#state', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select a state',
-//     },
-//     {
-//         validator: (value, fields) => {
-//         if (value === 'Select a state') {
-//             return false;
-//         }
+        return true;
+        },
+        errorMessage: 'Please select a vehicle',
+    },
+  ])
+  .addField('#from_city', [
+    {
+      rule: 'required',
+      errorMessage: 'Please select a city',
+    },
+    {
+        validator: (value, fields) => {
+        if (value === 'Select a city') {
+            return false;
+        }
 
-//         return true;
-//         },
-//         errorMessage: 'Please select a state',
-//     },
-//   ])
-//   .addField('#city', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select cities',
-//     },
-//     {
-//         validator: (value, fields) => {
-//         if (value?.length==0) {
-//             return false;
-//         }
-
-//         return true;
-//         },
-//         errorMessage: 'Please select a city',
-//     },
-//   ])
-//   .addField('#vehicle', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Please select a vehicle',
-//     },
-//     {
-//         validator: (value, fields) => {
-//         if (value === 'Select a vehicle') {
-//             return false;
-//         }
-
-//         return true;
-//         },
-//         errorMessage: 'Please select a vehicle',
-//     },
-//   ])
-//   .addField('#base_price', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Base Price is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Base Price should contain decimal value',
-//     },
-//   ])
-//   .addField('#included_km', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Included KM is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*$/,
-//         errorMessage: 'Included KM is invalid',
-//     },
-//   ])
-//   .addField('#included_day', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Included Day is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*$/,
-//         errorMessage: 'Included Day is invalid',
-//     },
-//   ])
-//   .addField('#included_hr', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Included Hrs is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*$/,
-//         errorMessage: 'Included Hrs is invalid',
-//     },
-//   ])
-//   .addField('#additional_price_per_km', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Additional Price Per KM is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Additional Price Per KM should contain decimal value',
-//     },
-//   ])
-//   .addField('#additional_price_per_hr', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Additional Price Per Day is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Additional Price Per Day should contain decimal value',
-//     },
-//   ])
-//   .addField('#driver_charges_per_day', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Driver Charges Per Day is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*$/,
-//         errorMessage: 'Driver Charges Per Day is invalid',
-//     },
-//   ])
-//   .addField('#driver_charges_per_night', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Driver Charges Per Night is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*$/,
-//         errorMessage: 'Driver Charges Per Night is invalid',
-//     },
-//   ])
-//   .addField('#discount', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Discount is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Discount should contain decimal value',
-//     },
-//   ])
-//   .addField('#gst', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'GST is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'GST should contain decimal value',
-//     },
-//   ])
-//   .addField('#additional_price_festival', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Additional Prices On Festivals is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Additional Prices On Festivals should contain decimal value',
-//     },
-//   ])
-//   .addField('#additional_price_weekend', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Additional Prices On Weekends is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Additional Prices On Weekends should contain decimal value',
-//     },
-//   ])
-//   .addField('#advance_during_booking', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Advance During Booking is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Advance During Booking should contain decimal value',
-//     },
-//   ])
-//   .addField('#advance_during_travel_start', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Travel Date Start is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Travel Date Start should contain decimal value',
-//     },
-//   ])
-//   .addField('#advance_during_travel_complete', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Travel Date Complete is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Travel Date Complete should contain decimal value',
-//     },
-//   ])
-//   .addField('#editorterm', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.querySelector('input[name="default_terms_condition"]:checked').value==2){
-//                 if (quillTerm.getText().length == 1 || quillTerm.getText().length == 2) {
-//                     return false;
-//                 }
+        return true;
+        },
+        errorMessage: 'Please select a city',
+    },
+  ])
+  .addField('#discount', [
+    {
+      rule: 'required',
+      errorMessage: 'Discount is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*\.\d{1,2}$/,
+        errorMessage: 'Discount should contain decimal value',
+    },
+  ])
+  .addField('#extra_charge', [
+    {
+      rule: 'required',
+      errorMessage: 'Extra Charge is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*\.\d{1,2}$/,
+        errorMessage: 'Extra Charge should contain decimal value',
+    },
+  ])
+  .addField('#final_amount', [
+    {
+      rule: 'required',
+      errorMessage: 'Final Amount is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*\.\d{1,2}$/,
+        errorMessage: 'Final Amount should contain decimal value',
+    },
+  ])
+  .addField('#pending_amount', [
+    {
+      rule: 'required',
+      errorMessage: 'Pending Amount is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*\.\d{1,2}$/,
+        errorMessage: 'Pending Amount should contain decimal value',
+    },
+  ])
+  .addField('input[name="payment_amount[]"]', [
+    {
+      rule: 'required',
+      errorMessage: 'Payment Amount is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*\.\d{1,2}$/,
+        errorMessage: 'Payment Amount should contain decimal value',
+    },
+  ])
+  .addField('input[name="payment_date[]"]', [
+    {
+      rule: 'required',
+      errorMessage: 'Payment Date is required',
+    },
+  ])
+  .addField('select[name="payment_status[]"]', [
+    {
+      rule: 'required',
+      errorMessage: 'Payment Status is required',
+    }
+  ])
+  .addField('select[name="payment_mode[]"]', [
+    {
+      rule: 'required',
+      errorMessage: 'Payment Mode is required',
+    }
+  ])
+  .addField('#from_date', [
+    {
+        rule: 'required',
+        errorMessage: 'Please enter the from date !',
+    },
+  ])
+  .addField('#to_date', [
+    {
+        validator: (value, fields) => {
+            if(document.getElementById('triptype').value==3){
+                if (value=='') {
+                    return false;
+                }
         
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the terms & condition !',
-//     },
-//   ])
-//   .addField('#editorinclude', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.querySelector('input[name="default_include_exclude"]:checked').value==2){
-//                 if (quillInclude.getText().length == 1 || quillInclude.getText().length == 2) {
-//                     return false;
-//                 }
+                return true;
+            }
+            return true;
+        },
+        errorMessage: 'Please enter the to date !',
+    },
+  ])
+  .addField('#to_city', [
+    {
+        validator: (value, fields) => {
+            if(document.getElementById('triptype').value==3){
+                if (value=='') {
+                    return false;
+                }
         
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the includes/excludes !',
-//     },
-//   ])
-//   .addField('#editordescription', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.querySelector('input[name="default_description"]:checked').value==2){
-//                 if (quillDescription.getText().length == 1 || quillDescription.getText().length == 2) {
-//                     return false;
-//                 }
-        
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the description !',
-//     },
-//   ])
-//   .addField('#editornotes', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.querySelector('input[name="default_notes"]:checked').value==2){
-//                 if (quillNotes.getText().length == 1 || quillNotes.getText().length == 2) {
-//                     return false;
-//                 }
-        
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the notes !',
-//     },
-//   ])
-//   .addField('input[name="price[]"]', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Base Price is required',
-//     },
-//     {
-//         rule: 'customRegexp',
-//         value: /^[0-9]*\.\d{1,2}$/,
-//         errorMessage: 'Base Price should contain decimal value',
-//     },
-//   ])
-//   .addField('input[name="start_date[]"]', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'Start Date is required',
-//     },
-//     // {
-//     //     plugin: JustValidatePluginDate(() => ({
-//     //         format: 'dd/mm/yyyy',
-//     //     })),
-//     //     errorMessage: 'Start Date should be in dd/mm/yyyy format (e.g. 15/10/2021)',
-//     // },
-//   ])
-//   .addField('input[name="end_date[]"]', [
-//     {
-//       rule: 'required',
-//       errorMessage: 'End Date is required',
-//     }
-//   ])
-//   .addField('#from_date', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.getElementById('bookingtype').value==2){
-//                 if (value=='') {
-//                     return false;
-//                 }
-        
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the from date !',
-//     },
-//   ])
-//   .addField('#to_date', [
-//     {
-//         validator: (value, fields) => {
-//             if(document.getElementById('bookingtype').value==2){
-//                 if (value=='') {
-//                     return false;
-//                 }
-        
-//                 return true;
-//             }
-//             return true;
-//         },
-//         errorMessage: 'Please enter the to date !',
-//     },
-//   ])
+                return true;
+            }
+            return true;
+        },
+        errorMessage: 'Please enter the to city !',
+    },
+  ])
+  .addField('#name', [
+    {
+      rule: 'required',
+      errorMessage: 'Name is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i,
+        errorMessage: 'Name is invalid',
+    },
+  ])
+  .addField('#email', [
+    {
+      rule: 'required',
+      errorMessage: 'Email is required',
+    },
+    {
+      rule: 'email',
+      errorMessage: 'Email is invalid!',
+    },
+  ])
+  .addField('#phone', [
+    {
+      rule: 'required',
+      errorMessage: 'Phone is required',
+    },
+    {
+        rule: 'customRegexp',
+        value: /^[0-9]*$/,
+        errorMessage: 'Phone is invalid',
+    },
+  ])
   .onSuccess(async (event) => {
     // event.target.submit();
     
@@ -1147,59 +972,46 @@ validation
         var formData = new FormData();
         formData.append('from_date',document.getElementById('from_date').value)
         formData.append('to_date',document.getElementById('to_date').value)
-        formData.append('base_price',document.getElementById('base_price').value)
-        formData.append('additional_price_per_km',document.getElementById('additional_price_per_km').value)
-        formData.append('additional_price_per_hr',document.getElementById('additional_price_per_hr').value)
-        formData.append('additional_price_festival',document.getElementById('additional_price_festival').value)
-        formData.append('additional_price_weekend',document.getElementById('additional_price_weekend').value)
-        formData.append('advance_during_booking',document.getElementById('advance_during_booking').value)
-        formData.append('advance_during_travel_start',document.getElementById('advance_during_travel_start').value)
-        formData.append('advance_during_travel_complete',document.getElementById('advance_during_travel_complete').value)
-        formData.append('gst',document.getElementById('gst').value)
-        formData.append('discount',document.getElementById('discount').value)
-        formData.append('included_km',document.getElementById('included_km').value)
-        formData.append('included_day',document.getElementById('included_day').value)
-        formData.append('included_hr',document.getElementById('included_hr').value)
-        formData.append('driver_charges_per_day',document.getElementById('driver_charges_per_day').value)
-        formData.append('driver_charges_per_night',document.getElementById('driver_charges_per_night').value)
-        formData.append('booking_type',document.getElementById('bookingtype').value)
+        formData.append('triptype_id',document.getElementById('triptype').value)
+        formData.append('subtriptype_id',document.getElementById('subtriptype').value)
+        formData.append('from_city',document.getElementById('from_city').value)
+        formData.append('to_city',document.getElementById('to_city').value)
         formData.append('vehicletype_id',document.getElementById('vehicletype').value)
         formData.append('vehicle_id',document.getElementById('vehicle').value)
-        formData.append('packagetype_id',document.getElementById('packagetype').value)
-        formData.append('default_terms_condition',document.querySelector('input[name="default_terms_condition"]:checked').value)
+        formData.append('pickup_address',document.getElementById('pickup_address').value)
+        formData.append('pickup_time',document.getElementById('pickup_time').value)
+        formData.append('name',document.getElementById('name').value)
+        formData.append('email',document.getElementById('email').value)
+        formData.append('phone',document.getElementById('phone').value)
+        formData.append('discount',document.getElementById('discount').value)
+        formData.append('extra_charge',document.getElementById('extra_charge').value)
+        formData.append('final_amount',document.getElementById('final_amount').value)
+        formData.append('pending_amount',document.getElementById('pending_amount').value)
+        formData.append('discount_notes_formatted',quillDiscountNotes.getText())
+        formData.append('discount_notes',quillDiscountNotes.root.innerHTML)
+        formData.append('extra_charge_notes_formatted',quillExtraChargeNotes.getText())
+        formData.append('extra_charge_notes',quillExtraChargeNotes.root.innerHTML)
         formData.append('terms_condition_formatted',quillTerm.getText())
         formData.append('terms_condition',quillTerm.root.innerHTML)
-        formData.append('default_include_exclude',document.querySelector('input[name="default_include_exclude"]:checked').value)
-        formData.append('include_exclude_formatted',quillInclude.getText())
-        formData.append('include_exclude',quillInclude.root.innerHTML)
-        formData.append('default_description',document.querySelector('input[name="default_description"]:checked').value)
-        formData.append('description_formatted',quillDescription.getText())
-        formData.append('description',quillDescription.root.innerHTML)
-        formData.append('default_notes',document.querySelector('input[name="default_notes"]:checked').value)
-        formData.append('notes_formatted',quillNotes.getText())
-        formData.append('notes',quillNotes.root.innerHTML)
-        formData.append('state_id',document.getElementById('state').value)
-        formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
+        // formData.append('status',document.getElementById('flexSwitchCheckRightDisabled').value)
         formData.append('refreshUrl','{{URL::current()}}')
-        if(document.getElementById('city')?.length>0){
-            for (let index = 0; index < document.getElementById('city').length; index++) {
-                formData.append('city[]',document.getElementById('city')[index].value)
-            }
-        }
         
         for (let index = 0; index < count; index++) {
-            formData.append('start_date[]',document.getElementsByName('start_date[]')[index].value)
-            formData.append('end_date[]',document.getElementsByName('end_date[]')[index].value)
-            formData.append('price[]',document.getElementsByName('price[]')[index].value)
+            formData.append('payment_date[]',document.getElementsByName('payment_date[]')[index].value)
+            formData.append('payment_amount[]',document.getElementsByName('payment_amount[]')[index].value)
+            formData.append('payment_status[]',document.getElementsByName('payment_status[]')[index].value)
+            formData.append('payment_mode[]',document.getElementsByName('payment_mode[]')[index].value)
+            formData.append('payment_note[]',document.getElementsByName('payment_note[]')[index].value)
         }
         
-        const response = await axios.post('{{route('booking_store')}}', formData)
+        const response = await axios.post('{{route('booking_store')}}@if(app('request')->has('quotationId'))?quotationId={{app('request')->input('quotationId')}}@endif', formData)
         successToast(response.data.message)
         setTimeout(function(){
             window.location.replace(response.data.url);
         }, 1000);
       } catch (error) {
         //   console.log(error.response);
+          console.log(error);
         if(error?.response?.data?.form_error?.name){
             errorToast(error?.response?.data?.form_error?.name[0])
         }
@@ -1223,7 +1035,7 @@ validation
         }
       } finally{
             submitBtn.innerHTML =  `
-                Submit
+                Create
                 `
             submitBtn.disabled = false;
         }

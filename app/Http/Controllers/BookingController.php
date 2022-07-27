@@ -151,8 +151,8 @@ class BookingController extends Controller
             'to_time' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'from_city' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
             'to_city' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
-            'pickup_date' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
-            'pickup_address' => ['required','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'pickup_time' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
+            'pickup_address' => ['nullable','regex:/^[a-z 0-9~%.:_\@\-\/\(\)\\\#\;\[\]\{\}\$\!\&\<\>\'\r\n+=,]+$/i'],
 
             'extra_charge' => ['required','regex:/^[0-9]*\.\d{1,2}$/'],
             'final_amount' => ['required','regex:/^[0-9]*\.\d{1,2}$/'],
@@ -204,13 +204,19 @@ class BookingController extends Controller
             'discount.regex' => 'Please enter the valid discount !',
             'pickup_address.required' => 'Please enter the pickup address !',
             'pickup_address.regex' => 'Please enter the valid pickup address !',
-            'pickup_date.required' => 'Please enter the pickup date !',
-            'pickup_date.regex' => 'Please enter the valid pickup date !',
+            'pickup_time.required' => 'Please enter the pickup time !',
+            'pickup_time.regex' => 'Please enter the valid pickup time !',
         );
 
         $validator = Validator::make($req->all(), $rules, $messages);
         if($validator->fails()){
             return response()->json(["form_error"=>$validator->errors()], 400);
+        }
+
+        if ($req->has('quotationId')) {
+            $quotation = Quotation::findOrFail($req->input('quotationId'));
+            $quotation->status = 2;
+            $quotation->save();
         }
 
         $country = new Booking;
@@ -251,14 +257,16 @@ class BookingController extends Controller
         $country->trip_distance = $req->trip_distance;
         $result = $country->save();
 
-        // for($i=0; $i < count($req->start_date); $i++) { 
-        //     $city = new SpecialFareLocalRide;
-        //     $city->localride_id = $country->id;
-        //     $city->start_date = $req->start_date[$i];
-        //     $city->end_date = $req->end_date[$i];
-        //     $city->price = $req->price[$i];
-        //     $city->save();
-        // }
+        for($i=0; $i < count($req->payment_amount); $i++) { 
+            $city = new BookingPayment;
+            $city->booking_id = $country->id;
+            $city->price = $req->payment_amount[$i];
+            $city->notes = $req->payment_note[$i];
+            $city->mode = $req->payment_mode[$i];
+            $city->status = $req->payment_status[$i];
+            $city->date = $req->payment_date[$i];
+            $city->save();
+        }
         
         if($result){
             return response()->json(["url"=>empty($req->refreshUrl)?URL::to('/').'/admin/booking':$req->refreshUrl, "message" => "Data Stored successfully.", "data" => $country], 201);
